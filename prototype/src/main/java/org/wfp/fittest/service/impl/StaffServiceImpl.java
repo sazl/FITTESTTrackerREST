@@ -1,5 +1,7 @@
 package org.wfp.fittest.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +14,6 @@ import org.wfp.fittest.repository.StaffRepository;
 import org.wfp.fittest.repository.StaffRoleRepository;
 import org.wfp.fittest.repository.StaffTypeRepository;
 import org.wfp.fittest.service.StaffService;
-import org.wfp.fittest.utility.BeanListWrapper;
 import org.wfp.fittest.utility.EntityConverter;
 
 @Service
@@ -27,7 +28,7 @@ public class StaffServiceImpl implements StaffService {
 
 	@Autowired
 	private StaffTypeRepository staffTypeRepository;
-	
+
 	@Autowired
 	private ProfileTypeRepository profileTypeRepository;
 
@@ -37,9 +38,8 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public BeanListWrapper<StaffBean> findAllStaff() {
-		return EntityConverter.toBeanListWrapper("stafflist",
-				staffRepository.findAll());
+	public List<StaffBean> findAllStaff() {
+		return EntityConverter.toBeanList(staffRepository.findAll());
 	}
 
 	@Override
@@ -48,9 +48,8 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public BeanListWrapper<StaffRoleBean> findAllStaffRoles() {
-		return EntityConverter.toBeanListWrapper("staffRoles",
-				staffRoleRepository.findAll());
+	public List<StaffRoleBean> findAllStaffRoles() {
+		return EntityConverter.toBeanList(staffRoleRepository.findAll());
 	}
 
 	@Override
@@ -59,9 +58,8 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public BeanListWrapper<StaffTypeBean> findAllStaffTypes() {
-		return EntityConverter.toBeanListWrapper("staffTypes",
-				staffTypeRepository.findAll());
+	public List<StaffTypeBean> findAllStaffTypes() {
+		return EntityConverter.toBeanList(staffTypeRepository.findAll());
 	}
 
 	@Override
@@ -70,9 +68,28 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public BeanListWrapper<ProfileTypeBean> findAllProfileTypes() {
-		return EntityConverter.toBeanListWrapper("profileTypes",
-				profileTypeRepository.findAll());
+	public List<ProfileTypeBean> findAllProfileTypes() {
+		return EntityConverter.toBeanList(profileTypeRepository.findAll());
+	}
+
+	@Override
+	public Boolean deleteStaffById(Long staffId) {
+		return staffRepository.deleteCheck(staffId);
+	}
+
+	@Override
+	public Boolean deleteStaffRoleById(Long staffRoleId) {
+		return staffRoleRepository.deleteCheck(staffRoleId);
+	}
+
+	@Override
+	public Boolean deleteStaffTypeById(Long staffTypeId) {
+		return staffTypeRepository.deleteCheck(staffTypeId);
+	}
+
+	@Override
+	public Boolean deleteProfileTypeById(Long profileTypeId) {
+		return profileTypeRepository.deleteCheck(profileTypeId);
 	}
 
 }

@@ -136,8 +136,9 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>${org.springframework.data-version}</version>
+			<version>1.6.1.RELEASE</version>
 		</dependency>
+
 
 		<!-- Hibernate -->
 		<dependency>

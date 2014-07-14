@@ -3,11 +3,11 @@ package org.wfp.fittest.repository;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
 import org.wfp.fittest.entity.Event;
 import org.wfp.fittest.repository.custom.EventRepositoryCustom;
+import org.wfp.fittest.utility.AbstractRepository;
 
-public interface EventRepository extends CrudRepository<Event, Long>,
+public interface EventRepository extends AbstractRepository<Event, Long>,
 		EventRepositoryCustom {
 
 	public List<Event> findByStartDateGreaterThanEqual(Date startDate);

@@ -1,26 +1,35 @@
 package org.wfp.fittest.service;
 
+import java.util.List;
+
 import org.wfp.fittest.beans.ActivityBean;
 import org.wfp.fittest.beans.ActivityRoleBean;
 import org.wfp.fittest.beans.ActivityTypeBean;
 import org.wfp.fittest.beans.EventBean;
-import org.wfp.fittest.utility.BeanListWrapper;
 
 
 public interface ActivityService {
 	public ActivityBean findActivityById(Long id);
 	
-	public BeanListWrapper<ActivityBean> findAllActivities();
+	public List<ActivityBean> findAllActivities();
+	
+	public Boolean deleteActivityById(Long id);	
 	
 	public ActivityTypeBean findActivityTypeById(Long id);
 
-	public BeanListWrapper<ActivityTypeBean> findAllActivityTypes();
+	public List<ActivityTypeBean> findAllActivityTypes();
+	
+	public Boolean deleteActivityTypeById(Long id);
 	
 	public ActivityRoleBean findActivityRoleById(Long id);
 	
-	public BeanListWrapper<ActivityRoleBean> findAllActivityRoles();
+	public List<ActivityRoleBean> findAllActivityRoles();
+
+	public Boolean deleteActivityRoleById(Long id);
 	
 	public EventBean findEventById(Long id);
 	
-	public BeanListWrapper<EventBean> findAllEvents();
+	public List<EventBean> findAllEvents();
+	
+	public Boolean deleteEventById(Long id);
 }

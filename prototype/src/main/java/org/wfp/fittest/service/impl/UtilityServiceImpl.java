@@ -1,5 +1,7 @@
 package org.wfp.fittest.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +12,6 @@ import org.wfp.fittest.repository.ConfirmedTypeRepository;
 import org.wfp.fittest.repository.CountryRepository;
 import org.wfp.fittest.repository.LanguageRepository;
 import org.wfp.fittest.service.UtilityService;
-import org.wfp.fittest.utility.BeanListWrapper;
 import org.wfp.fittest.utility.EntityConverter;
 
 @Service
@@ -32,9 +33,8 @@ public class UtilityServiceImpl implements UtilityService {
 	}
 
 	@Override
-	public BeanListWrapper<CountryBean> findAllCountries() {
-		return EntityConverter.toBeanListWrapper("countries",
-				countryRepository.findAll());
+	public List<CountryBean> findAllCountries() {
+		return EntityConverter.toBeanList(countryRepository.findAll());
 	}
 
 	@Override
@@ -43,9 +43,8 @@ public class UtilityServiceImpl implements UtilityService {
 	}
 
 	@Override
-	public BeanListWrapper<LanguageBean> findAllLanguages() {
-		return EntityConverter.toBeanListWrapper("languages",
-				languageRepository.findAll());
+	public List<LanguageBean> findAllLanguages() {
+		return EntityConverter.toBeanList(languageRepository.findAll());
 	}
 
 	@Override
@@ -54,9 +53,23 @@ public class UtilityServiceImpl implements UtilityService {
 	}
 
 	@Override
-	public BeanListWrapper<ConfirmedTypeBean> findAllConfirmedTypes() {
-		return EntityConverter.toBeanListWrapper("confirmedTypes",
-				confirmedTypeRepository.findAll());
+	public List<ConfirmedTypeBean> findAllConfirmedTypes() {
+		return EntityConverter.toBeanList(confirmedTypeRepository.findAll());
+	}
+
+	@Override
+	public Boolean deleteCountryById(Long countryId) {
+		return countryRepository.deleteCheck(countryId);
+	}
+
+	@Override
+	public Boolean deleteLanguageById(Long languageId) {
+		return languageRepository.deleteCheck(languageId);
+	}
+
+	@Override
+	public Boolean deleteConfirmedTypeById(Long confirmedTypeId) {
+		return confirmedTypeRepository.deleteCheck(confirmedTypeId);
 	}
 
 }

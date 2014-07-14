@@ -14,12 +14,12 @@
 
 	<bean id="jsonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="objectMapper" ref="dateObjectMapper" />
+		<property name="objectMapper" ref="jsonObjectMapper" />
 		<property name="prettyPrint" value="false" />
 		<property name="supportedMediaTypes" value="application/json" />
 	</bean>
 
-	<bean id="dateObjectMapper" class="org.wfp.fittest.filter.DateObjectMapper" />
+	<bean id="jsonObjectMapper" class="org.wfp.fittest.filter.JsonObjectMapper" />
 
 	<bean id="templateResolver"
 		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">

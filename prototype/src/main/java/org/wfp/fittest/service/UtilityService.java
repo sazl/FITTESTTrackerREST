@@ -1,21 +1,28 @@
 package org.wfp.fittest.service;
 
+import java.util.List;
+
 import org.wfp.fittest.beans.ConfirmedTypeBean;
 import org.wfp.fittest.beans.CountryBean;
 import org.wfp.fittest.beans.LanguageBean;
-import org.wfp.fittest.utility.BeanListWrapper;
 
 
 public interface UtilityService {
 	public CountryBean findCountryById(Long id);
 	
-	public BeanListWrapper<CountryBean> findAllCountries();
+	public List<CountryBean> findAllCountries();
 	
 	public LanguageBean findLanguageById(Long id);
 	
-	public BeanListWrapper<LanguageBean> findAllLanguages();
+	public List<LanguageBean> findAllLanguages();
 	
 	public ConfirmedTypeBean findConfirmedTypeById(Long id);
 	
-	public BeanListWrapper<ConfirmedTypeBean> findAllConfirmedTypes();
+	public List<ConfirmedTypeBean> findAllConfirmedTypes();
+	
+	public Boolean deleteCountryById(Long countryId);
+	
+	public Boolean deleteLanguageById(Long languageId);
+	
+	public Boolean deleteConfirmedTypeById(Long confirmedTypeId);
 }

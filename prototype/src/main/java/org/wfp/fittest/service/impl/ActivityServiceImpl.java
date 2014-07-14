@@ -1,5 +1,7 @@
 package org.wfp.fittest.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +14,6 @@ import org.wfp.fittest.repository.ActivityRoleRepository;
 import org.wfp.fittest.repository.ActivityTypeRepository;
 import org.wfp.fittest.repository.EventRepository;
 import org.wfp.fittest.service.ActivityService;
-import org.wfp.fittest.utility.BeanListWrapper;
 import org.wfp.fittest.utility.EntityConverter;
 
 @Service
@@ -24,10 +25,10 @@ public class ActivityServiceImpl implements ActivityService {
 
 	@Autowired
 	private ActivityRoleRepository activityRoleRepository;
-	
+
 	@Autowired
 	private ActivityTypeRepository activityTypeRepository;
-	
+
 	@Autowired
 	private EventRepository eventRepository;
 
@@ -37,9 +38,8 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public BeanListWrapper<ActivityBean> findAllActivities() {
-		return EntityConverter.toBeanListWrapper("activities",
-				activityRepository.findAll());
+	public List<ActivityBean> findAllActivities() {
+		return EntityConverter.toBeanList(activityRepository.findAll());
 	}
 
 	@Override
@@ -48,9 +48,8 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public BeanListWrapper<ActivityTypeBean> findAllActivityTypes() {
-		return EntityConverter.toBeanListWrapper("activityTypes",
-				activityTypeRepository.findAll());
+	public List<ActivityTypeBean> findAllActivityTypes() {
+		return EntityConverter.toBeanList(activityTypeRepository.findAll());
 	}
 
 	@Override
@@ -59,9 +58,8 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public BeanListWrapper<ActivityRoleBean> findAllActivityRoles() {
-		return EntityConverter.toBeanListWrapper("activityRoles",
-				activityRoleRepository.findAll());
+	public List<ActivityRoleBean> findAllActivityRoles() {
+		return EntityConverter.toBeanList(activityRoleRepository.findAll());
 	}
 
 	@Override
@@ -70,8 +68,31 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public BeanListWrapper<EventBean> findAllEvents() {
-		return EntityConverter.toBeanListWrapper("events",
-				eventRepository.findAll());
+	public List<EventBean> findAllEvents() {
+		return EntityConverter.toBeanList(eventRepository.findAll());
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Boolean deleteActivityById(Long id) {
+		return activityRepository.deleteCheck(id);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Boolean deleteActivityTypeById(Long id) {
+		return activityTypeRepository.deleteCheck(id);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Boolean deleteActivityRoleById(Long id) {
+		return activityRoleRepository.deleteCheck(id);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Boolean deleteEventById(Long id) {
+		return eventRepository.deleteCheck(id);
 	}
 }

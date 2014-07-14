@@ -16,8 +16,10 @@
 	<import resource="classpath:database/data-source.xml" />
 
 	<context:component-scan base-package="org.wfp.fittest" />
-	<jpa:repositories base-package="org.wfp.fittest.repository" />
-    <jpa:repositories base-package="org.wfp.fittest.repository.impl" />
+	<jpa:repositories base-package="org.wfp.fittest.repository.impl"
+		factory-class="org.wfp.fittest.filter.AbstractRepositoryFactoryBean" />
+	<jpa:repositories base-package="org.wfp.fittest.repository"
+		factory-class="org.wfp.fittest.filter.AbstractRepositoryFactoryBean" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean class="org.springframework.data.web.config.SpringDataWebConfiguration" />
@@ -27,16 +29,13 @@
 		<property name="location" value="classpath:database/hibernate.properties" />
 	</bean>
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="database" value="${jdbc.database}" />
-		<property name="showSql" value="true" />
-		<property name="generateDdl" value="true" />
 	</bean>
 
 	<bean id="entityManagerFactory"
@@ -44,21 +43,11 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="org.wfp.fittest.entity" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
-	</bean>
-
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="org.wfp.fittest.entity" />
-		<property name="configLocation">
-			<value>classpath:database/hibernate.cfg.xml</value>
-		</property>
-		<property name="hibernateProperties" ref="hibernateProperties" />
+		<property name="jpaProperties" ref="hibernateProperties" />
 	</bean>
 
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
 
 	<import resource="classpath:spring/tools-config.xml" />
 

@@ -43,11 +43,4 @@ public class EntityConverter {
 		return beans;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <B, T extends EntityId> BeanListWrapper<B> toBeanListWrapper(
-			String wrapperName, Iterable<T> entities) {
-		BeanListWrapper<B> wrapper = new BeanListWrapper<B>();
-		wrapper.put(wrapperName, (List<B>) EntityConverter.toBeanList(entities));
-		return wrapper;
-	}
 }

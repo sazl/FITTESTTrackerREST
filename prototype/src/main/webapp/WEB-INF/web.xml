@@ -9,7 +9,7 @@
 
 	<context-param>
 		<param-name>spring.profiles.active</param-name>
-		<param-value>jpa</param-value>
+		<param-value>spring-data-jpa</param-value>
 	</context-param>
 
 	<context-param>

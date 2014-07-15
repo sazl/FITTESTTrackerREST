@@ -32,4 +32,12 @@ public interface ActivityService {
 	public List<EventBean> findAllEvents();
 	
 	public Boolean deleteEventById(Long id);
+	
+	public ActivityBean saveOrUpdateActivity(ActivityBean activity);
+
+	public ActivityRoleBean saveOrUpdateActivityRole(ActivityRoleBean activity);
+	
+	public ActivityTypeBean saveOrUpdateActivityType(ActivityTypeBean activity);
+	
+	public EventBean saveOrUpdateEvent(EventBean event);
 }

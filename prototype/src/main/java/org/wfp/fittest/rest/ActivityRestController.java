@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +37,15 @@ public class ActivityRestController {
 				activityService.findAllActivities());
 	}
 
+	@RequestMapping(value = "/activities", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<ActivityBean> activityCreate(
+			@RequestBody BeanWrapper<ActivityBean> activityWrapper) {
+		ActivityBean activityBean = activityWrapper.get("activity");
+		return JsonUtility.beanWrapper("activity",
+				activityService.saveOrUpdateActivity(activityBean));
+	}
+
 	@RequestMapping(value = "/activities/{activityId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanWrapper<ActivityBean> activity(
@@ -44,6 +54,17 @@ public class ActivityRestController {
 				activityService.findActivityById(activityId));
 	}
 
+	@RequestMapping(value = "/activities/{activityId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<ActivityBean> activityUpdate(
+			@PathVariable("activityId") Long activityId,
+			@RequestBody BeanWrapper<ActivityBean> activityWrapper) {
+		ActivityBean activityBean = activityWrapper.get("activity");
+		activityBean.setId(activityId);
+		return JsonUtility.beanWrapper("activity",
+				activityService.saveOrUpdateActivity(activityBean));
+	}
+	
 	@RequestMapping(value = "/activities/{activityId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> activityDelete(
@@ -63,12 +84,34 @@ public class ActivityRestController {
 				activityService.findAllActivityRoles());
 	}
 
+	@RequestMapping(value = "/activityRoles", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<ActivityRoleBean> activityRoleCreate(
+			@RequestBody BeanWrapper<ActivityRoleBean> activityRoleWrapper) {
+		ActivityRoleBean activityRoleBean = activityRoleWrapper
+				.get("activityRole");
+		return JsonUtility.beanWrapper("activityRole",
+				activityService.saveOrUpdateActivityRole(activityRoleBean));
+	}
+
 	@RequestMapping(value = "/activityRoles/{activityRoleId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanWrapper<ActivityRoleBean> activityRole(
 			@PathVariable("activityRoleId") Long activityRoleId) {
 		return JsonUtility.beanWrapper("activityRole",
 				activityService.findActivityRoleById(activityRoleId));
+	}
+
+	@RequestMapping(value = "/activityRoles/{activityRoleId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<ActivityRoleBean> activityRoleUpdate(
+			@PathVariable("activityRoleId") Long activityRoleId,
+			@RequestBody BeanWrapper<ActivityRoleBean> activityRoleWrapper) {
+		ActivityRoleBean activityRoleBean = activityRoleWrapper
+				.get("activityRole");
+		activityRoleBean.setId(activityRoleId);
+		return JsonUtility.beanWrapper("activityRole",
+				activityService.saveOrUpdateActivityRole(activityRoleBean));
 	}
 
 	@RequestMapping(value = "/activityRoles/{activityRoleId}", method = RequestMethod.DELETE)
@@ -106,6 +149,28 @@ public class ActivityRestController {
 				.deleteActivityTypeById(activityTypeId));
 	}
 
+	@RequestMapping(value = "/activityTypes", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<ActivityTypeBean> activityTypeCreate(
+			@RequestBody BeanWrapper<ActivityTypeBean> activityTypeWrapper) {
+		ActivityTypeBean activityTypeBean = activityTypeWrapper
+				.get("activityType");
+		return JsonUtility.beanWrapper("activityType",
+				activityService.saveOrUpdateActivityType(activityTypeBean));
+	}
+
+	@RequestMapping(value = "/activityTypes", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<ActivityTypeBean> activityTypeCreate(
+			@PathVariable("activityTypeId") Long activityTypeId,
+			@RequestBody BeanWrapper<ActivityTypeBean> activityTypeWrapper) {
+		ActivityTypeBean activityTypeBean = activityTypeWrapper
+				.get("activityType");
+		activityTypeBean.setId(activityTypeId);
+		return JsonUtility.beanWrapper("activityType",
+				activityService.saveOrUpdateActivityType(activityTypeBean));
+	}
+
 	/*------------------------------------------------------------------------*
 	 * Event                                                                  *
 	 *------------------------------------------------------------------------*/
@@ -122,6 +187,26 @@ public class ActivityRestController {
 	public BeanWrapper<EventBean> event(@PathVariable("eventId") Long eventId) {
 		return JsonUtility.beanWrapper("event",
 				activityService.findEventById(eventId));
+	}
+
+	@RequestMapping(value = "/events", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<EventBean> eventCreate(
+			@RequestBody BeanWrapper<EventBean> eventWrapper) {
+		EventBean event = eventWrapper.get("event");
+		return JsonUtility.beanWrapper("event",
+				activityService.saveOrUpdateEvent(event));
+	}
+
+	@RequestMapping(value = "/events/{eventId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<EventBean> eventUpdate(
+			@PathVariable("eventId") Long eventId,
+			@RequestBody BeanWrapper<EventBean> eventWrapper) {
+		EventBean event = eventWrapper.get("event");
+		event.setId(eventId);
+		return JsonUtility.beanWrapper("event",
+				activityService.saveOrUpdateEvent(event));
 	}
 
 	@RequestMapping(value = "/events/{eventId}", method = RequestMethod.DELETE)

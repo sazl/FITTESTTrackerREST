@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,11 +30,20 @@ public class StaffRestController {
 	 * Staff                                                                  *
 	 *------------------------------------------------------------------------*/
 
-	@RequestMapping(value = "/staffList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/staffList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanListWrapper<StaffBean> staff() {
 		return JsonUtility.toBeanListWrapper("staffList",
 				staffService.findAllStaff());
+	}
+
+	@RequestMapping(value = "/staffList", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<StaffBean> staffCreate(
+			@RequestBody BeanWrapper<StaffBean> staffWrapper) {
+		StaffBean staffBean = staffWrapper.get("staff");
+		return JsonUtility.beanWrapper("staff",
+				staffService.saveOrUpdateStaff(staffBean));
 	}
 
 	@RequestMapping(value = "/staffList/{staffId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,6 +53,17 @@ public class StaffRestController {
 				staffService.findStaffById(staffId));
 	}
 
+	@RequestMapping(value = "/staffList/{staffId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<StaffBean> staffUpdate(
+			@PathVariable("staffId") Long staffId,
+			@RequestBody BeanWrapper<StaffBean> staffWrapper) {
+		StaffBean staffBean = staffWrapper.get("staff");
+		staffBean.setId(staffId);
+		return JsonUtility.beanWrapper("staff",
+				staffService.saveOrUpdateStaff(staffBean));
+	}
+	
 	@RequestMapping(value = "/staffList/{staffId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> staffDelete(
@@ -62,6 +83,15 @@ public class StaffRestController {
 				staffService.findAllStaffRoles());
 	}
 
+	@RequestMapping(value = "/staffRoles", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<StaffRoleBean> staffRoleCreate(
+			@RequestBody BeanWrapper<StaffRoleBean> staffRoleWrapper) {
+		StaffRoleBean staffRoleBean = staffRoleWrapper.get("staffRole");
+		return JsonUtility.beanWrapper("staffRole",
+				staffService.saveOrUpdateStaffRole(staffRoleBean));
+	}
+	
 	@RequestMapping(value = "/staffRoles/{staffRoleId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanWrapper<StaffRoleBean> staffRole(
@@ -69,7 +99,17 @@ public class StaffRestController {
 		return JsonUtility.beanWrapper("staffRole",
 				staffService.findStaffRoleById(staffRoleId));
 	}
-
+	
+	@RequestMapping(value = "/staffRoles/{staffRoleId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<StaffRoleBean> staffRoleUpdate(
+			@PathVariable("staffRoleId") Long staffRoleId,
+			@RequestBody BeanWrapper<StaffRoleBean> staffRoleWrapper) {
+		StaffRoleBean staffRoleBean = staffRoleWrapper.get("staffRole");
+		return JsonUtility.beanWrapper("staffRole",
+				staffService.saveOrUpdateStaffRole(staffRoleBean));
+	}
+	
 	@RequestMapping(value = "/staffRoles/{staffRoleId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> staffRoleDelete(

@@ -31,4 +31,12 @@ public interface StaffService {
 	public Boolean deleteStaffTypeById(Long staffTypeId);
 
 	public Boolean deleteProfileTypeById(Long profileTypeId);
+	
+	public StaffBean saveOrUpdateStaff(StaffBean staffBean);
+	
+	public StaffRoleBean saveOrUpdateStaffRole(StaffRoleBean staffRoleBean);
+	
+	public StaffTypeBean saveOrUpdateStaffType(StaffTypeBean staffTypeBean);
+	
+	public ProfileTypeBean saveOrUpdateProfileType(ProfileTypeBean profileTypeBean);
 }

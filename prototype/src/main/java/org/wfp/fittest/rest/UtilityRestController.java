@@ -43,7 +43,7 @@ public class UtilityRestController {
 				utilityService.findCountryById(countryId));
 	}
 
-	@RequestMapping(value = "/countries/{countryId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/countries/{countryId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> countryDelete(
 			@PathVariable("countryId") Long countryId) {
@@ -57,22 +57,22 @@ public class UtilityRestController {
 
 	@RequestMapping(value = "/confirmedTypes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BeanListWrapper<ConfirmedTypeBean> confirmedtype() {
+	public BeanListWrapper<ConfirmedTypeBean> confirmedType() {
 		return JsonUtility.toBeanListWrapper("confirmedTypes",
 				utilityService.findAllConfirmedTypes());
 	}
 
 	@RequestMapping(value = "/confirmedTypes/{confirmedtypeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BeanWrapper<ConfirmedTypeBean> confirmedtype(
+	public BeanWrapper<ConfirmedTypeBean> confirmedType(
 			@PathVariable("confirmedtypeId") Long confirmedtypeId) {
 		return JsonUtility.beanWrapper("confirmedType",
 				utilityService.findConfirmedTypeById(confirmedtypeId));
 	}
 
-	@RequestMapping(value = "/confirmedTypes/{confirmedtypeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/confirmedTypes/{confirmedtypeId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> confirmedtypeDelete(
+	public ResponseEntity<String> confirmedTypeDelete(
 			@PathVariable("confirmedtypeId") Long confirmedtypeId) {
 		return HttpUtility.deleteResponse(utilityService
 				.deleteConfirmedTypeById(confirmedtypeId));
@@ -97,7 +97,7 @@ public class UtilityRestController {
 				utilityService.findLanguageById(languageId));
 	}
 
-	@RequestMapping(value = "/languages/{languageId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/languages/{languageId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> languageDelete(
 			@PathVariable("languageId") Long languageId) {

@@ -23,10 +23,11 @@ create table staff (
     title          varchar(256) default '',
     thuraya        varchar(50)  default '',
     mobile         varchar(50)  default '',
-    stafftypeid    bigserial,
+    stafftypeid    bigserial    default 0,
     staffcolorcode varchar(100) default '',
     foreign key (stafftypeid) references stafftypes(stafftypeid)
-        on delete restrict
+        on delete set default
+        on update cascade
 );
 
 -- Join with staff table to get staff's nationalities
@@ -35,9 +36,11 @@ create table staff_nationality_mapping (
     countryid   bigserial,
     primary key (staffindex, countryid),
     foreign key (staffindex) references staff(staffindex)
-        on delete cascade,
+        on delete cascade
+        on update cascade,
     foreign key (countryid) references countries(countryid)
         on delete cascade
+        on update cascade
 );
 
 -- Join with staff table to get staff's profiles
@@ -46,9 +49,11 @@ create table staff_profiletype_mapping (
     profiletypeid bigserial,
     primary key (staffindex, profiletypeid),
     foreign key (staffindex) references staff(staffindex)
-        on delete cascade,
+        on delete cascade
+        on update cascade,
     foreign key (profiletypeid) references profiletypes(profiletypeid)
         on delete cascade
+        on update cascade
 );
 
 create table activitytypes (
@@ -68,11 +73,13 @@ create table activities (
     activitydescription     text         default '',
     activitytypeid          bigserial,
     activityetcservicemap   varchar(256) default '',
-    activityconfirmedtypeid bigserial,
+    activityconfirmedtypeid bigserial    default 0,
     foreign key (activitytypeid) references activitytypes(activitytypeid)
-        on delete restrict,
-    foreign key (activityconfirmedtypeid) references confirmedtypes(confirmedtypeid)
         on delete restrict
+        on update cascade,
+    foreign key (activityconfirmedtypeid) references confirmedtypes(confirmedtypeid)
+        on delete set default
+        on update cascade
 );
 
 create table activity_country_mapping (
@@ -80,9 +87,11 @@ create table activity_country_mapping (
     countryid   bigserial,
     primary key (activityid, countryid),
     foreign key (activityid) references activities(activityid)
-        on delete cascade,
+        on delete cascade
+        on update cascade,
     foreign key (countryid) references countries(countryid)
         on delete cascade
+        on update cascade
 );
 
 create table events (
@@ -104,9 +113,11 @@ create table staff_language_mapping (
     languageid  bigserial,
     primary key (staffindex, languageid),
     foreign key (staffindex) references staff(staffindex)
-        on delete cascade,
+        on delete cascade
+        on update cascade,
     foreign key (languageid) references languages(languageid)
         on delete cascade
+        on update cascade
 );
 
 create table activityroles (
@@ -117,9 +128,11 @@ create table activityroles (
     activityroleenddate   timestamp     default current_timestamp,
     activityrolelocation  varchar(200)  default '',
     foreign key (activityid) references activities(activityid)
-        on delete cascade,
+        on delete cascade
+        on update cascade,
     foreign key (profiletypeid) references profiletypes(profiletypeid)
-        on delete restrict
+        on delete set null
+        on update cascade
 );
 
 create table staffroles (
@@ -128,12 +141,13 @@ create table staffroles (
     staffroleenddate     timestamp     default current_timestamp,
     staffrolelocation    varchar(200),
     staffrolecomments    text          default '',
-    staffconfirmedtypeid bigserial,
+    staffconfirmedtypeid bigserial     default 0,
 --  staffindex           bigserial,
 --    foreign key (staffindex) references staff(staffindex)
 --        on delete restrict
     foreign key (staffconfirmedtypeid) references confirmedtypes(confirmedtypeid)
-        on delete restrict
+        on delete set default
+        on update cascade
 );
 
 -- Join with staff role to get activity roles
@@ -142,9 +156,11 @@ create table staffrole_activityrole_mapping (
     activityroleid bigserial,
     primary key (staffroleid, activityroleid),
     foreign key (staffroleid) references staffroles(staffroleid)
-        on delete cascade,
+        on delete cascade
+        on update cascade,
     foreign key (activityroleid) references activityroles(activityroleid)
         on delete cascade
+        on update cascade
 );
 
 -- Join with staff to get staff roles
@@ -153,9 +169,11 @@ create table staff_staffrole_mapping (
     staffroleid bigserial,
     primary key (staffindex, staffroleid),
     foreign key (staffindex) references staff(staffindex)
-        on delete cascade,
+        on delete cascade
+        on update cascade,
     foreign key (staffroleid) references staffroles(staffroleid)
         on delete cascade
+        on update cascade
 );
 
 create table operationtypes (
@@ -174,6 +192,7 @@ create table audittable (
     ipaddress       varchar(256) not null,
     foreign key (operationtypeid) references operationtypes(operationtypeid)
         on delete restrict
+        on update cascade
 );
 
 --------------------------------------------------------------------------------

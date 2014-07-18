@@ -19,7 +19,7 @@
 	<context:component-scan base-package="org.wfp.fittest.web" />
 	
 	<mvc:annotation-driven />
-	<mvc:resources mapping="/assets/**" location="/WEB-INF/dist/assets" />
-	<mvc:resources mapping="/fonts/**" location="/WEB-INF/dist/fonts" />
-	<mvc:resources mapping="/bootstrap/**" location="/WEB-INF/dist/bootstrap" />
+	<mvc:resources mapping="/assets/**" location="/WEB-INF/dist/assets/" />
+	<mvc:resources mapping="/fonts/**" location="/WEB-INF/dist/fonts/" />
+	<mvc:resources mapping="/bootstrap/**" location="/WEB-INF/dist/bootstrap/" />
 </beans>

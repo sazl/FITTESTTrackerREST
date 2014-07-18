@@ -20,4 +20,5 @@ public interface ActivityRepository extends AbstractRepository<Activity, Long>,
 	public void deleteByActivityType(ActivityType activityType);
 
 	public void deleteByDescription(String description);
+
 }

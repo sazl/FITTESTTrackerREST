@@ -1,1 +1,5 @@
-package org.wfp.fittest.repository.custom; public interface ActivityRepositoryCustom {}
+package org.wfp.fittest.repository.custom;
+
+public interface ActivityRepositoryCustom {
+
+}

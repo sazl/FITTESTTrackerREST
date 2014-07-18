@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wfp.fittest.beans.ActivityBean;
 import org.wfp.fittest.beans.ActivityRoleBean;
 import org.wfp.fittest.beans.ActivityTypeBean;
+import org.wfp.fittest.beans.DeploymentCriteriaBean;
 import org.wfp.fittest.beans.EventBean;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityRole;
@@ -159,5 +160,12 @@ public class ActivityServiceImpl implements ActivityService {
 				.findAll(activityTypeBean.getActivityIds())));
 		return EntityConverter
 				.toBean(activityTypeRepository.save(activityType));
+	}
+
+	@Override
+	public List<ActivityBean> findActivityDeployments(
+			DeploymentCriteriaBean criteria) {
+		
+		return null;
 	}
 }

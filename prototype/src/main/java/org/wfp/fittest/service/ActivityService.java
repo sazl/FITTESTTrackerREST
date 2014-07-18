@@ -5,6 +5,7 @@ import java.util.List;
 import org.wfp.fittest.beans.ActivityBean;
 import org.wfp.fittest.beans.ActivityRoleBean;
 import org.wfp.fittest.beans.ActivityTypeBean;
+import org.wfp.fittest.beans.DeploymentCriteriaBean;
 import org.wfp.fittest.beans.EventBean;
 
 
@@ -40,4 +41,6 @@ public interface ActivityService {
 	public ActivityTypeBean saveOrUpdateActivityType(ActivityTypeBean activity);
 	
 	public EventBean saveOrUpdateEvent(EventBean event);
+	
+	public List<ActivityBean> findActivityDeployments(DeploymentCriteriaBean criteria);
 }

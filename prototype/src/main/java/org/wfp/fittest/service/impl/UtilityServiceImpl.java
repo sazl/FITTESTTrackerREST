@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wfp.fittest.beans.ConfirmedTypeBean;
 import org.wfp.fittest.beans.CountryBean;
 import org.wfp.fittest.beans.LanguageBean;
+import org.wfp.fittest.entity.Country;
+import org.wfp.fittest.entity.Language;
 import org.wfp.fittest.repository.ConfirmedTypeRepository;
 import org.wfp.fittest.repository.CountryRepository;
 import org.wfp.fittest.repository.LanguageRepository;
@@ -58,18 +60,35 @@ public class UtilityServiceImpl implements UtilityService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Boolean deleteCountryById(Long countryId) {
 		return countryRepository.deleteCheck(countryId);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Boolean deleteLanguageById(Long languageId) {
 		return languageRepository.deleteCheck(languageId);
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public Boolean deleteConfirmedTypeById(Long confirmedTypeId) {
 		return confirmedTypeRepository.deleteCheck(confirmedTypeId);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public CountryBean saveOrUpdateCountry(CountryBean countryBean) {
+		Country country = EntityConverter.toEntity(countryBean);
+		return EntityConverter.toBean(countryRepository.save(country));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public LanguageBean saveOrUpdateLanguage(LanguageBean languageBean) {
+		Language language = EntityConverter.toEntity(languageBean);
+		return EntityConverter.toBean(languageRepository.save(language));
 	}
 
 }

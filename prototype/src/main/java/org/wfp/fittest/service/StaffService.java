@@ -3,6 +3,7 @@ package org.wfp.fittest.service;
 import java.util.List;
 
 import org.wfp.fittest.beans.ProfileTypeBean;
+import org.wfp.fittest.beans.RequirementCriteriaBean;
 import org.wfp.fittest.beans.StaffBean;
 import org.wfp.fittest.beans.StaffRoleBean;
 import org.wfp.fittest.beans.StaffTypeBean;
@@ -39,4 +40,6 @@ public interface StaffService {
 	public StaffTypeBean saveOrUpdateStaffType(StaffTypeBean staffTypeBean);
 	
 	public ProfileTypeBean saveOrUpdateProfileType(ProfileTypeBean profileTypeBean);
+	
+	public List<StaffBean> findStaffRequirements(RequirementCriteriaBean criteria);
 }

@@ -25,4 +25,8 @@ public interface UtilityService {
 	public Boolean deleteLanguageById(Long languageId);
 	
 	public Boolean deleteConfirmedTypeById(Long confirmedTypeId);
+	
+	public CountryBean saveOrUpdateCountry(CountryBean countryBean);
+	
+	public LanguageBean saveOrUpdateLanguage(LanguageBean languageBean);
 }

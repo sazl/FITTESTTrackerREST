@@ -25,8 +25,11 @@
 
 	<bean id="jsonObjectMapper" class="org.wfp.fittest.filter.JsonObjectMapper" />
 
-	<bean id="templateResolver"
-		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+	<bean id="springResourceResourceResolver"
+		class="org.thymeleaf.spring4.resourceresolver.SpringResourceResourceResolver" />
+
+	<bean id="templateResolver" class="org.thymeleaf.templateresolver.TemplateResolver">
+		<property name="resourceResolver" ref="springResourceResourceResolver" />
 		<property name="prefix" value="/WEB-INF/dist/" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="LEGACYHTML5" />
@@ -35,18 +38,21 @@
 
 	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
+		<property name="additionalDialects">
+			<set>
+				<bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+			</set>
+		</property>
 	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="contentNegotiationManager" ref="cnManager" />
-
 		<property name="viewResolvers">
 			<list>
 				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 					<property name="order" value="1" />
 				</bean>
-
 				<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 					<property name="templateEngine" ref="templateEngine" />
 					<property name="order" value="2" />
@@ -55,13 +61,11 @@
 			</list>
 		</property>
 	</bean>
-
 	<bean id="cnManager"
 		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
 		<property name="favorPathExtension" value="true" />
 		<property name="ignoreAcceptHeader" value="true" />
 		<property name="defaultContentType" value="text/html" />
-
 		<property name="mediaTypes">
 			<map>
 				<entry key="html" value="text/html" />

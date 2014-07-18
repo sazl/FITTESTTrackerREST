@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wfp.fittest.beans.ProfileTypeBean;
+import org.wfp.fittest.beans.RequirementCriteriaBean;
 import org.wfp.fittest.beans.StaffBean;
 import org.wfp.fittest.beans.StaffRoleBean;
 import org.wfp.fittest.beans.StaffTypeBean;
@@ -173,6 +174,13 @@ public class StaffServiceImpl implements StaffService {
 	@Transactional(readOnly = false)
 	public ProfileTypeBean saveOrUpdateProfileType(
 			ProfileTypeBean profileTypeBean) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StaffBean> findStaffRequirements(
+			RequirementCriteriaBean criteria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

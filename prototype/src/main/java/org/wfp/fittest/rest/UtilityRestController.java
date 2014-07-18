@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +36,26 @@ public class UtilityRestController {
 				utilityService.findAllCountries());
 	}
 
+	@RequestMapping(value = "/countries", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<CountryBean> countryCreate(
+			@RequestBody BeanWrapper<CountryBean> countryWrapper) {
+		CountryBean countryBean = countryWrapper.get("country");
+		return JsonUtility.beanWrapper("country",
+				utilityService.saveOrUpdateCountry(countryBean));
+	}
+	
+	@RequestMapping(value = "/countries/{countryId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<CountryBean> countryUpdate(
+			@PathVariable("countryId") Long countryId,
+			@RequestBody BeanWrapper<CountryBean> countryWrapper) {
+		CountryBean countryBean = countryWrapper.get("country");
+		countryBean.setId(countryId);
+		return JsonUtility.beanWrapper("country",
+				utilityService.saveOrUpdateCountry(countryBean));
+	}
+	
 	@RequestMapping(value = "/countries/{countryId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanWrapper<CountryBean> country(
@@ -88,7 +109,27 @@ public class UtilityRestController {
 		return JsonUtility.toBeanListWrapper("languages",
 				utilityService.findAllLanguages());
 	}
+	
+	@RequestMapping(value = "/languages", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<LanguageBean> languageCreate(
+			@RequestBody BeanWrapper<LanguageBean> languageWrapper) {
+		LanguageBean languageBean = languageWrapper.get("language");
+		return JsonUtility.beanWrapper("language",
+				utilityService.saveOrUpdateLanguage(languageBean));
+	}
 
+	@RequestMapping(value = "/languages/{languageId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public BeanWrapper<LanguageBean> languageUpdate(
+			@PathVariable("languageId") Long languageId,
+			@RequestBody BeanWrapper<LanguageBean> languageWrapper) {
+		LanguageBean languageBean = languageWrapper.get("language");
+		languageBean.setId(languageId);
+		return JsonUtility.beanWrapper("language",
+				utilityService.saveOrUpdateLanguage(languageBean));
+	}
+	
 	@RequestMapping(value = "/languages/{languageId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanWrapper<LanguageBean> language(

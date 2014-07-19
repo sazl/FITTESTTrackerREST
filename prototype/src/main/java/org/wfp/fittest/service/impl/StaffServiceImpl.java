@@ -11,7 +11,6 @@ import org.wfp.fittest.beans.RequirementCriteriaBean;
 import org.wfp.fittest.beans.StaffBean;
 import org.wfp.fittest.beans.StaffRoleBean;
 import org.wfp.fittest.beans.StaffTypeBean;
-import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.entity.Country;
 import org.wfp.fittest.entity.Language;
 import org.wfp.fittest.entity.ProfileType;
@@ -155,9 +154,8 @@ public class StaffServiceImpl implements StaffService {
 		StaffRole staffRole = EntityConverter.toEntity(staffRoleBean);
 		staffRole.setConfirmedType(confirmedTypeRepository.findOne(staffRole
 				.getConfirmedTypeId()));
-		staffRole.setActivityRoles(new HashSet<ActivityRole>(
-				activityRoleRepository.findAll(staffRoleBean
-						.getActivityRoleIds())));
+		staffRole.setActivityRole(activityRoleRepository.findOne(staffRoleBean
+				.getActivityRoleId()));
 		staffRole.setStaff(new HashSet<Staff>(staffRepository
 				.findAll(staffRoleBean.getStaffIds())));
 		return EntityConverter.toBean(staffRoleRepository.save(staffRole));

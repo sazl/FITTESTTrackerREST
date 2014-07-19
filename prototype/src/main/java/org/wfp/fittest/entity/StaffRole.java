@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -33,10 +32,10 @@ public class StaffRole implements EntityId {
 	@GeneratedValue(generator = "staffroles_staffroleid_seq", strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
 			CascadeType.MERGE })
-	@JoinTable(name = "staffrole_activityrole_mapping", joinColumns = { @JoinColumn(name = "staffroleid", referencedColumnName = "staffroleid") }, inverseJoinColumns = { @JoinColumn(name = "activityroleid", referencedColumnName = "activityroleid") })
-	private Set<ActivityRole> activityRoles = new HashSet<ActivityRole>();
+	@JoinColumn(name = "staffroleactivityroleid")
+	private ActivityRole activityRole;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "staffrolestartdate")
@@ -64,12 +63,12 @@ public class StaffRole implements EntityId {
 	public StaffRole() {
 	}
 
-	public StaffRole(Long iD, Set<ActivityRole> activityRoles, Date startDate,
+	public StaffRole(Long iD, ActivityRole activityRole, Date startDate,
 			Date endDate, String location, String comments,
 			ConfirmedType confirmedType, Set<Staff> staff) {
 		super();
 		this.id = iD;
-		this.activityRoles = activityRoles;
+		this.activityRole = activityRole;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.location = location;
@@ -134,16 +133,16 @@ public class StaffRole implements EntityId {
 		this.confirmedType = confirmedType;
 	}
 
-	public Set<ActivityRole> getActivityRoles() {
-		return activityRoles;
+	public ActivityRole getActivityRole() {
+		return activityRole;
 	}
 
-	public List<Long> getActivityRoleIds() {
-		return EntityConverter.toIdList(getActivityRoles());
+	public Long getActivityRoleId() {
+		return getActivityRole().getId();
 	}
 
-	public void setActivityRoles(Set<ActivityRole> activityRoles) {
-		this.activityRoles = activityRoles;
+	public void setActivityRole(ActivityRole activityRole) {
+		this.activityRole = activityRole;
 	}
 
 	public Set<Staff> getStaff() {

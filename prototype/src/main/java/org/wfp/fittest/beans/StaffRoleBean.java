@@ -10,7 +10,7 @@ public class StaffRoleBean {
 	private String location;
 	private String comments;
 	private Long confirmedTypeId;
-	private List<Long> activityRoleIds;
+	private Long activityRoleId;
 	private List<Long> staffIds;
 
 	public StaffRoleBean() {
@@ -65,12 +65,12 @@ public class StaffRoleBean {
 		this.confirmedTypeId = confirmedTypeId;
 	}
 
-	public List<Long> getActivityRoleIds() {
-		return activityRoleIds;
+	public Long getActivityRoleId() {
+		return activityRoleId;
 	}
 
-	public void setActivityRoleIds(List<Long> activityRoleIds) {
-		this.activityRoleIds = activityRoleIds;
+	public void setActivityRoleId(Long activityRoleId) {
+		this.activityRoleId = activityRoleId;
 	}
 
 	public List<Long> getStaffIds() {
@@ -81,5 +81,4 @@ public class StaffRoleBean {
 		this.staffIds = staffIds;
 	}
 
-	
 }

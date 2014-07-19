@@ -12,8 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -52,7 +52,7 @@ public class ActivityRole implements EntityId {
 	@Column(name = "activityrolelocation")
 	private String location;
 
-	@ManyToMany(mappedBy = "activityRoles", fetch = FetchType.LAZY, cascade = {
+	@OneToMany(mappedBy = "activityRole", fetch = FetchType.LAZY, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<StaffRole> staffRoles;
 

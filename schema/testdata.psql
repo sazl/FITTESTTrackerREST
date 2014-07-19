@@ -1,5 +1,5 @@
 
-\cd /home/public/FittestPlanner/schema
+\cd /home/public/FittestPlanner_REST/schema
 
 -- \copy missiontypes (missiontype) from 'testdata/missiontypes.csv'
 

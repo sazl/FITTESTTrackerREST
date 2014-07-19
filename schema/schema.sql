@@ -23,7 +23,7 @@ create table staff (
     title          varchar(256) default '',
     thuraya        varchar(50)  default '',
     mobile         varchar(50)  default '',
-    stafftypeid    bigserial    default 0,
+    stafftypeid    bigserial,
     staffcolorcode varchar(100) default '',
     foreign key (stafftypeid) references stafftypes(stafftypeid)
         on delete set default
@@ -73,7 +73,7 @@ create table activities (
     activitydescription     text         default '',
     activitytypeid          bigserial,
     activityetcservicemap   varchar(256) default '',
-    activityconfirmedtypeid bigserial    default 0,
+    activityconfirmedtypeid bigserial,
     foreign key (activitytypeid) references activitytypes(activitytypeid)
         on delete restrict
         on update cascade,
@@ -136,34 +136,22 @@ create table activityroles (
 );
 
 create table staffroles (
-    staffroleid          bigserial     primary key,
-    staffrolestartdate   timestamp     default current_timestamp,
-    staffroleenddate     timestamp     default current_timestamp,
-    staffrolelocation    varchar(200),
-    staffrolecomments    text          default '',
-    staffconfirmedtypeid bigserial     default 0,
---  staffindex           bigserial,
---    foreign key (staffindex) references staff(staffindex)
---        on delete restrict
+    staffroleid              bigserial     primary key,
+    staffrolestartdate       timestamp     default current_timestamp,
+    staffroleenddate         timestamp     default current_timestamp,
+    staffrolelocation        varchar(200),
+    staffrolecomments        text          default '',
+    staffconfirmedtypeid     bigserial,
+    staffroleactivityroleid  bigserial,
     foreign key (staffconfirmedtypeid) references confirmedtypes(confirmedtypeid)
         on delete set default
-        on update cascade
-);
-
--- Join with staff role to get activity roles
-create table staffrole_activityrole_mapping (
-    staffroleid    bigserial,
-    activityroleid bigserial,
-    primary key (staffroleid, activityroleid),
-    foreign key (staffroleid) references staffroles(staffroleid)
-        on delete cascade
         on update cascade,
-    foreign key (activityroleid) references activityroles(activityroleid)
+    foreign key (staffroleactivityroleid) references activityroles(activityroleid)
         on delete cascade
         on update cascade
 );
 
--- Join with staff to get staff roles
+--- Join with staff to get staff roles
 create table staff_staffrole_mapping (
     staffindex  bigserial,
     staffroleid bigserial,
@@ -175,6 +163,7 @@ create table staff_staffrole_mapping (
         on delete cascade
         on update cascade
 );
+
 
 create table operationtypes (
     operationtypeid bigserial   primary key,
@@ -194,20 +183,3 @@ create table audittable (
         on delete restrict
         on update cascade
 );
-
---------------------------------------------------------------------------------
--- Views
---------------------------------------------------------------------------------
-
-create view activity_staff_view
-as
-    select a.activityid, s.staffindex, a.activitytypeid from activities a
-    inner join activityroles ar
-        on a.activityid = ar.activityid
-    inner join staffrole_activityrole_mapping sam
-        on ar.activityroleid = sam.activityroleid
-    inner join staff_staffrole_mapping ssrm
-        on sam.staffroleid = ssrm.staffroleid
-    inner join staff s
-        on ssrm.staffindex = s.staffindex
-;

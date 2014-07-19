@@ -165,7 +165,12 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	public List<ActivityBean> findActivityDeployments(
 			DeploymentCriteriaBean criteria) {
-		
+
 		return null;
+	}
+
+	@Override
+	public List<ActivityRoleBean> findActivityRolesByIds(List<Long> ids) {
+		return EntityConverter.toBeanList(activityRoleRepository.findAll(ids));
 	}
 }

@@ -24,6 +24,8 @@ public interface ActivityService {
 	
 	public ActivityRoleBean findActivityRoleById(Long id);
 	
+	public List<ActivityRoleBean> findActivityRolesByIds(List<Long> ids);
+	
 	public List<ActivityRoleBean> findAllActivityRoles();
 
 	public Boolean deleteActivityRoleById(Long id);

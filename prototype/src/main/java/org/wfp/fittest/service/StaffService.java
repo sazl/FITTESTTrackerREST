@@ -14,6 +14,8 @@ public interface StaffService {
 	public List<StaffBean> findAllStaff();
 
 	public StaffRoleBean findStaffRoleById(Long id);
+	
+	public List<StaffRoleBean> findStaffRolesByIds(List<Long> ids);
 
 	public List<StaffRoleBean> findAllStaffRoles();
 

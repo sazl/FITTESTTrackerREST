@@ -91,4 +91,14 @@ public class UtilityServiceImpl implements UtilityService {
 		return EntityConverter.toBean(languageRepository.save(language));
 	}
 
+	@Override
+	public List<LanguageBean> findLanguagesByIds(List<Long> ids) {
+		return EntityConverter.toBeanList(languageRepository.findAll(ids));
+	}
+
+	@Override
+	public List<CountryBean> findCountriesByIds(List<Long> ids) {
+		return EntityConverter.toBeanList(countryRepository.findAll(ids));
+	}
+
 }

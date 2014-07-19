@@ -12,6 +12,8 @@ public interface UtilityService {
 	
 	public List<CountryBean> findAllCountries();
 	
+	public List<CountryBean> findCountriesByIds(List<Long> ids);
+	
 	public LanguageBean findLanguageById(Long id);
 	
 	public List<LanguageBean> findAllLanguages();
@@ -29,4 +31,6 @@ public interface UtilityService {
 	public CountryBean saveOrUpdateCountry(CountryBean countryBean);
 	
 	public LanguageBean saveOrUpdateLanguage(LanguageBean languageBean);
+
+	List<LanguageBean> findLanguagesByIds(List<Long> ids);
 }

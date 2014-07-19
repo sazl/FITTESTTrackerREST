@@ -1,5 +1,7 @@
 package org.wfp.fittest.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wfp.fittest.beans.ActivityBean;
 import org.wfp.fittest.beans.ActivityRoleBean;
@@ -64,7 +67,7 @@ public class ActivityRestController {
 		return JsonUtility.beanWrapper("activity",
 				activityService.saveOrUpdateActivity(activityBean));
 	}
-	
+
 	@RequestMapping(value = "/activities/{activityId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> activityDelete(
@@ -79,9 +82,15 @@ public class ActivityRestController {
 
 	@RequestMapping(value = "/activityRoles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BeanListWrapper<ActivityRoleBean> activityRole() {
-		return JsonUtility.toBeanListWrapper("activityRoles",
-				activityService.findAllActivityRoles());
+	public BeanListWrapper<ActivityRoleBean> activityRoles(
+			@RequestParam(value = "ids[]", required = false) List<Long> ids) {
+		if (ids != null) {
+			return JsonUtility.toBeanListWrapper("activityRoles",
+					activityService.findActivityRolesByIds(ids));
+		} else {
+			return JsonUtility.toBeanListWrapper("activityRoles",
+					activityService.findAllActivityRoles());
+		}
 	}
 
 	@RequestMapping(value = "/activityRoles", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

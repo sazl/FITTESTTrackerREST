@@ -183,4 +183,9 @@ public class StaffServiceImpl implements StaffService {
 		return null;
 	}
 
+	@Override
+	public List<StaffRoleBean> findStaffRolesByIds(List<Long> ids) {
+		return EntityConverter.toBeanList(staffRoleRepository.findAll(ids));
+	}
+
 }

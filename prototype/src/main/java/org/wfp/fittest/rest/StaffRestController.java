@@ -1,5 +1,7 @@
 package org.wfp.fittest.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wfp.fittest.beans.ProfileTypeBean;
 import org.wfp.fittest.beans.StaffBean;
@@ -63,7 +66,7 @@ public class StaffRestController {
 		return JsonUtility.beanWrapper("staff",
 				staffService.saveOrUpdateStaff(staffBean));
 	}
-	
+
 	@RequestMapping(value = "/staffList/{staffId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> staffDelete(
@@ -78,9 +81,15 @@ public class StaffRestController {
 
 	@RequestMapping(value = "/staffRoles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BeanListWrapper<StaffRoleBean> staffRole() {
-		return JsonUtility.toBeanListWrapper("staffRoles",
-				staffService.findAllStaffRoles());
+	public BeanListWrapper<StaffRoleBean> staffRole(
+			@RequestParam(value = "ids[]", required = false) List<Long> ids) {
+		if (ids != null) {
+			return JsonUtility.toBeanListWrapper("staffRoles",
+					staffService.findStaffRolesByIds(ids));
+		} else {
+			return JsonUtility.toBeanListWrapper("staffRoles",
+					staffService.findAllStaffRoles());
+		}
 	}
 
 	@RequestMapping(value = "/staffRoles", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -91,7 +100,7 @@ public class StaffRestController {
 		return JsonUtility.beanWrapper("staffRole",
 				staffService.saveOrUpdateStaffRole(staffRoleBean));
 	}
-	
+
 	@RequestMapping(value = "/staffRoles/{staffRoleId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanWrapper<StaffRoleBean> staffRole(
@@ -99,7 +108,7 @@ public class StaffRestController {
 		return JsonUtility.beanWrapper("staffRole",
 				staffService.findStaffRoleById(staffRoleId));
 	}
-	
+
 	@RequestMapping(value = "/staffRoles/{staffRoleId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public BeanWrapper<StaffRoleBean> staffRoleUpdate(
@@ -109,7 +118,7 @@ public class StaffRestController {
 		return JsonUtility.beanWrapper("staffRole",
 				staffService.saveOrUpdateStaffRole(staffRoleBean));
 	}
-	
+
 	@RequestMapping(value = "/staffRoles/{staffRoleId}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<String> staffRoleDelete(

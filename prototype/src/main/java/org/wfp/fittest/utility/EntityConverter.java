@@ -4,26 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.wfp.fittest.entity.EntityId;
-import org.wfp.fittest.repository.ActivityRepository;
-import org.wfp.fittest.repository.ActivityRoleRepository;
-import org.wfp.fittest.repository.ActivityTypeRepository;
-import org.wfp.fittest.repository.CountryRepository;
 
 public class EntityConverter {
-
-	@Autowired
-	private ActivityRepository activityRepository;
-
-	@Autowired
-	private ActivityRoleRepository activityRoleRepository;
-
-	@Autowired
-	private ActivityTypeRepository activityTypeRepository;
-	
-	@Autowired
-	private CountryRepository countryRepository;
 
 	private static final String BEAN_POSTFIX = "Bean";
 	private static final String BEAN_NAMESPACE = "org.wfp.fittest.beans";

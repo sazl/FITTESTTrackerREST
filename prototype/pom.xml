@@ -34,9 +34,6 @@
 	</properties>
 
 	<repositories>
-		<!-- <repository> <id>terracotta-releases</id> <url>http://www.terracotta.org/download/reflector/releases</url> 
-			<releases> <enabled>true</enabled> </releases> <snapshots> <enabled>false</enabled> 
-			</snapshots> </repository> -->
 	</repositories>
 
 	<dependencies>
@@ -136,7 +133,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.6.1.RELEASE</version>
+			<version>${org.springframework.data-version}</version>
 		</dependency>
 
 
@@ -356,8 +353,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>

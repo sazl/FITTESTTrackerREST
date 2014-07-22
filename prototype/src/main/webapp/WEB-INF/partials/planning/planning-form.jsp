@@ -6,7 +6,7 @@
 <form class="form-horizontal" role="form">
   <div class="well well-sm">
     <t:formGroup label="Confirmed Type">
-      <input type="text" class="form-control" />
+      <select id="confirmedType" class="form-control"></select>
     </t:formGroup>
   </div>
 

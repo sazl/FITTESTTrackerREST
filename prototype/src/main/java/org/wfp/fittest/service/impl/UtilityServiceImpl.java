@@ -8,13 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wfp.fittest.beans.ConfirmedTypeBean;
 import org.wfp.fittest.beans.CountryBean;
 import org.wfp.fittest.beans.LanguageBean;
+import org.wfp.fittest.converter.EntityConverter;
 import org.wfp.fittest.entity.Country;
 import org.wfp.fittest.entity.Language;
 import org.wfp.fittest.repository.ConfirmedTypeRepository;
 import org.wfp.fittest.repository.CountryRepository;
 import org.wfp.fittest.repository.LanguageRepository;
 import org.wfp.fittest.service.UtilityService;
-import org.wfp.fittest.utility.EntityConverter;
 
 @Service
 @Transactional(readOnly = true)

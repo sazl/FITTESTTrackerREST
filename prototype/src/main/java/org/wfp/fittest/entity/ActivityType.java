@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.wfp.fittest.utility.EntityConverter;
+import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "activitytypes")

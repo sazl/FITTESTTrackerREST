@@ -3,10 +3,12 @@ package org.wfp.fittest.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.wfp.fittest.entity.Event;
 import org.wfp.fittest.repository.custom.EventRepositoryCustom;
 import org.wfp.fittest.utility.AbstractRepository;
 
+@RepositoryRestResource(path = "events")
 public interface EventRepository extends AbstractRepository<Event, Long>,
 		EventRepositoryCustom {
 

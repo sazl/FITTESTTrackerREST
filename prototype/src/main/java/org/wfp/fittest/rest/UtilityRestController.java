@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.wfp.fittest.beans.ConfirmedTypeBean;
 import org.wfp.fittest.beans.CountryBean;
 import org.wfp.fittest.beans.LanguageBean;
+import org.wfp.fittest.converter.BeanListWrapper;
+import org.wfp.fittest.converter.BeanWrapper;
 import org.wfp.fittest.service.UtilityService;
-import org.wfp.fittest.utility.BeanListWrapper;
-import org.wfp.fittest.utility.BeanWrapper;
 import org.wfp.fittest.utility.HttpUtility;
 import org.wfp.fittest.utility.JsonUtility;
 

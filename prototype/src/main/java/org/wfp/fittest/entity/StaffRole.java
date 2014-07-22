@@ -20,7 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.wfp.fittest.utility.EntityConverter;
+import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "staffroles")

@@ -4,4 +4,5 @@ import org.wfp.fittest.repository.custom.ActivityRepositoryCustom;
 
 public class ActivityRepositoryImpl implements ActivityRepositoryCustom {
 
+
 }

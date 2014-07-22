@@ -2,6 +2,9 @@ package org.wfp.fittest.utility;
 
 import java.util.List;
 
+import org.wfp.fittest.converter.BeanListWrapper;
+import org.wfp.fittest.converter.BeanWrapper;
+
 public class JsonUtility {
 	public static <B> BeanWrapper<B> beanWrapper(String wrapperName, B bean) {
 		return new BeanWrapper<B>(wrapperName, bean);

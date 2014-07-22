@@ -1,4 +1,4 @@
-package org.wfp.fittest.utility;
+package org.wfp.fittest.converter;
 
 import java.util.ArrayList;
 import java.util.List;

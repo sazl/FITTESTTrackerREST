@@ -11,6 +11,7 @@ import org.wfp.fittest.beans.RequirementCriteriaBean;
 import org.wfp.fittest.beans.StaffBean;
 import org.wfp.fittest.beans.StaffRoleBean;
 import org.wfp.fittest.beans.StaffTypeBean;
+import org.wfp.fittest.converter.EntityConverter;
 import org.wfp.fittest.entity.Country;
 import org.wfp.fittest.entity.Language;
 import org.wfp.fittest.entity.ProfileType;
@@ -28,7 +29,6 @@ import org.wfp.fittest.repository.StaffRepository;
 import org.wfp.fittest.repository.StaffRoleRepository;
 import org.wfp.fittest.repository.StaffTypeRepository;
 import org.wfp.fittest.service.StaffService;
-import org.wfp.fittest.utility.EntityConverter;
 
 @Service
 @Transactional(readOnly = true)

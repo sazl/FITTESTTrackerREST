@@ -3,10 +3,12 @@ package org.wfp.fittest.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.repository.custom.ActivityRoleRepositoryCustom;
 import org.wfp.fittest.utility.AbstractRepository;
 
+@RepositoryRestResource(path = "activityRoles")
 public interface ActivityRoleRepository extends
 		AbstractRepository<ActivityRole, Long>, ActivityRoleRepositoryCustom {
 

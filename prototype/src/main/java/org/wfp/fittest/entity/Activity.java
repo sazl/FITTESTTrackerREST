@@ -24,7 +24,7 @@ import org.wfp.fittest.beans.ActivityBean;
 import org.wfp.fittest.beans.ActivityTypeBean;
 import org.wfp.fittest.beans.ConfirmedTypeBean;
 import org.wfp.fittest.beans.CountryBean;
-import org.wfp.fittest.utility.EntityConverter;
+import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "activities")
@@ -87,10 +87,6 @@ public class Activity implements EntityId {
 		this.id = id;
 	}
 
-	public String getStringId() {
-		return Long.toString(getId());
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -115,6 +111,7 @@ public class Activity implements EntityId {
 		this.activityType = activityType;
 	}
 
+	/*
 	public Long getActivityTypeId() {
 		return activityType.getId();
 	}
@@ -122,23 +119,26 @@ public class Activity implements EntityId {
 	public ActivityTypeBean getActivityTypeBean() {
 		return EntityConverter.toBean(getActivityType());
 	}
+	*/
 
 	public ConfirmedType getConfirmedType() {
 		return confirmedType;
 	}
 
-	public Long getConfirmedTypeId() {
-		return confirmedType.getId();
-	}
-
 	public void setConfirmedType(ConfirmedType confirmedType) {
 		this.confirmedType = confirmedType;
 	}
-
+	
+	/*
+	public Long getConfirmedTypeId() {
+		return confirmedType.getId();
+	}
+	
 	public ConfirmedTypeBean getConfirmedTypeBean() {
 		return EntityConverter.toBean(confirmedType);
 	}
-
+	 */
+	
 	public Set<Country> getCountries() {
 		return countries;
 	}
@@ -147,13 +147,16 @@ public class Activity implements EntityId {
 		this.countries = countries;
 	}
 
+	/*
 	public List<Long> getCountryIds() {
 		return EntityConverter.toIdList(getCountries());
 	}
 
+
 	public List<CountryBean> getCountryBeans() {
 		return EntityConverter.toBeanList(getCountries());
 	}
+	*/
 
 	public Set<ActivityRole> getActivityRoles() {
 		return activityRoles;
@@ -162,14 +165,17 @@ public class Activity implements EntityId {
 	public void setActivityRoles(Set<ActivityRole> activityRoles) {
 		this.activityRoles = activityRoles;
 	}
-
+	
+	/*
 	public List<Long> getActivityRoleIds() {
 		return EntityConverter.toIdList(getActivityRoles());
 	}
 
+
 	public List<ActivityBean> getActivityRoleBeans() {
 		return EntityConverter.toBeanList(getActivityRoles());
 	}
+	*/
 
 	@Override
 	public int hashCode() {

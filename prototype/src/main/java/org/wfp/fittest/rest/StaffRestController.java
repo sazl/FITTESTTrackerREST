@@ -16,9 +16,9 @@ import org.wfp.fittest.beans.ProfileTypeBean;
 import org.wfp.fittest.beans.StaffBean;
 import org.wfp.fittest.beans.StaffRoleBean;
 import org.wfp.fittest.beans.StaffTypeBean;
+import org.wfp.fittest.converter.BeanListWrapper;
+import org.wfp.fittest.converter.BeanWrapper;
 import org.wfp.fittest.service.StaffService;
-import org.wfp.fittest.utility.BeanListWrapper;
-import org.wfp.fittest.utility.BeanWrapper;
 import org.wfp.fittest.utility.HttpUtility;
 import org.wfp.fittest.utility.JsonUtility;
 

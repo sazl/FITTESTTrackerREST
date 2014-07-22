@@ -3,11 +3,13 @@ package org.wfp.fittest.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffType;
 import org.wfp.fittest.repository.custom.StaffRepositoryCustom;
 import org.wfp.fittest.utility.AbstractRepository;
 
+@RepositoryRestResource(path = "staff")
 public interface StaffRepository extends AbstractRepository<Staff, Long>,
 		StaffRepositoryCustom {
 

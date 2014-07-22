@@ -31,4 +31,14 @@
 
 <script
     type="text/javascript"
+    src="<c:url value="/external/js/URI.js"/>"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/q.js"/>"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/hyperagent.js"/>"></script>
+
+<script
+    type="text/javascript"
     src="<c:url value="/fittesttracker/js/fittesttracker.js" />"></script>

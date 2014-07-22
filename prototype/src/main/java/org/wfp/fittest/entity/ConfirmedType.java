@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.wfp.fittest.utility.EntityConverter;
+import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "confirmedtypes")
@@ -75,9 +75,11 @@ public class ConfirmedType implements EntityId {
 		return staffRoles;
 	}
 	
+	/*
 	public List<Long> getStaffRoleIds() {
 		return EntityConverter.toIdList(getStaffRoles());
 	}
+	*/
 
 	public void setStaffRoles(Set<StaffRole> staffRoles) {
 		this.staffRoles = staffRoles;
@@ -87,9 +89,11 @@ public class ConfirmedType implements EntityId {
 		return activities;
 	}
 	
+	/*
 	public List<Long> getActivityRoleIds() {
 		return EntityConverter.toIdList(getActivities());
 	}
+	*/
 
 	public void setActivities(Set<Activity> activities) {
 		this.activities = activities;

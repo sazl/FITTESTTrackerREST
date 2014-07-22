@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 
 import org.wfp.fittest.beans.ProfileTypeBean;
 import org.wfp.fittest.beans.StaffRoleBean;
-import org.wfp.fittest.utility.EntityConverter;
+import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "activityroles")

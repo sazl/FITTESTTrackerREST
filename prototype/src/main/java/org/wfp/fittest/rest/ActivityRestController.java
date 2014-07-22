@@ -16,9 +16,9 @@ import org.wfp.fittest.beans.ActivityBean;
 import org.wfp.fittest.beans.ActivityRoleBean;
 import org.wfp.fittest.beans.ActivityTypeBean;
 import org.wfp.fittest.beans.EventBean;
+import org.wfp.fittest.converter.BeanListWrapper;
+import org.wfp.fittest.converter.BeanWrapper;
 import org.wfp.fittest.service.ActivityService;
-import org.wfp.fittest.utility.BeanListWrapper;
-import org.wfp.fittest.utility.BeanWrapper;
 import org.wfp.fittest.utility.HttpUtility;
 import org.wfp.fittest.utility.JsonUtility;
 
@@ -35,7 +35,9 @@ public class ActivityRestController {
 
 	@RequestMapping(value = "/activities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public BeanListWrapper<ActivityBean> activity() {
+	public BeanListWrapper<ActivityBean> activity(
+			
+			) {
 		return JsonUtility.toBeanListWrapper("activities",
 				activityService.findAllActivities());
 	}

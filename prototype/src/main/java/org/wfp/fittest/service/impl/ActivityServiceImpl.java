@@ -11,6 +11,7 @@ import org.wfp.fittest.beans.ActivityRoleBean;
 import org.wfp.fittest.beans.ActivityTypeBean;
 import org.wfp.fittest.beans.DeploymentCriteriaBean;
 import org.wfp.fittest.beans.EventBean;
+import org.wfp.fittest.converter.EntityConverter;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.entity.ActivityType;
@@ -25,7 +26,6 @@ import org.wfp.fittest.repository.EventRepository;
 import org.wfp.fittest.repository.ProfileTypeRepository;
 import org.wfp.fittest.repository.StaffRoleRepository;
 import org.wfp.fittest.service.ActivityService;
-import org.wfp.fittest.utility.EntityConverter;
 
 @Service
 @Transactional(readOnly = true)

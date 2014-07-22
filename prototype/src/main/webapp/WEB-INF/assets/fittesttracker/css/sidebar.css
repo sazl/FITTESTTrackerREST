@@ -23,11 +23,22 @@
     color: #FFF;
 }
 
-.active {
-    color: #D11;
+.nav-sidebar {
+    border-bottom: 1px solid #eee;
+    margin-right : -21px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+    margin-right: -21px;
 }
 
-.sidebar .list-group-item:hover, .sidebar .list-group-item:focus, .sidebar .list-group-item:active
+.nav-sidebar>li>a {
+    border-top: 1px solid #eee;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus
     {
-    background-color: #FFFFca;
+    color: #fff;
+    background-color: #428bca;
 }

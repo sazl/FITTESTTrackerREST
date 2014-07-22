@@ -1,17 +1,11 @@
-<%@ tag
-    language="java"
-    pageEncoding="UTF-8"%>
-<%@taglib
-    prefix="t"
-    tagdir="/WEB-INF/tags"%>
-<%@attribute
-    name="pageTitle"
-    required="true"%>
+<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@attribute name="pageTitle" required="true"%>
 
 <t:genericPage>
     <jsp:attribute name="meta">
       <jsp:include page="/WEB-INF/partials/meta.jsp" />
-      <title>${pageTitle}</title>
+      <title>FITTESTTracker - ${pageTitle}</title>
     </jsp:attribute>
 
     <jsp:attribute name="body">

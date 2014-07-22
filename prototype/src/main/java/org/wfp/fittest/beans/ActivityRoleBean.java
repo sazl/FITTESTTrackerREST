@@ -4,12 +4,17 @@ import java.util.Date;
 import java.util.List;
 
 public class ActivityRoleBean {
-	private Long       id;
-	private Date       startDate;
-	private Date       endDate;
-	private String     location;
-	private Long       activityId;
-	private Long       profileTypeId;
+	private Long id;
+	private Date startDate;
+	private Date endDate;
+	private String location;
+	private String description;
+
+	private ProfileTypeBean profileTypeBean;
+	private List<StaffRoleBean> staffRoleBeans;
+
+	private Long activityId;
+	private Long profileTypeId;
 	private List<Long> staffRoleIds;
 
 	public ActivityRoleBean() {
@@ -70,5 +75,29 @@ public class ActivityRoleBean {
 	public void setStaffRoleIds(List<Long> staffRoleIds) {
 		this.staffRoleIds = staffRoleIds;
 	}
-	
+
+	public ProfileTypeBean getProfileTypeBean() {
+		return profileTypeBean;
+	}
+
+	public void setProfileTypeBean(ProfileTypeBean profileTypeBean) {
+		this.profileTypeBean = profileTypeBean;
+	}
+
+	public List<StaffRoleBean> getStaffRoleBeans() {
+		return staffRoleBeans;
+	}
+
+	public void setStaffRoleBeans(List<StaffRoleBean> staffRoleBeans) {
+		this.staffRoleBeans = staffRoleBeans;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 }

@@ -20,6 +20,10 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.wfp.fittest.beans.ActivityBean;
+import org.wfp.fittest.beans.ActivityTypeBean;
+import org.wfp.fittest.beans.ConfirmedTypeBean;
+import org.wfp.fittest.beans.CountryBean;
 import org.wfp.fittest.utility.EntityConverter;
 
 @Entity
@@ -94,7 +98,7 @@ public class Activity implements EntityId {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getEtcServiceMap() {
 		return etcServiceMap;
 	}
@@ -102,23 +106,27 @@ public class Activity implements EntityId {
 	public void setEtcServiceMap(String etcServiceMap) {
 		this.etcServiceMap = etcServiceMap;
 	}
-	
+
 	public ActivityType getActivityType() {
 		return activityType;
 	}
-	
+
+	public void setActivityType(ActivityType activityType) {
+		this.activityType = activityType;
+	}
+
 	public Long getActivityTypeId() {
 		return activityType.getId();
 	}
-	
-	public void setActivityType(ActivityType activityType) {
-		this.activityType = activityType;
+
+	public ActivityTypeBean getActivityTypeBean() {
+		return EntityConverter.toBean(getActivityType());
 	}
 
 	public ConfirmedType getConfirmedType() {
 		return confirmedType;
 	}
-	
+
 	public Long getConfirmedTypeId() {
 		return confirmedType.getId();
 	}
@@ -127,28 +135,40 @@ public class Activity implements EntityId {
 		this.confirmedType = confirmedType;
 	}
 
+	public ConfirmedTypeBean getConfirmedTypeBean() {
+		return EntityConverter.toBean(confirmedType);
+	}
+
 	public Set<Country> getCountries() {
 		return countries;
+	}
+
+	public void setCountries(Set<Country> countries) {
+		this.countries = countries;
 	}
 
 	public List<Long> getCountryIds() {
 		return EntityConverter.toIdList(getCountries());
 	}
-	
-	public void setCountries(Set<Country> countries) {
-		this.countries = countries;
+
+	public List<CountryBean> getCountryBeans() {
+		return EntityConverter.toBeanList(getCountries());
 	}
 
 	public Set<ActivityRole> getActivityRoles() {
 		return activityRoles;
 	}
-	
+
+	public void setActivityRoles(Set<ActivityRole> activityRoles) {
+		this.activityRoles = activityRoles;
+	}
+
 	public List<Long> getActivityRoleIds() {
 		return EntityConverter.toIdList(getActivityRoles());
 	}
 
-	public void setActivityRoles(Set<ActivityRole> activityRoles) {
-		this.activityRoles = activityRoles;
+	public List<ActivityBean> getActivityRoleBeans() {
+		return EntityConverter.toBeanList(getActivityRoles());
 	}
 
 	@Override

@@ -2,14 +2,23 @@ package org.wfp.fittest.beans;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ActivityBean {
 	private Long id;
 	private String description;
 	private String etcServiceMap;
+
 	private Long activityTypeId;
+	private ActivityTypeBean activityType;
+
 	private Long confirmedTypeId;
+	private ConfirmedTypeBean confirmedType;
+
 	private List<Long> countryIds;
+	private List<CountryBean> countries;
 	private List<Long> activityRoleIds;
+	private List<ActivityRoleBean> activityRoles;
 
 	public ActivityBean() {
 
@@ -46,6 +55,15 @@ public class ActivityBean {
 	public void setActivityTypeId(Long activityTypeId) {
 		this.activityTypeId = activityTypeId;
 	}
+	
+	@JsonIgnore
+	public ActivityTypeBean getActivityTypeBean() {
+		return activityType;
+	}
+
+	public void setActivityTypeBean(ActivityTypeBean activityType) {
+		this.activityType = activityType;
+	}
 
 	public Long getConfirmedTypeId() {
 		return confirmedTypeId;
@@ -53,6 +71,15 @@ public class ActivityBean {
 
 	public void setConfirmedTypeId(Long confirmedTypeId) {
 		this.confirmedTypeId = confirmedTypeId;
+	}
+
+	@JsonIgnore
+	public ConfirmedTypeBean getConfirmedTypeBean() {
+		return confirmedType;
+	}
+
+	public void setConfirmedTypeBean(ConfirmedTypeBean confirmedType) {
+		this.confirmedType = confirmedType;
 	}
 
 	public List<Long> getCountryIds() {
@@ -63,6 +90,15 @@ public class ActivityBean {
 		this.countryIds = countryIds;
 	}
 
+	@JsonIgnore
+	public List<CountryBean> getCountryBeans() {
+		return countries;
+	}
+
+	public void setCountryBeans(List<CountryBean> countries) {
+		this.countries = countries;
+	}
+
 	public List<Long> getActivityRoleIds() {
 		return activityRoleIds;
 	}
@@ -71,4 +107,12 @@ public class ActivityBean {
 		this.activityRoleIds = activityRoleIds;
 	}
 
+	@JsonIgnore
+	public List<ActivityRoleBean> getActivityRoleBeans() {
+		return activityRoles;
+	}
+
+	public void setActivityRoleBeans(List<ActivityRoleBean> activityRoles) {
+		this.activityRoles = activityRoles;
+	}
 }

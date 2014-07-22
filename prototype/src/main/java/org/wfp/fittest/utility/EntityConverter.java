@@ -20,17 +20,22 @@ public class EntityConverter {
 		return Ids;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("all")
 	public static <B, T extends EntityId> B toBean(T entity) {
 		try {
-			String beanClassName = BEAN_NAMESPACE + "."
-					+ entity.getClass().getSimpleName() + BEAN_POSTFIX;
+			String simpleName = entity.getClass().getSimpleName();
+			simpleName = simpleName.split("_")[0];
+			System.out.println("NAME: " + simpleName);
+			String beanClassName = BEAN_NAMESPACE + "." + simpleName
+					+ BEAN_POSTFIX;
 			Class<B> beanClass = (Class<B>) Class.forName(beanClassName);
+			System.out.println(beanClass);
 			B bean = beanClass.newInstance();
 			BeanUtils.copyProperties(bean, entity);
 			return bean;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 	}

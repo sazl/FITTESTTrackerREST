@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.wfp.fittest.beans.ProfileTypeBean;
+import org.wfp.fittest.beans.StaffRoleBean;
 import org.wfp.fittest.utility.EntityConverter;
 
 @Entity
@@ -56,9 +58,9 @@ public class ActivityRole implements EntityId {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<StaffRole> staffRoles;
 
-	
-	public ActivityRole() {}
-	
+	public ActivityRole() {
+	}
+
 	public ActivityRole(Long iD, Activity activity, ProfileType profileType,
 			Date startDate, Date endDate, String location,
 			Set<StaffRole> staffRoles) {
@@ -87,7 +89,7 @@ public class ActivityRole implements EntityId {
 	public Activity getActivity() {
 		return activity;
 	}
-	
+
 	public Long getActivityId() {
 		return activity.getId();
 	}
@@ -99,7 +101,7 @@ public class ActivityRole implements EntityId {
 	public ProfileType getProfileType() {
 		return profileType;
 	}
-	
+
 	public Long getProfileTypeId() {
 		return profileType.getId();
 	}
@@ -135,13 +137,25 @@ public class ActivityRole implements EntityId {
 	public Set<StaffRole> getStaffRoles() {
 		return staffRoles;
 	}
-	
+
 	public List<Long> getStaffRoleIds() {
 		return EntityConverter.toIdList(getStaffRoles());
 	}
 
 	public void setStaffRoles(Set<StaffRole> staffRoles) {
 		this.staffRoles = staffRoles;
+	}
+
+	public ProfileTypeBean getProfileTypeBean() {
+		return EntityConverter.toBean(getProfileType());
+	}
+
+	public List<StaffRoleBean> getStaffRoleBeans() {
+		return EntityConverter.toBeanList(getStaffRoles());
+	}
+	
+	public String getDescription() {
+		return getActivity().getDescription();
 	}
 
 	@Override

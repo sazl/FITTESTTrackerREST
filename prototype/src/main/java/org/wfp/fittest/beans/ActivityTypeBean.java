@@ -2,10 +2,13 @@ package org.wfp.fittest.beans;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ActivityTypeBean {
 	private Long id;
 	private String activityType;
 	private String colorCode;
+	private List<ActivityBean> activityBeans;
 	private List<Long> activityIds;
 
 	public Long getId() {
@@ -38,6 +41,15 @@ public class ActivityTypeBean {
 
 	public void setActivityIds(List<Long> activityIds) {
 		this.activityIds = activityIds;
+	}
+
+	@JsonIgnore
+	public List<ActivityBean> getActivityBeans() {
+		return activityBeans;
+	}
+
+	public void setActivityBeans(List<ActivityBean> activityBeans) {
+		this.activityBeans = activityBeans;
 	}
 
 }

@@ -225,4 +225,5 @@ public class ActivityRestController {
 		return HttpUtility.deleteResponse(activityService
 				.deleteEventById(eventId));
 	}
+	
 }

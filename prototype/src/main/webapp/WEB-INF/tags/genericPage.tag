@@ -4,7 +4,7 @@
 <%@attribute name="body" fragment="true"%>
 <%@attribute name="meta" fragment="true"%>
 <%@attribute name="jsload" fragment="true"%>
-<%@attribute name="jsinit" fragment="true"%>
+<%@attribute name="_jsinit" fragment="true"%>
 
 <!DOCTYPE html PUBLIC
 "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -19,13 +19,15 @@
       <jsp:invoke fragment="header" />
     </div>
 
-    <jsp:invoke fragment="body" />
-
+    <div id="body">
+      <jsp:doBody />
+    </div>
     <div id="pagefooter">
       <jsp:invoke fragment="footer" />
     </div>
 
     <jsp:invoke fragment="jsload" />
-    <jsp:invoke fragment="jsinit" />
+
+    <jsp:invoke fragment="_jsinit" />
   </body>
 </html>

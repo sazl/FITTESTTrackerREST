@@ -3,6 +3,12 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/pace.min.js" />"></script>
+<link rel="stylesheet" type="text/css"
+      href="<c:url value="/external/css/pace-theme-minimal.css" />">
+
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/external/css/normalize.css" />">
 <link rel="stylesheet" type="text/css"

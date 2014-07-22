@@ -1,5 +1,5 @@
 <table id="planning-table"
-       class="table-bordered table-responsive table-striped">
+       class="table table-bordered table-responsive table-striped">
   <thead>
     <tr>
       <th></th>
@@ -11,10 +11,8 @@
     </tr>
   </thead>
   <tbody id="planning-table-body">
-
     <tr class="info">
       <td>
-
         <div class="btn-toolbar">
           <div class="btn-group btn-group-sm">
             <button type="button" class="btn btn-sm btn-danger">
@@ -22,15 +20,8 @@
             </button>
           </div>
           <div class="btn-group btn-group-sm">
-
           </div>
         </div>
-
-        <button type="button" class="btn btn-sm btn-success">
-          <span class="glyphicon glyphicon-arrow-down"></span>
-        </button>
-        <span class="badge"> </span>
-
       </td>
       <td></td>
       <td></td>

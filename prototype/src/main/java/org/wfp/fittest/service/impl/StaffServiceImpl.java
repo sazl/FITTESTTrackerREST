@@ -135,30 +135,32 @@ public class StaffServiceImpl implements StaffService {
 	@Transactional(readOnly = false)
 	public StaffBean saveOrUpdateStaff(StaffBean staffBean) {
 		Staff staff = EntityConverter.toEntity(staffBean);
-		staff.setStaffType(staffTypeRepository.findOne(staffBean
-				.getStaffTypeId()));
-		staff.setProfileTypes(new HashSet<ProfileType>(profileTypeRepository
-				.findAll(staffBean.getProfileTypeIds())));
-		staff.setNationalities(new HashSet<Country>(countryRepository
-				.findAll(staffBean.getNationalityIds())));
-		staff.setLanguages(new HashSet<Language>(languageRepository
-				.findAll(staffBean.getLanguageIds())));
-		staff.setStaffRoles(new HashSet<StaffRole>(staffRoleRepository
-				.findAll(staffBean.getStaffRoleIds())));
-		return EntityConverter.toBean(staffRepository.save(staff));
+//		staff.setStaffType(staffTypeRepository.findOne(staffBean
+//				.getStaffTypeId()));
+//		staff.setProfileTypes(new HashSet<ProfileType>(profileTypeRepository
+//				.findAll(staffBean.getProfileTypeIds())));
+//		staff.setNationalities(new HashSet<Country>(countryRepository
+//				.findAll(staffBean.getNationalityIds())));
+//		staff.setLanguages(new HashSet<Language>(languageRepository
+//				.findAll(staffBean.getLanguageIds())));
+//		staff.setStaffRoles(new HashSet<StaffRole>(staffRoleRepository
+//				.findAll(staffBean.getStaffRoleIds())));
+//		return EntityConverter.toBean(staffRepository.save(staff));
+		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public StaffRoleBean saveOrUpdateStaffRole(StaffRoleBean staffRoleBean) {
-		StaffRole staffRole = EntityConverter.toEntity(staffRoleBean);
-		staffRole.setConfirmedType(confirmedTypeRepository.findOne(staffRole
-				.getConfirmedTypeId()));
-		staffRole.setActivityRole(activityRoleRepository.findOne(staffRoleBean
-				.getActivityRoleId()));
-		staffRole.setStaff(new HashSet<Staff>(staffRepository
-				.findAll(staffRoleBean.getStaffIds())));
-		return EntityConverter.toBean(staffRoleRepository.save(staffRole));
+//		StaffRole staffRole = EntityConverter.toEntity(staffRoleBean);
+//		staffRole.setConfirmedType(confirmedTypeRepository.findOne(staffRole
+//				.getConfirmedTypeId()));
+//		staffRole.setActivityRole(activityRoleRepository.findOne(staffRoleBean
+//				.getActivityRoleId()));
+//		staffRole.setStaff(new HashSet<Staff>(staffRepository
+//				.findAll(staffRoleBean.getStaffIds())));
+//		return EntityConverter.toBean(staffRoleRepository.save(staffRole));
+		return null;
 	}
 
 	@Override

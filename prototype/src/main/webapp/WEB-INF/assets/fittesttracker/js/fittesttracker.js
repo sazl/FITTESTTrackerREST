@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+$(document).ready(function($) {
   var active_page = window.location.pathname.split('/')[2];
   if (active_page) {
     $('#sidebar li.active').removeClass('active');

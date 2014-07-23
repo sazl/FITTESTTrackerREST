@@ -2,7 +2,6 @@ package org.wfp.fittest.entity;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,8 +18,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "staffroles")
@@ -85,9 +82,9 @@ public class StaffRole implements EntityId {
 		this.id = iD;
 	}
 
-	public String getStringId() {
-		return Long.toString(getId());
-	}
+//	public String getStringId() {
+//		return Long.toString(getId());
+//	}
 
 	public Date getStartDate() {
 		return startDate;
@@ -125,9 +122,9 @@ public class StaffRole implements EntityId {
 		return confirmedType;
 	}
 
-	public Long getConfirmedTypeId() {
-		return getConfirmedType().getId();
-	}
+//	public Long getConfirmedTypeId() {
+//		return getConfirmedType().getId();
+//	}
 
 	public void setConfirmedType(ConfirmedType confirmedType) {
 		this.confirmedType = confirmedType;
@@ -137,9 +134,9 @@ public class StaffRole implements EntityId {
 		return activityRole;
 	}
 
-	public Long getActivityRoleId() {
-		return getActivityRole().getId();
-	}
+//	public Long getActivityRoleId() {
+//		return getActivityRole().getId();
+//	}
 
 	public void setActivityRole(ActivityRole activityRole) {
 		this.activityRole = activityRole;
@@ -149,9 +146,9 @@ public class StaffRole implements EntityId {
 		return staff;
 	}
 
-	public List<Long> getStaffIds() {
-		return EntityConverter.toIdList(getStaff());
-	}
+//	public List<Long> getStaffIds() {
+//		return EntityConverter.toIdList(getStaff());
+//	}
 
 	public void setStaff(Set<Staff> staff) {
 		this.staff = staff;

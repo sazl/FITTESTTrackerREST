@@ -1,6 +1,8 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@attribute name="pageTitle" required="true" %>
+<%@attribute name="readyFunction" required="false" %>
 <%@attribute name="jsinit" fragment="true"%>
 <%@attribute name="jsready" fragment="true"%>
 
@@ -16,11 +18,13 @@
 
   <jsp:attribute name="_jsinit">
     <jsp:invoke fragment="jsinit"/>
-    <script type="text/javascript">
-     $(document).ready(function() {
-       <jsp:invoke fragment="jsready"/>
-     });
-    </script>
+     <c:if test="${readyFunction}">
+       <script type="text/javascript">
+        $(document).ready(function() {
+          <jsp:invoke fragment="jsready"/>
+        });
+       </script>
+     </c:if>
   </jsp:attribute>
   
   <jsp:body>

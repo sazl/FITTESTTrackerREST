@@ -1,7 +1,6 @@
 package org.wfp.fittest.entity;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,10 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.wfp.fittest.beans.ProfileTypeBean;
-import org.wfp.fittest.beans.StaffRoleBean;
-import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "activityroles")
@@ -82,17 +77,17 @@ public class ActivityRole implements EntityId {
 		Id = iD;
 	}
 
-	public String getStringId() {
-		return Long.toString(getId());
-	}
+//	public String getStringId() {
+//		return Long.toString(getId());
+//	}
 
 	public Activity getActivity() {
 		return activity;
 	}
 
-	public Long getActivityId() {
-		return activity.getId();
-	}
+//	public Long getActivityId() {
+//		return activity.getId();
+//	}
 
 	public void setActivity(Activity activity) {
 		this.activity = activity;
@@ -102,9 +97,9 @@ public class ActivityRole implements EntityId {
 		return profileType;
 	}
 
-	public Long getProfileTypeId() {
-		return profileType.getId();
-	}
+//	public Long getProfileTypeId() {
+//		return profileType.getId();
+//	}
 
 	public void setProfileType(ProfileType profileType) {
 		this.profileType = profileType;
@@ -138,21 +133,21 @@ public class ActivityRole implements EntityId {
 		return staffRoles;
 	}
 
-	public List<Long> getStaffRoleIds() {
-		return EntityConverter.toIdList(getStaffRoles());
-	}
+//	public List<Long> getStaffRoleIds() {
+//		return EntityConverter.toIdList(getStaffRoles());
+//	}
 
 	public void setStaffRoles(Set<StaffRole> staffRoles) {
 		this.staffRoles = staffRoles;
 	}
 
-	public ProfileTypeBean getProfileTypeBean() {
-		return EntityConverter.toBean(getProfileType());
-	}
+//	public ProfileTypeBean getProfileTypeBean() {
+//		return EntityConverter.toBean(getProfileType());
+//	}
 
-	public List<StaffRoleBean> getStaffRoleBeans() {
-		return EntityConverter.toBeanList(getStaffRoles());
-	}
+//	public List<StaffRoleBean> getStaffRoleBeans() {
+//		return EntityConverter.toBeanList(getStaffRoles());
+//	}
 	
 	public String getDescription() {
 		return getActivity().getDescription();

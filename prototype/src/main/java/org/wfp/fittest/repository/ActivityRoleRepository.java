@@ -3,6 +3,7 @@ package org.wfp.fittest.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.repository.custom.ActivityRoleRepositoryCustom;
@@ -12,6 +13,8 @@ import org.wfp.fittest.utility.AbstractRepository;
 public interface ActivityRoleRepository extends
 		AbstractRepository<ActivityRole, Long>, ActivityRoleRepositoryCustom {
 
+	public List<ActivityRole> findByActivity_Id(@Param("activityId") Long activityId);
+	
 	public List<ActivityRole> findByStartDateAfter(Date startDate);
 
 	public List<ActivityRole> findByEndDateBefore(Date endDate);

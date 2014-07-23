@@ -6,24 +6,23 @@
 <form class="form-horizontal" role="form">
   <div class="well well-sm">
     <t:formGroup label="Confirmed Type">
-      <select id="confirmedType" class="form-control"></select>
+      <select id="confirmedTypes" class="form-control"></select>
     </t:formGroup>
   </div>
 
   <div class="well well-sm">
     <t:formGroup label="Activity">
-      <input type="text" class="form-control" />
+      <select id="activities" class="form-control"></select>
     </t:formGroup>
     <t:formGroup label="Country">
         <div class="form-control">
-          <ul class="list-inline">
-            <li>
-            </li>
+          <ul id="countries" class="list-inline">
+            
           </ul>
         </div>
     </t:formGroup>
     <t:formGroup label="Activity Type">
-      <label class="form-control">
+      <label id="activityType" class="form-control">
       </label>
     </t:formGroup>
   </div>

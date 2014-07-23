@@ -14,16 +14,22 @@ import org.wfp.fittest.utility.AbstractRepository;
 public interface ActivityRepository extends AbstractRepository<Activity, Long>,
 		ActivityRepositoryCustom {
 
-	public List<Activity> findByConfirmedType_Id(@Param("confirmedTypeId") Long confirmedTypeId);
+	public Activity findById(@Param("id") Long id);
 	
-	public List<Activity> findByConfirmedType_ConfirmedType(@Param("confirmedType") String confirmedType);
-	
+	public List<Activity> findByConfirmedType_Id(
+			@Param("confirmedTypeId") Long confirmedTypeId);
+
+	public List<Activity> findByConfirmedType_ConfirmedType(
+			@Param("confirmedType") String confirmedType);
+
 	public List<Activity> findByConfirmedType(ConfirmedType confirmedType);
 
-	public List<Activity> findByActivityType_Id(@Param("activityTypeId") Long activityTypeId);
-	
-	public List<Activity> findByActivityType_ActivityType(@Param("activityType") String activityType);
-	
+	public List<Activity> findByActivityType_Id(
+			@Param("activityTypeId") Long activityTypeId);
+
+	public List<Activity> findByActivityType_ActivityType(
+			@Param("activityType") String activityType);
+
 	public List<Activity> findByActivityType(ActivityType activityType);
 
 	public List<Activity> findByDescription(String description);

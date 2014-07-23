@@ -127,45 +127,47 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	@Transactional(readOnly = false)
 	public ActivityBean saveOrUpdateActivity(ActivityBean activityBean) {
-		Activity activity = EntityConverter.toEntity(activityBean);
-		activity.setActivityRoles(new HashSet<ActivityRole>(
-				activityRoleRepository.findAll(activityBean
-						.getActivityRoleIds())));
-		activity.setCountries(new HashSet<Country>(countryRepository
-				.findAll(activityBean.getActivityRoleIds())));
-		return EntityConverter.toBean(activityRepository.save(activity));
+//		Activity activity = EntityConverter.toEntity(activityBean);
+//		activity.setActivityRoles(new HashSet<ActivityRole>(
+//				activityRoleRepository.findAll(activityBean
+//						.getActivityRoleIds())));
+//		activity.setCountries(new HashSet<Country>(countryRepository
+//				.findAll(activityBean.getActivityRoleIds())));
+//		return EntityConverter.toBean(activityRepository.save(activity));
+		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public ActivityRoleBean saveOrUpdateActivityRole(
 			ActivityRoleBean activityRoleBean) {
-		ActivityRole activityRole = EntityConverter.toEntity(activityRoleBean);
-		activityRole.setActivity(activityRepository.findOne(activityRoleBean
-				.getActivityId()));
-		activityRole.setProfileType(profileTypeRepository
-				.findOne(activityRoleBean.getProfileTypeId()));
-		activityRole.setStaffRoles(new HashSet<StaffRole>(staffRoleRepository
-				.findAll(activityRoleBean.getStaffRoleIds())));
-		return EntityConverter
-				.toBean(activityRoleRepository.save(activityRole));
+//		ActivityRole activityRole = EntityConverter.toEntity(activityRoleBean);
+//		activityRole.setActivity(activityRepository.findOne(activityRoleBean
+//				.getActivityId()));
+//		activityRole.setProfileType(profileTypeRepository
+//				.findOne(activityRoleBean.getProfileTypeId()));
+//		activityRole.setStaffRoles(new HashSet<StaffRole>(staffRoleRepository
+//				.findAll(activityRoleBean.getStaffRoleIds())));
+//		return EntityConverter
+//				.toBean(activityRoleRepository.save(activityRole));
+		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public ActivityTypeBean saveOrUpdateActivityType(
 			ActivityTypeBean activityTypeBean) {
-		ActivityType activityType = EntityConverter.toEntity(activityTypeBean);
-		activityType.setActivities(new HashSet<Activity>(activityRepository
-				.findAll(activityTypeBean.getActivityIds())));
-		return EntityConverter
-				.toBean(activityTypeRepository.save(activityType));
+//		ActivityType activityType = EntityConverter.toEntity(activityTypeBean);
+//		activityType.setActivities(new HashSet<Activity>(activityRepository
+//				.findAll(activityTypeBean.getActivityIds())));
+//		return EntityConverter
+//				.toBean(activityTypeRepository.save(activityType));
+		return null;
 	}
 
 	@Override
 	public List<ActivityBean> findActivityDeployments(
 			DeploymentCriteriaBean criteria) {
-
 		return null;
 	}
 

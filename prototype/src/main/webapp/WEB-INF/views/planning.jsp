@@ -11,6 +11,9 @@
     <script
       type="text/javascript"
       src="<c:url value="/fittesttracker/js/rest.js" />"></script>
+    <script
+      type="text/javascript"
+      src="<c:url value="/fittesttracker/js/planning.js" />"></script>
   </jsp:attribute>
 
   <jsp:body>

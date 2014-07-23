@@ -109,10 +109,6 @@ public class Staff implements EntityId {
 		this.id = ID;
 	}
 
-	public String getStringID() {
-		return Long.toString(getId());
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}

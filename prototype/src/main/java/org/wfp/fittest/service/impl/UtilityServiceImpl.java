@@ -59,23 +59,23 @@ public class UtilityServiceImpl implements UtilityService {
 		return EntityConverter.toBeanList(confirmedTypeRepository.findAll());
 	}
 
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteCountryById(Long countryId) {
-		return countryRepository.deleteCheck(countryId);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteLanguageById(Long languageId) {
-		return languageRepository.deleteCheck(languageId);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteConfirmedTypeById(Long confirmedTypeId) {
-		return confirmedTypeRepository.deleteCheck(confirmedTypeId);
-	}
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteCountryById(Long countryId) {
+//		return countryRepository.deleteCheck(countryId);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteLanguageById(Long languageId) {
+//		return languageRepository.deleteCheck(languageId);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteConfirmedTypeById(Long confirmedTypeId) {
+//		return confirmedTypeRepository.deleteCheck(confirmedTypeId);
+//	}
 
 	@Override
 	@Transactional(readOnly = false)
@@ -99,6 +99,24 @@ public class UtilityServiceImpl implements UtilityService {
 	@Override
 	public List<CountryBean> findCountriesByIds(List<Long> ids) {
 		return EntityConverter.toBeanList(countryRepository.findAll(ids));
+	}
+
+	@Override
+	public Boolean deleteCountryById(Long countryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteLanguageById(Long languageId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteConfirmedTypeById(Long confirmedTypeId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

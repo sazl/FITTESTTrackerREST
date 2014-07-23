@@ -20,11 +20,6 @@ public class IndexController extends AbstractController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/{pageName}")
-	public String index(@PathVariable("pageName") String pageName, Model model,
-			Locale locale) {
-		return pageName;
-	}
 
 	@RequestMapping(value = "/activity")
 	public String activity(Model model, Locale locale) {

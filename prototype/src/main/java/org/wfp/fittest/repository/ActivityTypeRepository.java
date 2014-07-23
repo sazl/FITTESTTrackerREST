@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.wfp.fittest.entity.ActivityType;
-import org.wfp.fittest.repository.custom.ActivityTypeRepositoryCustom;
 import org.wfp.fittest.utility.AbstractRepository;
 
 @RepositoryRestResource(path = "activityTypes")
 public interface ActivityTypeRepository extends
-		AbstractRepository<ActivityType, Long>, ActivityTypeRepositoryCustom {
+		AbstractRepository<ActivityType, Long> {
 
 	public List<ActivityType> findByActivityType(String activityType);
 

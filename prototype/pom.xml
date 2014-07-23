@@ -11,7 +11,7 @@
     <version>0.9.0-BUILD-SNAPSHOT</version>
 
     <properties>
-        <java-version>1.6</java-version>
+        <java-version>1.7</java-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -22,14 +22,14 @@
         <org.logback-version>1.1.2</org.logback-version>
         <org.slf4j-version>1.7.7</org.slf4j-version>
 
-        <org.apache.tomcat-version>7.0.52</org.apache.tomcat-version>
-        <org.apache.tomcat.servlet-version>7.0.52</org.apache.tomcat.servlet-version>
+        <org.apache.tomcat-version>7.0.54</org.apache.tomcat-version>
+        <org.apache.tomcat.servlet-version>7.0.54</org.apache.tomcat.servlet-version>
         <org.postgresql.Driver-version>9.3-1101-jdbc4</org.postgresql.Driver-version>
         <org.hibernate-version>4.2.14.Final</org.hibernate-version>
         <net.sf.ehcache-version>2.8.3</net.sf.ehcache-version>
 
         <org.antlr-version>3.5.2</org.antlr-version>
-        
+
         <jackson.core-version>2.4.1.1</jackson.core-version>
         <jackson.databind-version>2.4.1.3</jackson.databind-version>
         <jackson.datatype-hibernate4-version>2.4.1</jackson.datatype-hibernate4-version>
@@ -214,18 +214,6 @@
             <version>${org.postgresql.Driver-version}</version>
         </dependency>
 
-		<!-- Antlr -->
-        <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
-            <version>2.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr-runtime</artifactId>
-            <version>${org.antlr-version}</version>
-        </dependency>
-
 		<!-- AspectJ -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -313,6 +301,14 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

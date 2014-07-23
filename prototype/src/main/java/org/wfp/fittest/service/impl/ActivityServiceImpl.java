@@ -92,29 +92,29 @@ public class ActivityServiceImpl implements ActivityService {
 		return EntityConverter.toBeanList(eventRepository.findAll());
 	}
 
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteActivityById(Long id) {
-		return activityRepository.deleteCheck(id);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteActivityTypeById(Long id) {
-		return activityTypeRepository.deleteCheck(id);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteActivityRoleById(Long id) {
-		return activityRoleRepository.deleteCheck(id);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteEventById(Long id) {
-		return eventRepository.deleteCheck(id);
-	}
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteActivityById(Long id) {
+//		return activityRepository.deleteCheck(id);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteActivityTypeById(Long id) {
+//		return activityTypeRepository.deleteCheck(id);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteActivityRoleById(Long id) {
+//		return activityRoleRepository.deleteCheck(id);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteEventById(Long id) {
+//		return eventRepository.deleteCheck(id);
+//	}
 
 	@Override
 	@Transactional(readOnly = false)
@@ -174,5 +174,29 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	public List<ActivityRoleBean> findActivityRolesByIds(List<Long> ids) {
 		return EntityConverter.toBeanList(activityRoleRepository.findAll(ids));
+	}
+
+	@Override
+	public Boolean deleteActivityById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteActivityTypeById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteActivityRoleById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteEventById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

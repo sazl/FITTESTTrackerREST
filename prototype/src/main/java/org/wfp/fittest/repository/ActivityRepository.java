@@ -7,12 +7,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityType;
 import org.wfp.fittest.entity.ConfirmedType;
-import org.wfp.fittest.repository.custom.ActivityRepositoryCustom;
 import org.wfp.fittest.utility.AbstractRepository;
 
 @RepositoryRestResource(path = "activities")
-public interface ActivityRepository extends AbstractRepository<Activity, Long>,
-		ActivityRepositoryCustom {
+public interface ActivityRepository extends AbstractRepository<Activity, Long> {
 
 	public Activity findById(@Param("id") Long id);
 	
@@ -34,8 +32,8 @@ public interface ActivityRepository extends AbstractRepository<Activity, Long>,
 
 	public List<Activity> findByDescription(String description);
 
-	public void deleteByActivityType(ActivityType activityType);
-
-	public void deleteByDescription(String description);
+//	public void deleteByActivityType(ActivityType activityType);
+//
+//	public void deleteByDescription(String description);
 
 }

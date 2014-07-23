@@ -5,5 +5,5 @@ import java.io.Serializable;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AbstractRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
-	public Boolean deleteCheck(ID id);
+//	public Boolean deleteCheck(ID id);
 }

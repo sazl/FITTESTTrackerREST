@@ -107,29 +107,29 @@ public class StaffServiceImpl implements StaffService {
 		return EntityConverter.toBeanList(profileTypeRepository.findAll());
 	}
 
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteStaffById(Long staffId) {
-		return staffRepository.deleteCheck(staffId);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteStaffRoleById(Long staffRoleId) {
-		return staffRoleRepository.deleteCheck(staffRoleId);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteStaffTypeById(Long staffTypeId) {
-		return staffTypeRepository.deleteCheck(staffTypeId);
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public Boolean deleteProfileTypeById(Long profileTypeId) {
-		return profileTypeRepository.deleteCheck(profileTypeId);
-	}
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteStaffById(Long staffId) {
+//		return staffRepository.deleteCheck(staffId);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteStaffRoleById(Long staffRoleId) {
+//		return staffRoleRepository.deleteCheck(staffRoleId);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteStaffTypeById(Long staffTypeId) {
+//		return staffTypeRepository.deleteCheck(staffTypeId);
+//	}
+//
+//	@Override
+//	@Transactional(readOnly = false)
+//	public Boolean deleteProfileTypeById(Long profileTypeId) {
+//		return profileTypeRepository.deleteCheck(profileTypeId);
+//	}
 
 	@Override
 	@Transactional(readOnly = false)
@@ -188,6 +188,30 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public List<StaffRoleBean> findStaffRolesByIds(List<Long> ids) {
 		return EntityConverter.toBeanList(staffRoleRepository.findAll(ids));
+	}
+
+	@Override
+	public Boolean deleteStaffById(Long staffId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteStaffRoleById(Long staffRoleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteStaffTypeById(Long staffTypeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteProfileTypeById(Long profileTypeId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

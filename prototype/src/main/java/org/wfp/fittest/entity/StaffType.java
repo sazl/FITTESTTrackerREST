@@ -52,10 +52,6 @@ public class StaffType implements EntityId {
 		this.id = iD;
 	}
 
-	public String getStringID() {
-		return Long.toString(getId());
-	}
-
 	public String getStaffType() {
 		return staffType;
 	}

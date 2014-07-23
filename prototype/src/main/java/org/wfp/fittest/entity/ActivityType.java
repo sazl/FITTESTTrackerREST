@@ -56,10 +56,6 @@ public class ActivityType implements EntityId {
 		this.id = iD;
 	}
 
-	public String getStringId() {
-		return Long.toString(getId());
-	}
-
 	public String getActivityType() {
 		return activityType;
 	}

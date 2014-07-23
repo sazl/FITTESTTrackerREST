@@ -1,6 +1,7 @@
 package org.wfp.fittest.entity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "languages")
@@ -59,6 +62,10 @@ public class Language implements EntityId {
 
 	public Set<Staff> getStaffByLanguage() {
 		return staffByLanguage;
+	}
+	
+	public List<Long> getStaffByLanguageIds() {
+		return EntityConverter.toIdList(staffByLanguage);
 	}
 
 	public void setStaffByLanguage(Set<Staff> staffByLanguage) {

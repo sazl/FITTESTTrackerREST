@@ -77,17 +77,13 @@ public class ActivityRole implements EntityId {
 		Id = iD;
 	}
 
-//	public String getStringId() {
-//		return Long.toString(getId());
-//	}
-
 	public Activity getActivity() {
 		return activity;
 	}
 
-//	public Long getActivityId() {
-//		return activity.getId();
-//	}
+	public Long getActivityId() {
+		return activity.getId();
+	}
 
 	public void setActivity(Activity activity) {
 		this.activity = activity;
@@ -97,9 +93,9 @@ public class ActivityRole implements EntityId {
 		return profileType;
 	}
 
-//	public Long getProfileTypeId() {
-//		return profileType.getId();
-//	}
+	public Long getProfileTypeId() {
+		return profileType.getId();
+	}
 
 	public void setProfileType(ProfileType profileType) {
 		this.profileType = profileType;

@@ -20,10 +20,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.wfp.fittest.beans.ActivityBean;
-import org.wfp.fittest.beans.ActivityTypeBean;
-import org.wfp.fittest.beans.ConfirmedTypeBean;
-import org.wfp.fittest.beans.CountryBean;
 import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
@@ -111,15 +107,9 @@ public class Activity implements EntityId {
 		this.activityType = activityType;
 	}
 
-	/*
 	public Long getActivityTypeId() {
 		return activityType.getId();
 	}
-
-	public ActivityTypeBean getActivityTypeBean() {
-		return EntityConverter.toBean(getActivityType());
-	}
-	*/
 
 	public ConfirmedType getConfirmedType() {
 		return confirmedType;
@@ -129,15 +119,9 @@ public class Activity implements EntityId {
 		this.confirmedType = confirmedType;
 	}
 	
-	/*
 	public Long getConfirmedTypeId() {
 		return confirmedType.getId();
 	}
-	
-	public ConfirmedTypeBean getConfirmedTypeBean() {
-		return EntityConverter.toBean(confirmedType);
-	}
-	 */
 	
 	public Set<Country> getCountries() {
 		return countries;
@@ -147,16 +131,9 @@ public class Activity implements EntityId {
 		this.countries = countries;
 	}
 
-	/*
 	public List<Long> getCountryIds() {
 		return EntityConverter.toIdList(getCountries());
 	}
-
-
-	public List<CountryBean> getCountryBeans() {
-		return EntityConverter.toBeanList(getCountries());
-	}
-	*/
 
 	public Set<ActivityRole> getActivityRoles() {
 		return activityRoles;
@@ -166,16 +143,9 @@ public class Activity implements EntityId {
 		this.activityRoles = activityRoles;
 	}
 	
-	/*
 	public List<Long> getActivityRoleIds() {
 		return EntityConverter.toIdList(getActivityRoles());
 	}
-
-
-	public List<ActivityBean> getActivityRoleBeans() {
-		return EntityConverter.toBeanList(getActivityRoles());
-	}
-	*/
 
 	@Override
 	public int hashCode() {

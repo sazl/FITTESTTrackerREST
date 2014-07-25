@@ -8,7 +8,7 @@ import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffType;
 import org.wfp.fittest.utility.AbstractRepository;
 
-@RepositoryRestResource(path = "staff")
+@RepositoryRestResource(path = "staff", collectionResourceRel="staff")
 public interface StaffRepository extends AbstractRepository<Staff, Long> {
 
 	public List<Staff> findByFirstName(String firstName);

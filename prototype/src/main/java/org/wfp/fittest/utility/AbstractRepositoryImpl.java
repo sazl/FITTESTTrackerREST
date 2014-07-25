@@ -17,14 +17,4 @@ public class AbstractRepositoryImpl<T, ID extends Serializable> extends
 		this.entityManager = entityManager;
 	}
 
-//	@Override
-//	public Boolean deleteCheck(ID id) {
-//		if (exists(id)) {
-//			delete(id);
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
 }

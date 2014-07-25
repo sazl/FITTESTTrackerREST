@@ -3,6 +3,8 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@attribute name="pageTitle" required="true" %>
 <%@attribute name="readyFunction" required="false" %>
+
+<%@attribute name="css" fragment="true"%>
 <%@attribute name="jsinit" fragment="true"%>
 <%@attribute name="jsready" fragment="true"%>
 
@@ -10,6 +12,10 @@
   <jsp:attribute name="meta">
     <jsp:include page="/WEB-INF/partials/meta.jsp" />
     <title>FITTESTTracker - ${pageTitle}</title>
+  </jsp:attribute>
+
+  <jsp:attribute name="_css">
+    <jsp:invoke fragment="css" />
   </jsp:attribute>
 
   <jsp:attribute name="jsload">

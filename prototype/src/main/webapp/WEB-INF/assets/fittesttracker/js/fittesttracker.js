@@ -16,6 +16,7 @@ $(document).ready(function($) {
     e.preventDefault();
   });
 
-  $('select').select2();
+//  $('select').select2();
+  $('.datepicker').datepicker();
   $('.default-dataTable').dataTable();
 });

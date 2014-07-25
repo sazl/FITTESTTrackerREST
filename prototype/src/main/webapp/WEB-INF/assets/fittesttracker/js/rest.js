@@ -1,151 +1,133 @@
-/*
- FITTEST Tracker REST API
- */
 
 var ftRest = (function (global, $) {
   "use strict";
-  var _restURI = "/fittesttracker/rest/hal/";
-  var _Resource = new Hyperagent.Resource(_restURI);
+  var _restURI = "/fittesttracker/rest/";
+  var _URI = {};
+  var _entityURI = {
+    activities     : 'activities',
+    confirmedTypes : 'confirmedTypes',
+    activityTypes  : 'activityTypes',
+    activityRoles  : 'activityRoles',
+    staffRoles     : 'staffRoles',
+    profileTypes   : 'profileTypes',
+    staff          : 'staff',
+    countries      : 'countries'
+  };
+  $.each(_entityURI, function(k, v) {
+    _URI[k] = _restURI + v;
+  });
 
-  function __resourceId(resource) {
-    var link = resource.url();
-    return parseInt(link.split('/').splice(-1)[0]);
-  }
 
-  function __getEmbeddedResource(embedded, promise) {
-    return promise.then(function(x) {
-      return x.embedded[embedded];
+  function _findAll(entity) {
+    return $.getJSON(_URI[entity]).then(function(data) {
+      return data._embedded[entity];
     });
   }
 
-  function __getLinkedResource(link, promise) {
-    return promise.then(function(x) {
-      return x.links[link].fetch();
-    });
-  }
-
-  function __getLinkedEmbeddedResource(resource, promise) {
-    return __getEmbeddedResource(
-      resource,
-      __getLinkedResource(resource, promise)
-    );
-  }
-
-  function __logPromiseFetched(promise) {
-    promise.then(function(x) {
-      console.log(x.fetch());
-    });
-  }
-
-  function __logFetchedPromise(promise) {
-    promise.fetch().then(function(x) {
-      console.log(x);
-    });
+  function _findAllFunc(entity) {
+    return function () { return _findAll(entity); };
   }
   
-  function __logPromise(promise) {
-    promise.then(function(x) {
-      console.log(x);
-    });
-  }
-  
-  function _getConfirmedTypes() {
-    return _Resource.fetch().then(function (root) {
-      return root.links['confirmedTypes'].fetch();
-    }).then(function (confirmedTypes) {
-      return confirmedTypes.embedded['confirmedTypes'].map(function (ct) {
-        return {
-          id: __resourceId(ct),
-          confirmedType: ct.props.confirmedType,
-          confirmedColorCode: ct.props.confirmedColorCode
-        };
-      });
+  function _findById(entity, id) {
+    var uri = _URI[entity] + '/search/findById?id=' + id;
+    return $.getJSON(uri).then(function(data) {
+      return data._embedded[entity][0];
     });
   }
 
-  function _getActivities() {
-    return _Resource.fetch().then(function (root) {
-      return root.links['activities'].fetch();
-    }).then(function (activities) {
-      return activities.embedded['activities'].map(function (act) {
-        return {
-          id: __resourceId(act),
-          description: act.props.description,
-          etcServiceMap: act.props.etcServiceMap
-        };
-      });
+  function _findByIdFunc(entity) {
+    return function (id) { return _findById(entity, id); };
+  }
+
+  function _getActivitiesByConfirmedTypeId(confirmedTypeId) {
+    var uri = _URI.activities + '/search/findByConfirmedType_Id?confirmedTypeId=' + confirmedTypeId;
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['activities'];
     });
   }
 
-  function _getActivityById(activityId) {
-    return _Resource.fetch().then(function (root) {
-      return root.links['activities'].fetch();
-    }).then(function(activities) {
-      return activities.links['search'].fetch();
-    }).then(function(search) {
-      return search.link(
-        'findById',{ id: activityId }).fetch();
-    }).then(function(activities) {
-      var acts = activities.embedded['activities'];
-      if (acts == undefined) { return null; }
-      return acts.map(function(act) {
-        return {
-          id: __resourceId(act),
-          description: act.props.description,
-          etcServiceMap: act.props.etcServiceMap
-        };
-      })[0];
+  function _getActivityTypeByActivityId(activityId) {
+    var uri = _URI.activityTypes + '/search/findByActivities_Id?activityId=' + activityId;
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['activityTypes'][0];
     });
   }
 
-  function _getActivityPromiseById(activityId) {
-    return _Resource.fetch().then(function (root) {
-      return root.links['activities'].fetch();
-    }).then(function(activities) {
-      return activities.links['search'].fetch();
-    }).then(function(search) {
-      return search.link(
-        'findById',{ id: activityId }).fetch();
-    }).then(function(activities) {
-      return activities.embedded['activities'][0];
+  function _getActivityRolesByActivityId(activityId) {
+    var uri = _URI.activities + '/' + activityId + '/activityRoles';
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['activityRoles'];
     });
   }
-  
-  function _getActivitiesByConfirmedType(confirmedType) {
-    return _Resource.fetch().then(function (root) {
-      return root.links['activities'].fetch();
-    }).then(function(activities) {
-      return activities.links['search'].fetch();
-    }).then(function(search) {
-      return search.link(
-        'findByConfirmedType_ConfirmedType',{ confirmedType: confirmedType }).fetch();
-    }).then(function(activities) {
-      var acts = activities.embedded['activities'];
-      if (acts == undefined) { return []; }
-      return acts.map(function(act) {
-        return {
-          id: __resourceId(act),
-          description: act.props.description,
-          etcServiceMap: act.props.etcServiceMap
-        };
-      });
+
+  function _getProfileTypeByActivityRoleId(activityRoleId) {
+    var uri = _URI.profileTypes + '/search/findByActivityRole_Id?activityRoleId=' + activityRoleId;
+    
+  }
+
+  function _getStaffRolesByActivityRoleId(activityRoleId) {
+    var uri = _URI.activityRoles + '/' + activityRoleId + '/staffRoles';
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['staffRoles'];
+    });
+  }
+
+  function _getStaffByStaffRoleId(staffRoleId) {
+    var uri = _URI.staffRoles + '/' + staffRoleId + '/staff';
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['staff'];
+    });
+  }
+
+  function _getCountriesByActivityId(activityId) {
+    var uri = _URI.activities + '/' + activityId + '/countries';
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['countries'];
+    });
+  }
+
+  function _getConfirmedTypeByActivityId(activityId) {
+    var uri = _URI.confirmedTypes + '/search/findByActivities_Id?activityId=' + activityId;
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? null : data._embedded['confirmedTypes'][0];
+    });
+  }
+
+  function _getConfirmedTypeByStaffRoleId(staffRoleId) {
+    var uri = _URI.confirmedTypes + '/search/findByStaffRoles_Id?staffRoleId=' + staffRoleId;
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? null : data._embedded['confirmedTypes'][0];
     });
   }
   
   return {
-    resource: _Resource,
-    getEmbeddedResource: __getEmbeddedResource,
-    getLinkedResource: __getLinkedResource,
-    getLinkedEmbeddedResource: __getLinkedEmbeddedResource,
+    getConfirmedTypes: _findAllFunc('confirmedTypes'),
+    getConfirmedTypeById: _findByIdFunc('confirmedTypes'),
+    getConfirmedTypeByActivityId: _getConfirmedTypeByActivityId,
+    getConfirmedTypeByStaffRoleId: _getConfirmedTypeByStaffRoleId,
     
-    logPromise: __logPromise,
-    logFetchedPromise: __logFetchedPromise,
-    logPromiseFetched: __logPromiseFetched,
+    getActivities: _findAllFunc('activities'),
+    getActivityById: _findByIdFunc('activities'),
+    getActivitiesByConfirmedTypeId: _getActivitiesByConfirmedTypeId,
+
+    getActivityRoles: _findAllFunc('activityRoles'),
+    getActivityRoleById: _findByIdFunc('activityRoles'),
+    getActivityRolesByActivityId: _getActivityRolesByActivityId,
     
-    getConfirmedTypes: _getConfirmedTypes,
-    getActivityById: _getActivityById,
-    getActivityPromiseById: _getActivityPromiseById,
-    getActivities: _getActivities,
-    getActivitiesByConfirmedType: _getActivitiesByConfirmedType
+    getActivityTypes: _findAllFunc('activityTypes'),
+    getActivityTypeById: _findByIdFunc('activityTypes'),
+    getActivityTypeByActivityId: _getActivityTypeByActivityId,
+
+    getStaffRolesByActivityRoleId: _getStaffRolesByActivityRoleId,
+
+    getProfileTypeById: _findByIdFunc('profileTypes'),
+    getProfileTypeByActivityRoleId: _getProfileTypeByActivityRoleId,
+
+    getStaffById: _findByIdFunc('staff'),
+    getStaffByStaffRoleId: _getStaffByStaffRoleId,
+
+    getCountries: _findAllFunc('countries'),
+    getCountryById: _findByIdFunc('countries'),
+    getCountriesByActivityId: _getCountriesByActivityId
   };
 }(window || this, jQuery));

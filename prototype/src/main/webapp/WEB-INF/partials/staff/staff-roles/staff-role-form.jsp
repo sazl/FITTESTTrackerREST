@@ -3,7 +3,7 @@
          pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" id="staff-role-form">
   <t:formGroup label="Staff">
     <input type="text" class="form-control" />
   </t:formGroup>

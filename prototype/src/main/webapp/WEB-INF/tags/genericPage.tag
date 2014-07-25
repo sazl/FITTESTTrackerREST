@@ -3,6 +3,7 @@
 <%@attribute name="footer" fragment="true"%>
 <%@attribute name="body" fragment="true"%>
 <%@attribute name="meta" fragment="true"%>
+<%@attribute name="_css" fragment="true"%>
 <%@attribute name="jsload" fragment="true"%>
 <%@attribute name="_jsinit" fragment="true"%>
 
@@ -13,6 +14,7 @@
 <html>
   <head>
     <jsp:invoke fragment="meta" />
+    <jsp:invoke fragment="_css" />
   </head>
   <body>
     <div id="pageheader">

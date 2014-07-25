@@ -1,6 +1,7 @@
 package org.wfp.fittest.entity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "activityroles")
@@ -129,21 +132,13 @@ public class ActivityRole implements EntityId {
 		return staffRoles;
 	}
 
-//	public List<Long> getStaffRoleIds() {
-//		return EntityConverter.toIdList(getStaffRoles());
-//	}
+	public List<Long> getStaffRoleIds() {
+		return EntityConverter.toIdList(getStaffRoles());
+	}
 
 	public void setStaffRoles(Set<StaffRole> staffRoles) {
 		this.staffRoles = staffRoles;
 	}
-
-//	public ProfileTypeBean getProfileTypeBean() {
-//		return EntityConverter.toBean(getProfileType());
-//	}
-
-//	public List<StaffRoleBean> getStaffRoleBeans() {
-//		return EntityConverter.toBeanList(getStaffRoles());
-//	}
 	
 	public String getDescription() {
 		return getActivity().getDescription();

@@ -12,6 +12,9 @@
     src="<c:url value="/external/js/jquery-ui.min.js" />"></script>
 <script
     type="text/javascript"
+    src="<c:url value="/external/js/moment.min.js"/>"></script>
+<script
+    type="text/javascript"
     src="<c:url value="/external/js/bootstrap.min.js" />"></script>
 <script
     type="text/javascript"
@@ -31,14 +34,7 @@
 
 <script
     type="text/javascript"
-    src="<c:url value="/external/js/URI.js"/>"></script>
-<script
-    type="text/javascript"
-    src="<c:url value="/external/js/q.js"/>"></script>
-<script
-    type="text/javascript"
-    src="<c:url value="/external/js/hyperagent.js"/>"></script>
-
-<script
-    type="text/javascript"
     src="<c:url value="/fittesttracker/js/fittesttracker.js" />"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/fittesttracker/js/util.js" />"></script>

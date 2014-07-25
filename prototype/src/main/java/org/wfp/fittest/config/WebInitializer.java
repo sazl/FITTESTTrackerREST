@@ -10,7 +10,6 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.wfp.fittest.filter.SimpleCORSFilter;
 
@@ -35,26 +34,6 @@ public class WebInitializer implements WebApplicationInitializer {
 						rootContext));
 		restDispatcher.setLoadOnStartup(2);
 		restDispatcher.addMapping("/rest/*");
-
-		// AnnotationConfigWebApplicationContext mvcServletContext = new
-		// AnnotationConfigWebApplicationContext();
-		// mvcServletContext.register(ServletConfig.class);
-		// mvcServletContext.setParent(rootContext);
-		// ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
-		// "fittesttracker", new DispatcherServlet(mvcServletContext));
-		// dispatcher.setLoadOnStartup(1);
-		// dispatcher.addMapping("/");
-		//
-		// AnnotationConfigWebApplicationContext restServletContext = new
-		// AnnotationConfigWebApplicationContext();
-		// restServletContext.register(RestConfig.class);
-		// restServletContext.setParent(rootContext);
-		// ServletRegistration.Dynamic restDispatcher =
-		// servletContext.addServlet(
-		// "restExporter", new RepositoryRestDispatcherServlet(
-		// restServletContext));
-		// restDispatcher.setLoadOnStartup(1);
-		// restDispatcher.addMapping("/rest/*");
 
 //		FilterRegistration.Dynamic httpFilter = servletContext.addFilter(
 //				"httpMethodFilter", new HiddenHttpMethodFilter());

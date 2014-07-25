@@ -14,7 +14,7 @@ public interface ActivityRoleRepository extends
 
 	public List<ActivityRole> findByActivity_Id(
 			@Param("activityId") Long activityId);
-
+	
 	public List<ActivityRole> findByStartDateAfter(Date startDate);
 
 	public List<ActivityRole> findByEndDateBefore(Date endDate);

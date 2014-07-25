@@ -3,7 +3,7 @@
          pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" id="planning-form">
   <div class="well well-sm">
     <t:formGroup label="Confirmed Type">
       <select id="confirmedTypes" class="form-control"></select>

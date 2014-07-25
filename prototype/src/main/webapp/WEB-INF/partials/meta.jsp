@@ -33,6 +33,8 @@
       href="<c:url value="/external/css/alertify.core.css" />">
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/external/css/alertify.bootstrap.css" />">
+<link rel="stylesheet" type="text/css"
+      href="<c:url value="/external/css/vis.min.css" />">
 
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/fittesttracker/css/fittesttracker.css" />">

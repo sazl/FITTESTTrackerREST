@@ -143,27 +143,17 @@ create table staffroles (
     staffrolecomments        text          default '',
     staffconfirmedtypeid     bigserial,
     staffroleactivityroleid  bigserial,
+    staffrolestaffindex      bigserial,
     foreign key (staffconfirmedtypeid) references confirmedtypes(confirmedtypeid)
         on delete set default
         on update cascade,
     foreign key (staffroleactivityroleid) references activityroles(activityroleid)
         on delete cascade
-        on update cascade
-);
-
---- Join with staff to get staff roles
-create table staff_staffrole_mapping (
-    staffindex  bigserial,
-    staffroleid bigserial,
-    primary key (staffindex, staffroleid),
-    foreign key (staffindex) references staff(staffindex)
-        on delete cascade
         on update cascade,
-    foreign key (staffroleid) references staffroles(staffroleid)
+    foreign key (staffrolestaffindex) references staff(staffindex)
         on delete cascade
         on update cascade
 );
-
 
 create table operationtypes (
     operationtypeid bigserial   primary key,

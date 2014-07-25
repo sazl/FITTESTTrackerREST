@@ -12,6 +12,9 @@
       src="<c:url value="/external/js/vis.min.js" />"></script>
     <script
       type="text/javascript"
+      src="<c:url value="/fittesttracker/js/rest.js" />"></script>    
+    <script
+      type="text/javascript"
       src="<c:url value="/fittesttracker/js/deployment.js" />"></script>
   </jsp:attribute>
   

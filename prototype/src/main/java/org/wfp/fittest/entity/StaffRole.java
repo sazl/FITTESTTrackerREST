@@ -1,9 +1,6 @@
 package org.wfp.fittest.entity;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,14 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.wfp.fittest.converter.EntityConverter;
 
 @Entity
 @Table(name = "staffroles")
@@ -56,16 +50,17 @@ public class StaffRole implements EntityId {
 	@JoinColumn(name = "staffconfirmedtypeid")
 	private ConfirmedType confirmedType;
 
-	@ManyToMany(mappedBy = "staffRoles", fetch = FetchType.LAZY, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	private Set<Staff> staff = new HashSet<Staff>();
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE })
+	@JoinColumn(name = "staffrolestaffindex")
+	private Staff staff;
 
 	public StaffRole() {
 	}
 
 	public StaffRole(Long iD, ActivityRole activityRole, Date startDate,
 			Date endDate, String location, String comments,
-			ConfirmedType confirmedType, Set<Staff> staff) {
+			ConfirmedType confirmedType, Staff staff) {
 		super();
 		this.id = iD;
 		this.activityRole = activityRole;
@@ -141,15 +136,15 @@ public class StaffRole implements EntityId {
 		this.activityRole = activityRole;
 	}
 
-	public Set<Staff> getStaff() {
+	public Staff getStaff() {
 		return staff;
 	}
 
-	public List<Long> getStaffIds() {
-		return EntityConverter.toIdList(getStaff());
+	public Long getStaffId() {
+		return getStaff().getId();
 	}
 
-	public void setStaff(Set<Staff> staff) {
+	public void setStaff(Staff staff) {
 		this.staff = staff;
 	}
 

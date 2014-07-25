@@ -9,7 +9,10 @@
 </div>
 
 <div class="row">
-  <form class="form-horizontal" role="form" id="deployment-form">
+  <form class="form-horizontal"
+        role="form"
+        id="deployment-form"
+        data-parsley-validate>
     <div class="col-sm-4">
       <div class="well well-sm">
         <t:formGroup label="Start Date">
@@ -37,7 +40,7 @@
           <input id="showToday" type="checkbox" class="form-control" />
         </t:formGroup>
         <t:formGroup label="Today's Date">
-          <input id="todayDate" type="text" class="form-control" />
+          <input id="todaysDate" type="text" class="form-control" />
         </t:formGroup>
       </div>
       <div class="well well-sm">

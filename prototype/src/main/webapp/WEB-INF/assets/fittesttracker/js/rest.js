@@ -5,13 +5,15 @@ var ftRest = (function (global, $) {
   var _URI = {};
   var _entityURI = {
     activities     : 'activities',
-    confirmedTypes : 'confirmedTypes',
     activityTypes  : 'activityTypes',
     activityRoles  : 'activityRoles',
-    staffRoles     : 'staffRoles',
+    confirmedTypes : 'confirmedTypes',
     profileTypes   : 'profileTypes',
     staff          : 'staff',
-    countries      : 'countries'
+    staffTypes     : 'staffTypes',
+    staffRoles     : 'staffRoles',
+    countries      : 'countries',
+    languages      : 'languages'
   };
   $.each(_entityURI, function(k, v) {
     _URI[k] = _restURI + v;
@@ -73,9 +75,9 @@ var ftRest = (function (global, $) {
   }
 
   function _getStaffByStaffRoleId(staffRoleId) {
-    var uri = _URI.staffRoles + '/' + staffRoleId + '/staff';
+    var uri = _URI.staff + '/search/findByStaffRoles_Id?staffRoleId=' + staffRoleId;
     return $.getJSON(uri).then(function(data) {
-      return $.isEmptyObject(data) ? [] : data._embedded['staff'];
+      return $.isEmptyObject(data) ? null : data._embedded['staff'][0];
     });
   }
 
@@ -118,14 +120,21 @@ var ftRest = (function (global, $) {
     getActivityTypeById: _findByIdFunc('activityTypes'),
     getActivityTypeByActivityId: _getActivityTypeByActivityId,
 
-    getStaffRolesByActivityRoleId: _getStaffRolesByActivityRoleId,
-
+    getProfileTypes: _findAllFunc('profileTypes'),
     getProfileTypeById: _findByIdFunc('profileTypes'),
     getProfileTypeByActivityRoleId: _getProfileTypeByActivityRoleId,
 
+    getStaff: _findAllFunc('staff'),
     getStaffById: _findByIdFunc('staff'),
     getStaffByStaffRoleId: _getStaffByStaffRoleId,
 
+    getStaffTypes: _findAllFunc('staffTypes'),
+    getStaffTypeById: _findByIdFunc('staffTypes'),
+    
+    getStaffRoles: _findAllFunc('staffRoles'),
+    getStaffRoleById: _findByIdFunc('staffRoles'),
+    getStaffRolesByActivityRoleId: _getStaffRolesByActivityRoleId,
+    
     getCountries: _findAllFunc('countries'),
     getCountryById: _findByIdFunc('countries'),
     getCountriesByActivityId: _getCountriesByActivityId

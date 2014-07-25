@@ -63,8 +63,8 @@ $(document).ready(function() {
         $.each(staffRoles, function(idx, sr) {
           var tr = $('<tr>').attr('id', sr.id);
           ftRest.getStaffByStaffRoleId(sr.id).then(function(staff) {
-            tr.append($('<td>').append(staff[0].name));
-            tr.append($('<td>').append(staff[0].id));
+            tr.append($('<td>').append(staff.name));
+            tr.append($('<td>').append(staff.id));
           }).then(function(){
             tr.append($('<td>').append(sr.location));
             tr.append($('<td>').append(ftUtil.simpleDate(sr.startDate)));

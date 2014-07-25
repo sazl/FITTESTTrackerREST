@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -70,11 +71,8 @@ public class Staff implements EntityId {
 	@Column(name = "staffcolorcode")
 	private String staffColorCode;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
-			CascadeType.MERGE })
-	@JoinTable(name = "staff_staffrole_mapping", joinColumns = { @JoinColumn(name = "staffindex", referencedColumnName = "staffindex") }, inverseJoinColumns = { @JoinColumn(name = "staffroleid", referencedColumnName = "staffroleid") }
-
-	)
+	@OneToMany(mappedBy = "staff", fetch = FetchType.LAZY, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<StaffRole> staffRoles = new HashSet<StaffRole>();
 
 	public Staff() {

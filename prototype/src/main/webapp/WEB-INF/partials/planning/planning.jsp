@@ -9,7 +9,8 @@
     </div>
     <div class="col-sm-4">
       <div class="well well-sm">
-        <jsp:include page="/WEB-INF/partials/staff/staff-roles/staff-role-form.jsp" />
+        <jsp:include
+          page="/WEB-INF/partials/staff/staff-roles/staff-role-form.jsp" />
       </div>
     </div>
   </div>

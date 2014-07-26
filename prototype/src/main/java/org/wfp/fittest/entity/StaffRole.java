@@ -159,6 +159,10 @@ public class StaffRole implements EntityId {
 	public void setStaff(Staff staff) {
 		this.staff = staff;
 	}
+	
+	public String getStaffName() {
+		return getStaff().getName();
+	}
 
 	@Override
 	public int hashCode() {

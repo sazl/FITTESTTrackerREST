@@ -36,7 +36,7 @@
       </a>
     </li>
     <li>
-      <a href="<c:url value="/staff" />">
+      <a href="<c:url value="/staffList" />">
         <span class="glyphicon glyphicon-user"> Staff</span>
       </a>
     </li>

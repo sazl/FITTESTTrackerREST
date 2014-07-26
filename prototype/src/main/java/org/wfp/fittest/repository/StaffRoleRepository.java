@@ -14,6 +14,11 @@ import org.wfp.fittest.utility.AbstractRepository;
 @RepositoryRestResource(path = "staffRoles")
 public interface StaffRoleRepository extends
 		AbstractRepository<StaffRole, Long> {
+	
+	public StaffRole findById(@Param("id") Long id);
+	
+	@Query("select sr from StaffRole sr where sr.id in :ids")
+	public List<StaffRole> findByIds(@Param("ids") List<Long> ids);
 
 	@Query("select sr from StaffRole sr where sr.startDate >= :startDate"
 			+ " and  sr.endDate <= :endDate"

@@ -6,24 +6,17 @@ $(document).ready(function() {
   var endDateInput = $('#endDate');
   var staffTypesSelect = $('#staffTypes');
   var activitiesSelect = $('#activities');
-  var showTodayCheckbox = $('#showToday');
-  var todaysDateCheckbox = $('#todaysDate');
-  var showWeeklyGridCheckbox = $('#showWeeklyGrid');
-  var weekStartDateInput = $('#weekStartDate');
-  var showDateBarsCheckbox = $('#showDateBars');
   var showConfirmedOnlyCheckbox = $('#showConfirmedOnly');
   var showEventsCheckbox = $('#showEvents');
   var submitDeploymentButton = $('#submit-deployment');
   
   ftRest.getStaffTypes().then(function(staffTypes) {
-    staffTypesSelect.append(new Option('All', 'All'));
     $.each(staffTypes, function(idx, st) {
       staffTypesSelect.append(new Option(st.staffType, st.id));
     });
   });
 
   ftRest.getActivities().then(function(activities) {
-    activitiesSelect.append(new Option('All', 'All'));
     $.each(activities, function(idx, act) {
       activitiesSelect.append(new Option(act.description, act.id));
     });
@@ -51,11 +44,10 @@ $(document).ready(function() {
           var activityName = $('<b>').text(sr.activityRoleDescription)[0];
           var confirmedType = ftUtil.colorLabel(
             sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
-          console.log(confirmedType);
           var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
           var content = $('<div>')
                 .append(activityName)
-                .append(confirmedType)
+                // .append(confirmedType)
                 .append('<br/>')
                 .append(dates)[0];
           return {

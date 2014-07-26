@@ -28,7 +28,7 @@
         <jsp:include page="/WEB-INF/partials/activity/activity-roles.jsp" />
       </div>
       <div class="tab-pane" id="activity-types">
-
+        <jsp:include page="/WEB-INF/partials/activity/activity-types.jsp" />
       </div>
       <div class="tab-pane" id="events">
 

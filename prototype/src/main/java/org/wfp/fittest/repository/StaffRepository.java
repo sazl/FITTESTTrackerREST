@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffType;
 import org.wfp.fittest.utility.AbstractRepository;
 
+@Repository
 @RepositoryRestResource(path = "staff", collectionResourceRel="staff")
 public interface StaffRepository extends AbstractRepository<Staff, Long> {
 	

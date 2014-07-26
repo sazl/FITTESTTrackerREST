@@ -6,13 +6,17 @@
 <form class="form-horizontal" role="form" id="planning-form">
   <div class="well well-sm">
     <t:formGroup label="Confirmed Type">
-      <select id="confirmedTypes" class="form-control"></select>
+      <select id="confirmedTypes" class="form-control">
+        <option value="" disabled selected>-- Select a confirmed type --</option>
+      </select>
     </t:formGroup>
   </div>
 
   <div class="well well-sm">
     <t:formGroup label="Activity">
-      <select id="activities" class="form-control"></select>
+      <select id="activities" class="form-control">
+        <option value="" disabled selected>-- Select an activity --</option>
+      </select>
     </t:formGroup>
     <t:formGroup label="Country">
         <div class="form-control">

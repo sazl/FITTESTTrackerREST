@@ -126,6 +126,17 @@ var ftRest = (function (global, $) {
       return $.isEmptyObject(data) ? [] : data._embedded['staffRoles'];
     });
   }
+
+  function _getRequirements(startDate, endDate, activityIds) {
+    var uri = _URI.activityRoles + '/search/findRequirements?';
+    uri += 'startDate=' + ftUtil.ISODate(startDate);
+    uri += '&endDate=' + ftUtil.ISODate(endDate);
+    var _activityIds = ftUtil.arrayToCSV(activityIds);
+    uri += '&activityIds=' + _activityIds;
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['activityRoles'];
+    });
+  }
   
   return {
     getConfirmedTypes: _findAllFunc('confirmedTypes'),
@@ -159,12 +170,14 @@ var ftRest = (function (global, $) {
     
     getStaffRoles: _findAllFunc('staffRoles'),
     getStaffRoleById: _findByIdFunc('staffRoles'),
+    getStaffRolesByIds: _findByIdsFunc('staffRoles'),
     getStaffRolesByActivityRoleId: _getStaffRolesByActivityRoleId,
     
     getCountries: _findAllFunc('countries'),
     getCountryById: _findByIdFunc('countries'),
     getCountriesByActivityId: _getCountriesByActivityId,
 
-    getDeployments: _getDeployments
+    getDeployments: _getDeployments,
+    getRequirements: _getRequirements
   };
 }(window || this, jQuery));

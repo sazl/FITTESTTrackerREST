@@ -123,6 +123,14 @@ public class Activity implements EntityId {
 		return confirmedType.getId();
 	}
 	
+	public String getConfirmedTypeDescription() {
+		return getConfirmedType().getConfirmedType();
+	}
+	
+	public String getConfirmedTypeColorCode() {
+		return getConfirmedType().getConfirmedColorCode();
+	}
+	
 	public Set<Country> getCountries() {
 		return countries;
 	}

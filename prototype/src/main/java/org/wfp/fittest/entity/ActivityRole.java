@@ -103,6 +103,10 @@ public class ActivityRole implements EntityId {
 	public void setProfileType(ProfileType profileType) {
 		this.profileType = profileType;
 	}
+	
+	public String getProfileTypeDescription() {
+		return getProfileType().getProfileType();
+	}
 
 	public Date getStartDate() {
 		return startDate;

@@ -140,7 +140,7 @@ public class ActivityRole implements EntityId {
 		this.staffRoles = staffRoles;
 	}
 	
-	public String getDescription() {
+	public String getActivityDescription() {
 		return getActivity().getDescription();
 	}
 

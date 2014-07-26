@@ -24,7 +24,6 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="staff-list">
-
       </div>
       <div class="tab-pane active" id="staff-types">
 

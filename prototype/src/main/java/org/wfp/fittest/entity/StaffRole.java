@@ -119,6 +119,14 @@ public class StaffRole implements EntityId {
 	public Long getConfirmedTypeId() {
 		return getConfirmedType().getId();
 	}
+	
+	public String getConfirmedTypeDescription() {
+		return getConfirmedType().getConfirmedType();
+	}
+	
+	public String getConfirmedTypeColorCode() {
+		return getConfirmedType().getConfirmedColorCode();
+	}
 
 	public void setConfirmedType(ConfirmedType confirmedType) {
 		this.confirmedType = confirmedType;
@@ -134,6 +142,10 @@ public class StaffRole implements EntityId {
 
 	public void setActivityRole(ActivityRole activityRole) {
 		this.activityRole = activityRole;
+	}
+	
+	public String getActivityRoleDescription() {
+		return getActivityRole().getActivityDescription();
 	}
 
 	public Staff getStaff() {

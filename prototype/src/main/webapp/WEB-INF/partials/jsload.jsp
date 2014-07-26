@@ -34,6 +34,9 @@
 <script
     type="text/javascript"
     src="<c:url value="/external/js/parsley.min.js"/>"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/underscore-min.js"/>"></script>
 
 <script
     type="text/javascript"

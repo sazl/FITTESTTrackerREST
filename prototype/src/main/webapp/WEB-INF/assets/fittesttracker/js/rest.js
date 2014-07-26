@@ -41,6 +41,18 @@ var ftRest = (function (global, $) {
     return function (id) { return _findById(entity, id); };
   }
 
+  function _findByIds(entity, ids) {
+    var strIds = _.reduce(ids, function(x, y) { return x + ',' + y; });
+    var uri = _URI[entity] + '/search/findByIds?ids=' + strIds;
+    return $.getJSON(uri).then(function(data) {
+      return data._embedded[entity];
+    });
+  }
+
+  function _findByIdsFunc(entity) {
+    return function (ids) { return _findByIds(entity, ids); };
+  }
+
   function _getActivitiesByConfirmedTypeId(confirmedTypeId) {
     var uri = _URI.activities + '/search/findByConfirmedType_Id?confirmedTypeId=' + confirmedTypeId;
     return $.getJSON(uri).then(function(data) {
@@ -101,6 +113,19 @@ var ftRest = (function (global, $) {
       return $.isEmptyObject(data) ? null : data._embedded['confirmedTypes'][0];
     });
   }
+
+  function _getDeployments(startDate, endDate, staffTypeIds, activityIds) {
+    var uri = _URI.staffRoles + '/search/findDeployments?';
+    uri += 'startDate=' + ftUtil.ISODate(startDate);
+    uri += '&endDate=' + ftUtil.ISODate(endDate);
+    var _staffTypeIds = ftUtil.arrayToCSV(staffTypeIds);
+    var _activityIds = ftUtil.arrayToCSV(activityIds);
+    uri += '&staffTypeIds=' + _staffTypeIds;
+    uri += '&activityIds=' + _activityIds;
+    return $.getJSON(uri).then(function(data) {
+      return $.isEmptyObject(data) ? [] : data._embedded['staffRoles'];
+    });
+  }
   
   return {
     getConfirmedTypes: _findAllFunc('confirmedTypes'),
@@ -126,6 +151,7 @@ var ftRest = (function (global, $) {
 
     getStaff: _findAllFunc('staff'),
     getStaffById: _findByIdFunc('staff'),
+    getStaffByIds: _findByIdsFunc('staff'),
     getStaffByStaffRoleId: _getStaffByStaffRoleId,
 
     getStaffTypes: _findAllFunc('staffTypes'),
@@ -137,6 +163,8 @@ var ftRest = (function (global, $) {
     
     getCountries: _findAllFunc('countries'),
     getCountryById: _findByIdFunc('countries'),
-    getCountriesByActivityId: _getCountriesByActivityId
+    getCountriesByActivityId: _getCountriesByActivityId,
+
+    getDeployments: _getDeployments
   };
 }(window || this, jQuery));

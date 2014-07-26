@@ -17,6 +17,6 @@ $(document).ready(function($) {
   });
 
 //  $('select').select2();
-  $('.datepicker').datepicker();
+  $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
   $('.default-dataTable').dataTable();
 });

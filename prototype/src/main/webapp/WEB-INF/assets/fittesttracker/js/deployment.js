@@ -1,18 +1,18 @@
 $(document).ready(function() {
   var timelineContainer = $('#timeline')[0];
-  var timeline = new vis.Timeline(timelineContainer, {}, {});
+  var timeline = new vis.Timeline(timelineContainer);
 
-  var startDate = $('#startDate');
-  var endDate = $('#endDate');
+  var startDateInput = $('#startDate');
+  var endDateInput = $('#endDate');
   var staffTypesSelect = $('#staffTypes');
   var activitiesSelect = $('#activities');
-  var showToday = $('#showToday');
-  var todaysDate = $('#todaysDate');
-  var showWeeklyGrid = $('#showWeeklyGrid');
-  var weekStartDate = $('#weekStartDate');
-  var showDateBars = $('#showDateBars');
-  var showConfirmedOnly = $('#showConfirmedOnly');
-  var showEvents = $('#showEvents');
+  var showTodayCheckbox = $('#showToday');
+  var todaysDateCheckbox = $('#todaysDate');
+  var showWeeklyGridCheckbox = $('#showWeeklyGrid');
+  var weekStartDateInput = $('#weekStartDate');
+  var showDateBarsCheckbox = $('#showDateBars');
+  var showConfirmedOnlyCheckbox = $('#showConfirmedOnly');
+  var showEventsCheckbox = $('#showEvents');
   var submitDeploymentButton = $('#submit-deployment');
   
   ftRest.getStaffTypes().then(function(staffTypes) {
@@ -30,7 +30,46 @@ $(document).ready(function() {
   });
 
   submitDeploymentButton.click(function() {
-    console.log('clicked');
+    var startDate = startDateInput.val();
+    var endDate = endDateInput.val();
+    var staffTypes = staffTypesSelect.val();
+    var activities = activitiesSelect.val();
+    ftRest.getDeployments(startDate, endDate, staffTypes, activities).then(function(staffRoles) {
+      if (staffRoles.length == 0) {
+        alertify.alert('No staff roles found');
+        return;
+      }
+
+      var staffIds = _.uniq(_.map(staffRoles, function(sr) { return sr.staffId; }));
+      ftRest.getStaffByIds(staffIds).then(function(staff) {
+        var groups = _.map(staff, function(s) {
+          return {id: s.id, content: $('<b>').text(s.name)[0], value: s.id};
+        });
+        return groups;
+      }).then(function(groups) {
+        var items = _.map(staffRoles, function(sr) {
+          var activityName = $('<b>').text(sr.activityRoleDescription)[0];
+          var confirmedType = ftUtil.colorLabel(
+            sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
+          console.log(confirmedType);
+          var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
+          var content = $('<div>')
+                .append(activityName)
+                .append(confirmedType)
+                .append('<br/>')
+                .append(dates)[0];
+          return {
+            id: sr.id,
+            group: sr.staffId,
+            content: content,
+            start: ftUtil.ISODateToDate(sr.startDate),
+            end: ftUtil.ISODateToDate(sr.endDate)
+          };
+        });
+        
+        timeline.setGroups(new vis.DataSet(groups));
+        timeline.setItems(new vis.DataSet(items));          
+      });
+    });
   });
-  
 });

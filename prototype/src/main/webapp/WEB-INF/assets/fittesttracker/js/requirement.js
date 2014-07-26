@@ -20,57 +20,49 @@ $(document).ready(function() {
     var endDate = endDateInput.val();
     var activities = activitiesSelect.val();
 
-    ftRest.getRequirements(startDate, endDate, activities).then(function(activityRoles) {
-      if (activityRoles.length == 0) {
-        alertify.alert('No activity roles found');
-        return null;
-      }
+    var activityRoles = ftRest.getRequirementsBlocking(startDate, endDate, activities);
+    if (activityRoles.length == 0) {
+      alertify.alert('No activity roles found');
+      return null;
+    }
   
-      var groups = _.map(activityRoles, function(ar) {
-        return {id: ar.activityId, content: ar.activityDescription, value: ar.activityId};
-      });
+    var groups = _.map(activityRoles, function(ar) {
+      return {id: ar.activityId, content: ar.activityDescription, value: ar.activityId};
+    });
 
-      groups = _.map(_.groupBy(groups, function(ar){
-        return ar.id;
-      }), function(grouped){
-        return grouped[0];
-      });
+    groups = _.map(_.groupBy(groups, function(ar){
+      return ar.id;
+    }), function(grouped){
+      return grouped[0];
+    });
 
-      var items = _.map(activityRoles, function(ar) {
-        return {
-          id: ar.id,
+    var items = _.map(activityRoles, function(ar) {
+      return {
+        id: ar.id,
+        group: ar.activityId,
+        content: ar.profileTypeDescription,
+        start: ar.startDate,
+        end: ar.endDate
+      };
+    });
+    timeline.setGroups(new vis.DataSet(groups));
+    timeline.setItems(new vis.DataSet(items));
+          
+    $.each(activityRoles, function(idx, ar) {
+      var staffRoles =  ftRest.getStaffRolesByIdsBlocking(ar.staffRoleIds);
+      $.each(staffRoles, function(i, sr) {
+        var item = {
+          id: Math.floor(Math.random() * 100000000),
           group: ar.activityId,
-          content: ar.profileTypeDescription,
-          start: ar.startDate,
-          end: ar.endDate
+          content: sr.staffName,
+          start: sr.startDate,
+          end: sr.endDate
         };
-      });
-      timeline.setGroups(new vis.DataSet(groups));
-      timeline.setItems(new vis.DataSet(items));
-      return [activityRoles, items];
-      
-    }).then(function(data) {
-      var activityRoles = data[0];
-      var items = data[1];
-      
-      $.each(activityRoles, function(idx, ar) {
-        ftRest.getStaffRolesByIds(ar.staffRoleIds).then(function(staffRoles) {
-          $.each(staffRoles, function(i, sr) {
-            var item = {
-              id: sr.id*5 + ar.id*7 + (idx+1)*9 + (i+1)*43,
-              group: ar.activityId,
-              content: sr.staffName,
-              start: sr.startDate,
-              end: sr.endDate
-            };
-            items.push(item);            
-          });
-          return items;
-        }).then(function (items) {
-          console.log(items);
-          timeline.setItems(new vis.DataSet(items));
-        });
+        items.push(item);            
       });
     });
+    timeline.setItems(new vis.DataSet(items));
+    timeline.redraw();
+    return null;
   });
 });

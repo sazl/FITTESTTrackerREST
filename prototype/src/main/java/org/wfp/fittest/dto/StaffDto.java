@@ -1,26 +1,28 @@
-package org.wfp.fittest.beans;
+package org.wfp.fittest.dto;
 
 import java.util.Date;
 import java.util.List;
 
-public class StaffBean {
+public class StaffDto extends AbstractDto {
+
 	private Long id;
 	private String firstName;
 	private String lastName;
+	private String name;
 	private Date dateOfBirth;
 	private String title;
-	private String mobile;
 	private String thuraya;
+	private String mobile;
 	private String staffColorCode;
+
+	private String staffTypeDescription;
+	private List<String> profileTypeDescriptions;
+
 	private Long staffTypeId;
 	private List<Long> profileTypeIds;
 	private List<Long> nationalityIds;
 	private List<Long> languageIds;
 	private List<Long> staffRoleIds;
-
-	public StaffBean() {
-
-	}
 
 	public Long getId() {
 		return id;
@@ -46,6 +48,14 @@ public class StaffBean {
 		this.lastName = lastName;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -62,20 +72,20 @@ public class StaffBean {
 		this.title = title;
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
 	public String getThuraya() {
 		return thuraya;
 	}
 
 	public void setThuraya(String thuraya) {
 		this.thuraya = thuraya;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getStaffColorCode() {
@@ -124,6 +134,22 @@ public class StaffBean {
 
 	public void setStaffRoleIds(List<Long> staffRoleIds) {
 		this.staffRoleIds = staffRoleIds;
+	}
+
+	public String getStaffTypeDescription() {
+		return staffTypeDescription;
+	}
+
+	public void setStaffTypeDescription(String staffTypeDescription) {
+		this.staffTypeDescription = staffTypeDescription;
+	}
+
+	public List<String> getProfileTypeDescriptions() {
+		return profileTypeDescriptions;
+	}
+
+	public void setProfileTypeDescriptions(List<String> profileTypeDescriptions) {
+		this.profileTypeDescriptions = profileTypeDescriptions;
 	}
 
 }

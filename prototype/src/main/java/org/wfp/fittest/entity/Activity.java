@@ -1,5 +1,6 @@
 package org.wfp.fittest.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -110,6 +111,10 @@ public class Activity implements EntityId {
 	public Long getActivityTypeId() {
 		return activityType.getId();
 	}
+	
+	public String getActivityTypeDescription() {
+		return getActivityType().getActivityType();
+	}
 
 	public ConfirmedType getConfirmedType() {
 		return confirmedType;
@@ -142,6 +147,13 @@ public class Activity implements EntityId {
 	public List<Long> getCountryIds() {
 		return EntityConverter.toIdList(getCountries());
 	}
+	
+	public List<String> getCountryNames() {
+		List<String> names = new ArrayList<String>();
+		for (Country c : getCountries())
+			names.add(c.getFullName());
+		return names;
+	}
 
 	public Set<ActivityRole> getActivityRoles() {
 		return activityRoles;
@@ -153,6 +165,14 @@ public class Activity implements EntityId {
 	
 	public List<Long> getActivityRoleIds() {
 		return EntityConverter.toIdList(getActivityRoles());
+	}
+	
+	public List<String> getActivityRoleProfileTypeDescriptions() {
+		List<String> descs = new ArrayList<String>();
+		for (ActivityRole ar : getActivityRoles()) {
+			descs.add(ar.getProfileTypeDescription());
+		}
+		return descs;
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.entity.ProfileType;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.utility.AbstractRepository;
@@ -16,6 +15,5 @@ public interface ProfileTypeRepository extends
 	public ProfileType findById(@Param("id") Long id);
 	
 	public List<Staff> findByStaff_Id(@Param("staffId") Long staffId);
-	
-//	public List<ActivityRole> findByActivityRoles_Id(@Param("activityRoleId") Long activityRoleId);
+
 }

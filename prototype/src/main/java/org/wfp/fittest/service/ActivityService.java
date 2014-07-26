@@ -2,47 +2,12 @@ package org.wfp.fittest.service;
 
 import java.util.List;
 
-import org.wfp.fittest.beans.ActivityBean;
-import org.wfp.fittest.beans.ActivityRoleBean;
-import org.wfp.fittest.beans.ActivityTypeBean;
-import org.wfp.fittest.beans.DeploymentCriteriaBean;
-import org.wfp.fittest.beans.EventBean;
-
+import org.wfp.fittest.dto.ActivityDto;
+import org.wfp.fittest.dto.ActivityRoleDto;
 
 public interface ActivityService {
-	public ActivityBean findActivityById(Long id);
 	
-	public List<ActivityBean> findAllActivities();
-	
-	public Boolean deleteActivityById(Long id);	
-	
-	public ActivityTypeBean findActivityTypeById(Long id);
+	public List<ActivityDto> findAllActivities();
 
-	public List<ActivityTypeBean> findAllActivityTypes();
-	
-	public Boolean deleteActivityTypeById(Long id);
-	
-	public ActivityRoleBean findActivityRoleById(Long id);
-	
-	public List<ActivityRoleBean> findActivityRolesByIds(List<Long> ids);
-	
-	public List<ActivityRoleBean> findAllActivityRoles();
-
-	public Boolean deleteActivityRoleById(Long id);
-	
-	public EventBean findEventById(Long id);
-	
-	public List<EventBean> findAllEvents();
-	
-	public Boolean deleteEventById(Long id);
-	
-	public ActivityBean saveOrUpdateActivity(ActivityBean activity);
-
-	public ActivityRoleBean saveOrUpdateActivityRole(ActivityRoleBean activity);
-	
-	public ActivityTypeBean saveOrUpdateActivityType(ActivityTypeBean activity);
-	
-	public EventBean saveOrUpdateEvent(EventBean event);
-	
-	public List<ActivityBean> findActivityDeployments(DeploymentCriteriaBean criteria);
+	public List<ActivityRoleDto> findAllActivityRoles();
 }

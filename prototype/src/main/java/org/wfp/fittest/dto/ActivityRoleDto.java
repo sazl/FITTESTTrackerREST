@@ -1,31 +1,28 @@
-package org.wfp.fittest.beans;
+package org.wfp.fittest.dto;
 
 import java.util.Date;
 import java.util.List;
 
-public class ActivityRoleBean {
-	private Long id;
+public class ActivityRoleDto extends AbstractDto {
+	private Long Id;
+
 	private Date startDate;
 	private Date endDate;
 	private String location;
-	private String description;
-
-	private ProfileTypeBean profileTypeBean;
-	private List<StaffRoleBean> staffRoleBeans;
 
 	private Long activityId;
 	private Long profileTypeId;
 	private List<Long> staffRoleIds;
 
-	public ActivityRoleBean() {
-	}
+	private String activityDescription;
+	private String profileTypeDescription;
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		Id = id;
 	}
 
 	public Date getStartDate() {
@@ -76,28 +73,19 @@ public class ActivityRoleBean {
 		this.staffRoleIds = staffRoleIds;
 	}
 
-	public ProfileTypeBean getProfileTypeBean() {
-		return profileTypeBean;
+	public String getActivityDescription() {
+		return activityDescription;
 	}
 
-	public void setProfileTypeBean(ProfileTypeBean profileTypeBean) {
-		this.profileTypeBean = profileTypeBean;
+	public void setActivityDescription(String activityDescription) {
+		this.activityDescription = activityDescription;
 	}
 
-	public List<StaffRoleBean> getStaffRoleBeans() {
-		return staffRoleBeans;
+	public String getProfileTypeDescription() {
+		return profileTypeDescription;
 	}
 
-	public void setStaffRoleBeans(List<StaffRoleBean> staffRoleBeans) {
-		this.staffRoleBeans = staffRoleBeans;
+	public void setProfileTypeDescription(String profileTypeDescription) {
+		this.profileTypeDescription = profileTypeDescription;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 }

@@ -7,12 +7,12 @@
   <div id="timeline">
   </div>
 </div>
+<form class="form-horizontal"
+      role="form"
+      id="deployment-form"
+      data-parsley-validate>
+  <div class="row">
 
-<div class="row">
-  <form class="form-horizontal"
-        role="form"
-        id="deployment-form"
-        data-parsley-validate>
     <div class="col-sm-4">
       <div class="well well-sm">
         <t:formGroup label="Start Date">
@@ -36,24 +36,23 @@
         </t:formGroup>
       </div>
     </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-4">
-    <div class="btn-toolbar">
-      <button
-        type="reset"
-        class="btn btn-md btn-danger">
-        <span class="glyphicon glyphicon-remove"> Cancel</span>
-      </button>
-      <button
-        id="submit-requirement"
-        type="button"
-        class="btn btn-md btn-success">
-        <span class="glyphicon glyphicon-ok"> Submit</span>
-      </button>
-    </div>                
   </div>
-</div>
-  </form>
-</div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="btn-toolbar">
+        <button
+          type="reset"
+          class="btn btn-md btn-danger">
+          <span class="glyphicon glyphicon-remove"> Cancel</span>
+        </button>
+        <button
+          id="submit-requirement"
+          type="button"
+          class="btn btn-md btn-success">
+          <span class="glyphicon glyphicon-ok"> Submit</span>
+        </button>
+      </div>                
+    </div>
+  </div>
+</form>

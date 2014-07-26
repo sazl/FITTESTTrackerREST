@@ -9,9 +9,9 @@
     <tr>
       <th>Description</th>
       <th>Activity Type</th>
-      <th>Confirmed Type</th>
       <th>ETC Service Map</th>
       <th>Country</th>
+      <th>Confirmed Type</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -19,19 +19,19 @@
     <c:forEach var="activity" items="${allActivities}">
       <tr>
         <td>${activity.description}</td>
-        <td>${activity.activityTypeBean.activityType}</td>
-        <td>
-          <t:colorLabel
-            color="${activity.confirmedTypeBean.confirmedColorCode}"
-            text="${activity.confirmedTypeBean.confirmedType}" />
-        </td>
+        <td>${activity.activityTypeDescription}</td>
         <td>
           <c:if test="${activity.etcServiceMap != ''}">
             <t:tooltipLink href="${activity.etcServiceMap}"/>
           </c:if>
         </td>
         <td>
-          <t:listGroup items="${activity.countryBeans}" property="fullName" />
+          <t:listGroup items="${activity.countryNames}" />
+        </td>
+        <td>
+          <t:colorLabel
+            color="${activity.confirmedTypeColorCode}"
+            text="${activity.confirmedTypeDescription}" />
         </td>
         <td></td>
       </tr>

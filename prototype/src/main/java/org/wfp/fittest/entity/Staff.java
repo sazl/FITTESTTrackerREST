@@ -1,5 +1,6 @@
 package org.wfp.fittest.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -174,6 +175,10 @@ public class Staff implements EntityId {
 	public Long getStaffTypeId() {
 		return staffType.getId();
 	}
+	
+	public String getStaffTypeDescription() {
+		return getStaffType().getStaffType();
+	}
 
 	public void setStaffType(StaffType staffType) {
 		this.staffType = staffType;
@@ -185,6 +190,13 @@ public class Staff implements EntityId {
 	
 	public List<Long> getProfileTypeIds() {
 		return EntityConverter.toIdList(getProfileTypes());
+	}
+	
+	public List<String> getProfileTypeDescriptions() {
+		List<String> descs = new ArrayList<String>();
+		for (ProfileType pt : getProfileTypes())
+			descs.add(pt.getProfileType());
+		return descs;
 	}
 
 	public void setProfileTypes(Set<ProfileType> profileTypes) {

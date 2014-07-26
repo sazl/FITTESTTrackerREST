@@ -12,10 +12,10 @@
         <a href="#staff-list" role="tab">Staff List</a>
       </li>
       <li>
-        <a href="#staff-types" role="tab">Staff Types</a>
+        <a href="#staff-roles" role="tab">Staff Roles</a>
       </li>
       <li>
-        <a href="#staff-roles" role="tab">Staff Roles</a>
+        <a href="#staff-types" role="tab">Staff Types</a>
       </li>
       <li>
         <a href="#profile-types" role="tab">Profile Types</a>
@@ -24,14 +24,16 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="staff-list">
+        <jsp:include page="/WEB-INF/partials/staff/staff-list/staff-list.jsp"/>
       </div>
-      <div class="tab-pane active" id="staff-types">
 
+      <div class="tab-pane" id="staff-roles">
+        <jsp:include page="/WEB-INF/partials/staff/staff-roles/staff-roles.jsp"/>
       </div>
-      <div class="tab-pane active" id="staff-roles">
-
+      <div class="tab-pane" id="staff-types">
+        
       </div>
-      <div class="tab-pane active" id="profile-types">
+      <div class="tab-pane" id="profile-types">
 
       </div>
     </div>

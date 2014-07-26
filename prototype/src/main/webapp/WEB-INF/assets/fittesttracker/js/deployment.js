@@ -14,11 +14,11 @@ $(document).ready(function() {
     $.each(staffTypes, function(idx, st) {
       staffTypesSelect.append(new Option(st.staffType, st.id));
     });
-  });
-
-  ftRest.getActivities().then(function(activities) {
-    $.each(activities, function(idx, act) {
-      activitiesSelect.append(new Option(act.description, act.id));
+  }).then(function() {
+    ftRest.getActivities().then(function(activities) {
+      $.each(activities, function(idx, act) {
+        activitiesSelect.append(new Option(act.description, act.id));
+      });
     });
   });
 
@@ -46,6 +46,7 @@ $(document).ready(function() {
             sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
           var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
           var content = $('<div>')
+                // .css('background-color', 'red')
                 .append(activityName)
                 // .append(confirmedType)
                 .append('<br/>')

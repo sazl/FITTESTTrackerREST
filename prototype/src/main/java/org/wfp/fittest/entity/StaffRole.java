@@ -119,11 +119,11 @@ public class StaffRole implements EntityId {
 	public Long getConfirmedTypeId() {
 		return getConfirmedType().getId();
 	}
-	
+
 	public String getConfirmedTypeDescription() {
 		return getConfirmedType().getConfirmedType();
 	}
-	
+
 	public String getConfirmedTypeColorCode() {
 		return getConfirmedType().getConfirmedColorCode();
 	}
@@ -143,9 +143,13 @@ public class StaffRole implements EntityId {
 	public void setActivityRole(ActivityRole activityRole) {
 		this.activityRole = activityRole;
 	}
-	
+
 	public String getActivityRoleDescription() {
 		return getActivityRole().getActivityDescription();
+	}
+	
+	public String getActivityRoleProfileTypeDescription() {
+		return getActivityRole().getProfileTypeDescription();
 	}
 
 	public Staff getStaff() {
@@ -159,7 +163,15 @@ public class StaffRole implements EntityId {
 	public void setStaff(Staff staff) {
 		this.staff = staff;
 	}
-	
+
+	public String getStaffFirstName() {
+		return getStaff().getFirstName();
+	}
+
+	public String getStaffLastName() {
+		return getStaff().getLastName();
+	}
+
 	public String getStaffName() {
 		return getStaff().getName();
 	}

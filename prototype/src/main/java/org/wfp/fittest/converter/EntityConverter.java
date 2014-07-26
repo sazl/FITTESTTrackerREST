@@ -8,8 +8,8 @@ import org.wfp.fittest.entity.EntityId;
 
 public class EntityConverter {
 
-	private static final String BEAN_POSTFIX = "Bean";
-	private static final String BEAN_NAMESPACE = "org.wfp.fittest.beans";
+	private static final String BEAN_POSTFIX = "Dto";
+	private static final String BEAN_NAMESPACE = "org.wfp.fittest.dto";
 	private static final String ENTITY_NAMESPACE = "org.wfp.fittest.entity";
 
 	public static <E extends EntityId> List<Long> toIdList(Iterable<E> entities) {
@@ -25,11 +25,9 @@ public class EntityConverter {
 		try {
 			String simpleName = entity.getClass().getSimpleName();
 			simpleName = simpleName.split("_")[0];
-			System.out.println("NAME: " + simpleName);
 			String beanClassName = BEAN_NAMESPACE + "." + simpleName
 					+ BEAN_POSTFIX;
 			Class<B> beanClass = (Class<B>) Class.forName(beanClassName);
-			System.out.println(beanClass);
 			B bean = beanClass.newInstance();
 			BeanUtils.copyProperties(bean, entity);
 			return bean;

@@ -2,8 +2,7 @@
          contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" 
-           uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <table class="default-dataTable display table-bordered">
@@ -20,14 +19,14 @@
   <tbody>
     <c:forEach var="ar" items="${allActivityRoles}">
     <tr>
-      <td>${ar.description}</td>
-      <td>${ar.profileTypeBean.profileType}</td>
+      <td>${ar.activityDescription}</td>
+      <td>${ar.profileTypeDescription}</td>
       <td>${ar.location}</td>
       <td>
-        <fmt:formatDate pattern="dd-MM-yyyy" value="${ar.startDate}"/>
+        <fmt:formatDate pattern="dd/MM/yyyy" value="${ar.startDate}"/>
       </td>
       <td>
-        <fmt:formatDate pattern="dd-MM-yyyy" value="${ar.endDate}"/>
+        <fmt:formatDate pattern="dd/MM/yyyy" value="${ar.endDate}"/>
       </td>
       <td>
       </td>

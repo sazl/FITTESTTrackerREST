@@ -2,7 +2,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <div class="staff-bis col-sm-4">
-  <t:defaultPanel title="TEST" />
+  <t:defaultPanel title="Break-in-service">
+    <jsp:attribute name="panelBody">
+      <t:staffDetailList staffList="${staffBIS}" />
+    </jsp:attribute>
+  </t:defaultPanel>
 </div>
 
 <div class="staff-available col-sm-4">

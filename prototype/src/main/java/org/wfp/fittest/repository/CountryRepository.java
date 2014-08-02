@@ -6,5 +6,5 @@ import org.wfp.fittest.utility.AbstractRepository;
 
 @RepositoryRestResource(path = "countries")
 public interface CountryRepository extends AbstractRepository<Country, Long> {
-	public Country findByISOCode(String code);
+	public Country findByIsoCode(String code);
 }

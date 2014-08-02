@@ -28,7 +28,7 @@ public class Country implements EntityId {
 	private Long id;
 
 	@Column(name = "iso", nullable = false)
-	private String iSOCode;
+	private String isoCode;
 
 	@Column(name = "fullname", nullable = false)
 	private String fullName;
@@ -47,11 +47,11 @@ public class Country implements EntityId {
 	public Country() {
 	}
 
-	public Country(Long iD, String iSOCode, String fullName, String region,
+	public Country(Long iD, String isoCode, String fullName, String region,
 			Set<Staff> staffByNationality, Set<Activity> activities) {
 		super();
 		this.id = iD;
-		this.iSOCode = iSOCode;
+		this.isoCode = isoCode;
 		this.fullName = fullName;
 		this.region = region;
 		this.staffByNationality = staffByNationality;
@@ -66,12 +66,12 @@ public class Country implements EntityId {
 		this.id = Id;
 	}
 
-	public String getISOCode() {
-		return iSOCode;
+	public String getIsoCode() {
+		return isoCode;
 	}
 
-	public void setISOCode(String iSOCode) {
-		this.iSOCode = iSOCode;
+	public void setIsoCode(String isoCode) {
+		this.isoCode = isoCode;
 	}
 
 	public String getFullName() {

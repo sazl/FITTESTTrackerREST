@@ -12,11 +12,12 @@ import org.wfp.fittest.entity.StaffType;
 import org.wfp.fittest.utility.AbstractRepository;
 
 @Repository
-@RepositoryRestResource(path = "staff", collectionResourceRel="staff")
+@RepositoryRestResource(path = "staff", collectionResourceRel = "staff")
 public interface StaffRepository extends AbstractRepository<Staff, Long> {
-	
-	public List<Staff> findByStaffRoles_Id(@Param("staffRoleId") Long staffRoleId);
-	
+
+	public List<Staff> findByStaffRoles_Id(
+			@Param("staffRoleId") Long staffRoleId);
+
 	@Query("select s from Staff s where s.id in :ids")
 	public List<Staff> findByIds(@Param("ids") List<Long> ids);
 

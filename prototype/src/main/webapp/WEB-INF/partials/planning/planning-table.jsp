@@ -6,11 +6,11 @@
        class="table table-bordered table-responsive table-striped">
   <thead>
     <tr>
-      <th></th>
-      <th>Profile</th>
-      <th>Location</th>
-      <th>Start Date</th>
-      <th>End Date</th>
+      <th style="width: 5%;"></th>
+      <th style="width: 25%;">Profile</th>
+      <th style="width: 30%;">Location</th>
+      <th style="width: 15%;">Start Date</th>
+      <th style="width: 15%;">End Date</th>
     </tr>
   </thead>
   <tbody id="planning-table-body">

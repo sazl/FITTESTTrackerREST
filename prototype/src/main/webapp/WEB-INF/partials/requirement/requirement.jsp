@@ -9,30 +9,35 @@
 </div>
 <form class="form-horizontal"
       role="form"
-      id="deployment-form"
+      id="requirement-form"
       data-parsley-validate>
   <div class="row">
-
     <div class="col-sm-4">
       <div class="well well-sm">
         <t:formGroup label="Start Date">
-          <input id="startDate" type="text" class="form-control datepicker" />
+          <input id="startDate" type="text" class="form-control datepicker" required />
         </t:formGroup>
         <t:formGroup label="End Date">
-          <input id="endDate" type="text" class="form-control datepicker" />
+          <input id="endDate" type="text" class="form-control datepicker" required />
+        </t:formGroup>
+        <t:formGroup label="Time Marker">
+          <label id="timelineMarker" class="form-control" disabled="true">
+          </label>
         </t:formGroup>
       </div>
-
       <div class="well well-sm">
         <t:formGroup label="Show Confirmed Only">
-          <input id="showConfirmedOnly" type="checkbox" class="form-control" />
+          <input id="showConfirmedOnly" type="checkbox" />
         </t:formGroup>
       </div>
+	</div>
+	<div class="col-sm-4">
       <div class="well well-sm">
         <t:formGroup label="Activity">
           <select id="activities" class="form-control"
-                  size="10"
-                  multiple="true"></select>
+                  size="12"
+                  multiple="true"
+                  required></select>
         </t:formGroup>
       </div>
     </div>
@@ -42,9 +47,10 @@
     <div class="col-sm-4">
       <div class="btn-toolbar">
         <button
+          id="clear-requirement"
           type="reset"
           class="btn btn-md btn-danger">
-          <span class="glyphicon glyphicon-remove"> Cancel</span>
+          <span class="glyphicon glyphicon-remove"> Clear</span>
         </button>
         <button
           id="submit-requirement"

@@ -2,7 +2,7 @@
 -- !  copy is a PostgreSQL specific function
 -- !! copy file paths must be absolute, change \cd parameter below
 
-\cd /home/public/FittestPlanner_REST/schema
+\cd C:/Users/sami.zeinelabdin/Desktop/GIT/FittestPlanner_REST/schema
 
 -------------------------------------------------------------------------------
 -- Parent Tables

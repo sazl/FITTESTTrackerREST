@@ -28,12 +28,16 @@
         <td>
           <t:listGroup items="${activity.countryNames}" />
         </td>
-        <td>
+        <td class="text-center">
           <t:colorLabel
             color="${activity.confirmedTypeColorCode}"
             text="${activity.confirmedTypeDescription}" />
         </td>
-        <td></td>
+        <td>
+          <t:actionButtons
+            entity="activity"
+            id="${activity.id}" />
+        </td>
       </tr>
     </c:forEach>
   </tbody>

@@ -37,8 +37,9 @@ public class ActivityType implements EntityId {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Activity> activities = new HashSet<Activity>();
 
-	public ActivityType() {}
-		
+	public ActivityType() {
+	}
+
 	public ActivityType(Long iD, String activityType, String colorCode,
 			Set<Activity> activities) {
 		super();
@@ -75,7 +76,7 @@ public class ActivityType implements EntityId {
 	public Set<Activity> getActivities() {
 		return activities;
 	}
-	
+
 	public List<Long> getActivityIds() {
 		return EntityConverter.toIdList(getActivities());
 	}

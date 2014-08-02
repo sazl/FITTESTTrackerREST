@@ -29,6 +29,9 @@
         <fmt:formatDate pattern="dd/MM/yyyy" value="${ar.endDate}"/>
       </td>
       <td>
+        <t:actionButtons
+          entity="activityRole"
+          id="${ar.id}" />
       </td>
     </tr>
     </c:forEach>

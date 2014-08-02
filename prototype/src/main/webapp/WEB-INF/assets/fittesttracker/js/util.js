@@ -31,12 +31,19 @@ var ftUtil = (function (global, $) {
     return _.reduce(xs, function(x,y) { return x + ',' + y; });
   }
 
+  function _camelCaseToReadable(str) {
+    return str
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, function(str){ return str.toUpperCase(); });
+  }
+
   return {
     colorLabel: _colorLabel,
     simpleDate: _simpleDate,
     simpleDateToDate: _simpleDateToDate,
     ISODate: _ISODate,
     ISODateToDate: _ISODateToDate,
-    arrayToCSV: _arrayToCSV
+    arrayToCSV: _arrayToCSV,
+    camelCaseToReadable: _camelCaseToReadable
   };  
 }(window || this, jQuery));

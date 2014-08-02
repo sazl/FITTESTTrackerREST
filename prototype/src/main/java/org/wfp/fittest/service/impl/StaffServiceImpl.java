@@ -16,11 +16,14 @@ import org.wfp.fittest.service.StaffService;
 @Transactional(readOnly = true)
 public class StaffServiceImpl implements StaffService {
 
-	@Autowired private DtoConverter converter;
-	
-	@Autowired private StaffRepository staffRepository;
-	@Autowired private StaffRoleRepository staffRoleRepository;
-	
+	@Autowired
+	private DtoConverter converter;
+
+	@Autowired
+	private StaffRepository staffRepository;
+	@Autowired
+	private StaffRoleRepository staffRoleRepository;
+
 	@Override
 	public List<StaffDto> findAllStaff() {
 		return converter.entitiesToDtos(staffRepository.findAll());
@@ -29,5 +32,15 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public List<StaffRoleDto> findAllStaffRoles() {
 		return converter.entitiesToDtos(staffRoleRepository.findAll());
+	}
+
+	@Override
+	public List<StaffDto> findBISStaff() {
+		return null;
+	}
+
+	@Override
+	public StaffDto findStaffById(Long staffId) {
+		return converter.entityToDto(staffRepository.findOne(staffId));
 	}
 }

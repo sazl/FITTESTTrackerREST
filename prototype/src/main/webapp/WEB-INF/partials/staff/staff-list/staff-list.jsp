@@ -37,7 +37,11 @@
         <td>
           <t:listGroup items="${staff.profileTypeDescriptions}" />
         </td>
-        <td></td>
+        <td>
+          <t:actionButtons
+            entity="staffList"
+            id="${staff.id}" />          
+        </td>
       </tr>
     </c:forEach>
   </tbody>

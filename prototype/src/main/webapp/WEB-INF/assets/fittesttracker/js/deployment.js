@@ -1,6 +1,16 @@
 $(document).ready(function() {
   var timelineContainer = $('#timeline')[0];
+  var timelineMarker = $('#timelineMarker')[0];
+  var timelineOptions = {
+      orientation: 'top',
+      showCustomTime: true
+  };
   var timeline = new vis.Timeline(timelineContainer);
+  timeline.setOptions(timelineOptions);
+  
+  timeline.on('timechange', function (properties) {
+	  timelineMarker.innerHTML = ftUtil.simpleDate(properties.time);
+  });
 
   var startDateInput = $('#startDate');
   var endDateInput = $('#endDate');
@@ -9,6 +19,7 @@ $(document).ready(function() {
   var showConfirmedOnlyCheckbox = $('#showConfirmedOnly');
   var showEventsCheckbox = $('#showEvents');
   var submitDeploymentButton = $('#submit-deployment');
+  var clearDeploymentButton = $('#clear-deployment');
   
   ftRest.getStaffTypes().then(function(staffTypes) {
     $.each(staffTypes, function(idx, st) {
@@ -22,7 +33,11 @@ $(document).ready(function() {
     });
   });
 
-  submitDeploymentButton.click(function() {
+  clearDeploymentButton.click(function(event) {
+    timeline.clear();
+  });
+
+  submitDeploymentButton.click(function(event) {
     var startDate = startDateInput.val();
     var endDate = endDateInput.val();
     var staffTypes = staffTypesSelect.val();
@@ -42,13 +57,17 @@ $(document).ready(function() {
       }).then(function(groups) {
         var items = _.map(staffRoles, function(sr) {
           var activityName = $('<b>').text(sr.activityRoleDescription)[0];
+          var profileType = $('<b>').text('[' + sr.activityRoleProfileTypeDescription + ']')[0];
           var confirmedType = ftUtil.colorLabel(
             sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
           var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
           var content = $('<div>')
                 // .css('background-color', 'red')
                 .append(activityName)
-                // .append(confirmedType)
+                .append('<br/>')
+                .append(profileType)
+                .append('  ')
+                .append(confirmedType)
                 .append('<br/>')
                 .append(dates)[0];
           return {
@@ -61,8 +80,10 @@ $(document).ready(function() {
         });
         
         timeline.setGroups(new vis.DataSet(groups));
-        timeline.setItems(new vis.DataSet(items));          
+        timeline.setItems(new vis.DataSet(items));
+        timeline.redraw();
       });
     });
+    event.preventDefault();
   });
 });

@@ -31,12 +31,16 @@
         <td>
           <fmt:formatDate pattern="dd/MM/yyyy" value="${staffRole.endDate}"/>
         </td>
-        <td>
+        <td class="text-center">
           <t:colorLabel
             color="${staffRole.confirmedTypeColorCode}"
             text="${staffRole.confirmedTypeDescription}"/>
         </td>
-        <td></td>
+        <td>
+          <t:actionButtons
+            entity="staffRole"
+            id="${staffRole.id}" />
+        </td>
       </tr>
     </c:forEach>
   </tbody>

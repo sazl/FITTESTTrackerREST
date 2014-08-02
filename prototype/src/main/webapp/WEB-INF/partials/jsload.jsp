@@ -44,3 +44,6 @@
 <script
     type="text/javascript"
     src="<c:url value="/fittesttracker/js/util.js" />"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/fittesttracker/js/ui.js" />"></script>

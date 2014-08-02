@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @Configuration
-// @EnableWebMvc
 @EnableSpringDataWebSupport
 @ComponentScan(basePackages = "org.wfp.fittest")
 public class WebConfig extends WebMvcConfigurationSupport {

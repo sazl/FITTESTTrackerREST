@@ -8,27 +8,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.wfp.fittest.dto.ActivityDto;
-import org.wfp.fittest.dto.ActivityRoleDto;
-import org.wfp.fittest.dto.StaffDto;
-import org.wfp.fittest.dto.StaffRoleDto;
-import org.wfp.fittest.entity.Activity;
+import org.wfp.fittest.dto.CountryDto;
+import org.wfp.fittest.dto.LanguageDto;
 import org.wfp.fittest.service.ActivityService;
 import org.wfp.fittest.service.StaffService;
+import org.wfp.fittest.service.UtilityService;
 
 @Controller
 public class IndexController extends AbstractController {
 
 	@Autowired private ActivityService activityService;
-	@Autowired private StaffService staffService;
+	@Autowired
+	private StaffService staffService;
+	@Autowired private UtilityService utilityService;
 	
 	@RequestMapping(value = "/")
 	public String index(Model model, Locale locale) {
-		return "index";
+		return "redirect:dashboard";
 	}
 
 	@RequestMapping(value = "/dashboard")
 	public String dashboard(Model model, Locale locale) {
+		model.addAttribute("staffBIS", staffService.findBISStaff());
 		return "dashboard";
 	}
 	
@@ -39,7 +40,17 @@ public class IndexController extends AbstractController {
 	
 	@RequestMapping(value = "/misc")
 	public String misc(Model model, Locale locale) {
+		List<CountryDto> countries = utilityService.findAllCountries();
+		model.addAttribute("allCountries", countries);
+		List<LanguageDto> languages = utilityService.findAllLanguages();
+		model.addAttribute("allLanguages", languages);
 		return "misc";
+	}
+	
+	@RequestMapping(value="/country/{id}/view")
+	public String countryView(@PathVariable("id") Long id, Model model, Locale locale) {
+		model.addAttribute("country", utilityService.findCountryById(id));
+		return "view/country";
 	}
 	
 	@RequestMapping(value = "/planning")
@@ -52,28 +63,6 @@ public class IndexController extends AbstractController {
 		return "requirement";
 	}
 	
-	@RequestMapping(value = "/staffList")
-	public String staff(Model model, Locale locale) {
-		List<StaffDto> staff = staffService.findAllStaff();
-		model.addAttribute("allStaff", staff);
-		List<StaffRoleDto> staffRoles = staffService.findAllStaffRoles();
-		model.addAttribute("allStaffRoles", staffRoles);
-		return "staff";
-	}
-	
-	@RequestMapping(value = "/activity")
-	public String activity(Model model, Locale locale) {
-		List<ActivityDto> activities = activityService.findAllActivities();
-		model.addAttribute("allActivities", activities);
-		List<ActivityRoleDto> activityRoles = activityService.findAllActivityRoles();
-		model.addAttribute("allActivityRoles", activityRoles);
-		return "activity";
-	}
-	
-	@RequestMapping(value = "/activity/{id}")
-	public String activity(@PathVariable("id") Activity activity, Model model, Locale locale) {
-		model.addAttribute("activity", activity);
-		return "activity";
-	}
 
+	
 }

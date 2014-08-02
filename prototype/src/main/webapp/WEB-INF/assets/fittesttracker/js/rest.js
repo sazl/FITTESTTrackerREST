@@ -19,18 +19,9 @@ var ftRest = (function (global, $) {
     _URI[k] = _restURI + v;
   });
 
-  function _getBlocking(url) {
-    $.ajaxSetup({async: false});
-    var res = $.ajax({url: url, dataType: 'json', async: false});
-    $.ajaxSetup({async: true});
-    return res;
-  }
-
-  function _getEntityBlocking(url, entity) {
-    return _getBlocking(url)
-      .responseJSON
-      ._embedded[entity];
-  }
+  function _getEntityUri(entity, id) {
+    return _URI[entity] + '/' + id;
+  };
 
   function _findAll(entity) {
     return $.getJSON(_URI[entity]).then(function(data) {
@@ -38,18 +29,8 @@ var ftRest = (function (global, $) {
     });
   }
 
-  function _findAllBlocking(entity) {
-    return _getBlocking(_URI[entity])
-      .responseJSON
-      ._embedded[entity];
-  }
-
   function _findAllFunc(entity) {
     return function () { return _findAll(entity); };
-  }
-
-  function _findAllFuncBlocking(entity) {
-    return function () { return _findAllBlocking(entity); };
   }
   
   function _findById(entity, id) {
@@ -58,18 +39,9 @@ var ftRest = (function (global, $) {
       return data._embedded[entity][0];
     });
   }
-
-  function _findByIdBlocking(entity, id) {
-    var uri = _URI[entity] + '/search/findById?id=' + id;
-    return _getEntityBlocking(uri, entity);
-  }
   
   function _findByIdFunc(entity) {
     return function (id) { return _findById(entity, id); };
-  }
-
-  function _findByIdFuncBlocking(entity) {
-    return function (id) { return _findByIdBlocking(entity, id); };
   }
   
   function _findByIds(entity, ids) {
@@ -80,20 +52,10 @@ var ftRest = (function (global, $) {
     });
   }
 
-  function _findByIdsBlocking(entity, ids) {
-    var strIds = _.reduce(ids, function(x, y) { return x + ',' + y; });
-    var uri = _URI[entity] + '/search/findByIds?ids=' + strIds;
-    return _getEntityBlocking(uri, entity);
-  }
-
   function _findByIdsFunc(entity) {
     return function (ids) { return _findByIds(entity, ids); };
   }
 
-  function _findByIdsFuncBlocking(entity) {
-    return function (ids) { return _findByIdsBlocking(entity, ids); };
-  }
-  
   function _getActivitiesByConfirmedTypeId(confirmedTypeId) {
     var uri = _URI.activities + '/search/findByConfirmedType_Id?confirmedTypeId=' + confirmedTypeId;
     return $.getJSON(uri).then(function(data) {
@@ -119,6 +81,24 @@ var ftRest = (function (global, $) {
     var uri = _URI.profileTypes + '/search/findByActivityRole_Id?activityRoleId=' + activityRoleId;
     
   }
+
+  function _saveStaffRole(staffRole) {
+    var uri = _URI['staffRoles'];
+    $.ajax({
+      type: 'POST',
+      url: uri,
+      contentType: 'application/json',
+      data: JSON.stringify(staffRole),
+      success: function(data) {
+        var entityUri = data.getRepsonseHeader('Location');
+        var staffUri = _getEntityUri('staff', staffRole.staffId);
+        var activityUri = _getEntityUri('activities', staffRole.activityId);
+        var confirmedTypeUri = _getEntityUri(
+          'confirmedTypes', staffRole.confirmedTypeId);
+        
+      }
+    });
+  };
 
   function _getStaffRolesByActivityRoleId(activityRoleId) {
     var uri = _URI.activityRoles + '/' + activityRoleId + '/staffRoles';
@@ -173,12 +153,6 @@ var ftRest = (function (global, $) {
     });
   }
 
-  function _getDeploymentsBlocking(startDate, endDate, staffTypeIds, activityIds) {
-    var uri = _getDeploymentsUri(startDate, endDate, staffTypeIds, activityIds);
-    var data = _getBlocking(uri).responseJSON._embedded['staffRoles'];
-    return $.isEmptyObject(data) ? [] : data;
-  }
-
   function _getRequirementsUri(startDate, endDate, activityIds) {
     var uri = _URI.activityRoles + '/search/findRequirements?';
     uri += 'startDate=' + ftUtil.ISODate(startDate);
@@ -194,15 +168,9 @@ var ftRest = (function (global, $) {
       return $.isEmptyObject(data) ? [] : data._embedded['activityRoles'];
     });
   }
-
-  function _getRequirementsBlocking(startDate, endDate, activityIds) {
-    var uri = _getRequirementsUri(startDate, endDate, activityIds);
-    return _getEntityBlocking(uri, 'activityRoles');
-  }
   
   return {
     getConfirmedTypes: _findAllFunc('confirmedTypes'),
-    getConfirmedTypesBlocking: _findAllFuncBlocking('confirmedTypes'),
     getConfirmedTypeById: _findByIdFunc('confirmedTypes'),
     getConfirmedTypeByActivityId: _getConfirmedTypeByActivityId,
     getConfirmedTypeByStaffRoleId: _getConfirmedTypeByStaffRoleId,
@@ -233,18 +201,15 @@ var ftRest = (function (global, $) {
     
     getStaffRoles: _findAllFunc('staffRoles'),
     getStaffRoleById: _findByIdFunc('staffRoles'),
-    getStaffRoleByIdBlocking: _findByIdFunc('staffRoles'),
     getStaffRolesByIds: _findByIdsFunc('staffRoles'),
-    getStaffRolesByIdsBlocking: _findByIdsFuncBlocking('staffRoles'),
     getStaffRolesByActivityRoleId: _getStaffRolesByActivityRoleId,
+    saveStaffRole: _saveStaffRole,
     
     getCountries: _findAllFunc('countries'),
     getCountryById: _findByIdFunc('countries'),
     getCountriesByActivityId: _getCountriesByActivityId,
 
     getDeployments: _getDeployments,
-    getDeploymentsBlocking: _getDeploymentsBlocking,
-    getRequirements: _getRequirements,
-    getRequirementsBlocking: _getRequirementsBlocking
+    getRequirements: _getRequirements
   };
 }(window || this, jQuery));

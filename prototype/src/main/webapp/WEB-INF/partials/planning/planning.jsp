@@ -1,6 +1,7 @@
 <%@ page language="java"
          contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <div class="col-sm-12 col-centered">
   <div class="row">
@@ -10,7 +11,7 @@
     <div class="col-sm-4">
       <div class="well well-sm">
         <jsp:include
-          page="/WEB-INF/partials/staff/staff-roles/staff-role-form.jsp" />
+          page="/WEB-INF/partials/staff/staff-roles/staff-role-form-js.jsp" />
       </div>
     </div>
   </div>

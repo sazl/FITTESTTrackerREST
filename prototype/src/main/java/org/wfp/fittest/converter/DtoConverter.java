@@ -1,6 +1,8 @@
 package org.wfp.fittest.converter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,12 @@ import org.wfp.fittest.dto.StaffRoleDto;
 import org.wfp.fittest.dto.StaffTypeDto;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityRole;
+import org.wfp.fittest.entity.Country;
 import org.wfp.fittest.entity.EntityId;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffRole;
 import org.wfp.fittest.repository.ActivityRepository;
+import org.wfp.fittest.repository.ActivityTypeRepository;
 import org.wfp.fittest.repository.ConfirmedTypeRepository;
 import org.wfp.fittest.repository.CountryRepository;
 import org.wfp.fittest.repository.StaffRepository;
@@ -32,6 +36,8 @@ public class DtoConverter {
 
 	@Autowired
 	private ActivityRepository activityRepsository;
+	@Autowired
+	private ActivityTypeRepository activityTypeRepository;
 	@Autowired
 	private ConfirmedTypeRepository confirmedTypeRepository;
 	@Autowired
@@ -94,6 +100,13 @@ public class DtoConverter {
 		return staffDto;
 	}
 
+	public List<StaffDto> entitiesToDtosNested(Iterable<Staff> staffList) {
+		List<StaffDto> dtos = new ArrayList<>();
+		for (Staff entity : staffList)
+			dtos.add(entityToDtoNested(entity));
+		return dtos;
+	}
+
 	public StaffRoleDto entityToDtoNested(StaffRole staffRole) {
 		StaffRoleDto staffRoleDto = entityToDto(staffRole);
 		staffRoleDto.setActivityRoleDto((ActivityRoleDto) entityToDto(staffRole
@@ -104,4 +117,25 @@ public class DtoConverter {
 		staffRoleDto.setStaffDto((StaffDto) entityToDto(staffRole.getStaff()));
 		return staffRoleDto;
 	}
+
+	public <E extends EntityId, D extends AbstractDto> E dtoToEntity(D dto) {
+		return EntityConverter.toEntity(dto);
+	}
+
+	public <E extends EntityId, D extends AbstractDto> Set<E> dtosToEntities(
+			Iterable<D> dtos) {
+		return EntityConverter.toEntityList(dtos);
+	}
+
+	public Activity dtoToEntityNested(ActivityDto activityDto) {
+		Activity activity = EntityConverter.toEntity(activityDto);
+		activity.setActivityType(activityTypeRepository.findOne(activityDto
+				.getActivityTypeId()));
+		activity.setConfirmedType(confirmedTypeRepository.findOne(activityDto
+				.getConfirmedTypeId()));
+		activity.setCountries((Set<Country>) countryRepository.findAll(activityDto
+				.getCountryIds()));
+		return activity;
+	}
+
 }

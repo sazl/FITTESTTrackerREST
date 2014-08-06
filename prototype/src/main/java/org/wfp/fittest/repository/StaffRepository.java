@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Repository;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffType;
@@ -40,5 +42,16 @@ public interface StaffRepository extends AbstractRepository<Staff, Long> {
 
 	public List<Staff> findByStaffColorCode(String colorCode);
 
+	@Query("select distinct(s) from Staff s"
+			+ " join s.staffRoles sr"
+			+ " join sr.activityRole ar"
+			+ " join ar.activity act"
+			+ " join act.activityType at"
+		    + " where at.activityType = :activityType"
+			+ " and sr.startDate <= :date"
+		    + " and sr.endDate >= :date")
+	public List<Staff> findByActivityTypeInDate(
+			@Param("activityType") String activityType,
+			@Param("date") @DateTimeFormat(iso = ISO.DATE) Date date);
 
 }

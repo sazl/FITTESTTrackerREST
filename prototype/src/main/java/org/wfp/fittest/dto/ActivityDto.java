@@ -8,6 +8,11 @@ public class ActivityDto extends AbstractDto {
 	private String description;
 	private String etcServiceMap;
 
+	private Long confirmedTypeId = new Long(-1);
+	private Long activityTypeId = new Long(-1);
+	private List<Long> countryIds = new ArrayList<>();
+	private List<Long> activityRoleIds = new ArrayList<>();
+	
 	private ConfirmedTypeDto confirmedTypeDto = new ConfirmedTypeDto();
 	private ActivityTypeDto activityTypeDto = new ActivityTypeDto();
 	private List<CountryDto> countryDtos = new ArrayList<CountryDto>();
@@ -116,6 +121,38 @@ public class ActivityDto extends AbstractDto {
 		this.activityRoleProfileTypeDescriptions = activityRoleProfileTypeDescriptions;
 	}
 	
+	public Long getConfirmedTypeId() {
+		return confirmedTypeId;
+	}
+
+	public void setConfirmedTypeId(Long confirmedTypeId) {
+		this.confirmedTypeId = confirmedTypeId;
+	}
+
+	public Long getActivityTypeId() {
+		return activityTypeId;
+	}
+
+	public void setActivityTypeId(Long activityTypeId) {
+		this.activityTypeId = activityTypeId;
+	}
+
+	public List<Long> getCountryIds() {
+		return countryIds;
+	}
+
+	public void setCountryIds(List<Long> countryIds) {
+		this.countryIds = countryIds;
+	}
+
+	public List<Long> getActivityRoleIds() {
+		return activityRoleIds;
+	}
+
+	public void setActivityRoleIds(List<Long> activityRoleIds) {
+		this.activityRoleIds = activityRoleIds;
+	}
+
 	@Override
 	public String toString() {
 		return description;

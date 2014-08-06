@@ -1,5 +1,6 @@
 package org.wfp.fittest.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.wfp.fittest.dto.ProfileTypeDto;
@@ -16,7 +17,13 @@ public interface StaffService {
 	
 	public List<StaffDto> findAllStaff();
 	
-	public List<StaffDto> findBISStaff();
+	public List<StaffDto> findStaffByActivityTypeInDate(String activityType, Date date);
+	
+	public List<StaffDto> findStaffBIS(Date date);
+	
+	public List<StaffDto> findStaffAvailable(Date date);
+	
+	public List<StaffDto> findStaffNotAvailable(Date date);
 	
 	public StaffRoleDto findStaffRoleNested(Long staffRoleId);
 	

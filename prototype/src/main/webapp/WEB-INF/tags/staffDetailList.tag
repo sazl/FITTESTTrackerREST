@@ -3,17 +3,37 @@
 
 <%@attribute name="staffList" required="true" type="java.util.List" %>
 
-<ul class="media-list">
-  <c:forEach var="staff" items="${staffList}">
-    <li class="media">
-      <a class="pull-left" href="#">
-        <img class="media-object" src="" alt="">
-      </a>
-    <div class="media-body">
-      <h4 class="media-heading">
-        <c:out value="${staff.name}" />
-      </h4>
-    </div>
-    </li>
-  </c:forEach>
-</ul>
+
+<table class="simple-dataTable display">
+  <thead>
+    <tr>
+      <th>
+        Staff
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="staff" items="${staffList}">
+      <tr>
+        <td>
+          <ul class="media-list">
+            <li class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object"
+                     width="40"
+                     height="40"
+                     src="<c:url value="/fittesttracker/images/profile.jpg" />"
+                     alt="Profile Image">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">
+                  <c:out value="${staff.name}" />
+                </h4>
+              </div>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </c:forEach>
+  </tbody>
+</table>

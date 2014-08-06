@@ -6,6 +6,9 @@ $(document).ready(function() {
   var planningTableBody = $('#planning-table-body');
 
   var staffRoleForm = $('#staff-role-form');
+  var staffRoleStaffRoleId = $('#staff-role-id');
+  staffRoleStaffRoleId.attr('disabled', true);
+  
   var staffRoleStaff = $('#staff-role-staff');
   var staffRoleLocation = $('#staff-role-location');
   var staffRoleComments = $('#staff-role-comments');
@@ -199,6 +202,7 @@ $(document).ready(function() {
     row.addClass('active');
     var staffRoleId = row.attr('id');
     ftRest.getStaffRoleById(staffRoleId).then(function(sr) {
+      staffRoleStaffRoleId.val(staffRoleId);
       staffRoleStaff.val(sr.staffId);
       staffRoleLocation.val(sr.location);
       staffRoleComments.val(sr.comments);
@@ -216,11 +220,14 @@ $(document).ready(function() {
   });
 
   staffRoleClearButton.click(function(event) {
+    staffRoleStaffRoleId.empty();
+    staffRoleActivityRoles.empty();
     removeActiveStaffRoleRow();
   });
 
   staffRoleSaveButton.click(function(event) {
     var staffRole = {
+      "id": staffRoleStaffRoleId.val(),
       "startDate": ftUtil.ISODate(staffRoleStartDate.val()),
       "endDate": ftUtil.ISODate(staffRoleEndDate.val()),
       "location": staffRoleLocation.val(),
@@ -229,6 +236,8 @@ $(document).ready(function() {
       "confirmedTypeId": staffRoleConfirmedTypes.val(),
       "staffId": staffRoleStaff.val()
     };
+    console.log(staffRole);
+    ftRest.saveOrUpdateStaffRole(staffRole);
   });
   
 });

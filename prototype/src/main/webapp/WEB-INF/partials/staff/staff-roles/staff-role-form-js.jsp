@@ -8,6 +8,9 @@
   class="form-horizontal"
   role="form"
   id="staff-role-form">
+  <t:formGroup label="ID">
+    <input id="staff-role-id" type="text" class="form-control" />
+  </t:formGroup>  
   <t:formGroup label="Staff">
     <select id="staff-role-staff" class="form-control">
       <option value="" disabled selected>-- Select a staff member --</option>

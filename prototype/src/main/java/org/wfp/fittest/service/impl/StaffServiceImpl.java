@@ -1,5 +1,6 @@
 package org.wfp.fittest.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,28 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
+	public List<StaffDto> findStaffByActivityTypeInDate(String activityType,
+			Date date) {
+		return converter.entitiesToDtosNested(staffRepository
+				.findByActivityTypeInDate(activityType, date));
+	}
+
+	@Override
+	public List<StaffDto> findStaffBIS(Date date) {
+		return findStaffByActivityTypeInDate("Break in Service", date);
+	}
+
+	@Override
+	public List<StaffDto> findStaffAvailable(Date date) {
+		return null;
+	}
+
+	@Override
+	public List<StaffDto> findStaffNotAvailable(Date date) {
+		return null;
+	}
+
+	@Override
 	public List<StaffDto> findAllStaff() {
 		return converter.entitiesToDtos(staffRepository.findAll());
 	}
@@ -54,11 +77,6 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public List<StaffDto> findBISStaff() {
-		return null;
-	}
-
-	@Override
 	public StaffDto findStaffById(Long staffId) {
 		return converter.entityToDto(staffRepository.findOne(staffId));
 	}
@@ -72,4 +90,5 @@ public class StaffServiceImpl implements StaffService {
 	public List<StaffTypeDto> findAllStaffTypes() {
 		return converter.entitiesToDtos(staffTypeRepository.findAll());
 	}
+
 }

@@ -1,5 +1,6 @@
 package org.wfp.fittest.web;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,7 +30,8 @@ public class IndexController extends AbstractController {
 
 	@RequestMapping(value = "/dashboard")
 	public String dashboard(Model model, Locale locale) {
-		model.addAttribute("staffBIS", staffService.findBISStaff());
+		Date currentDate = new Date();
+		model.addAttribute("staffBIS", staffService.findStaffBIS(currentDate));
 		return "dashboard";
 	}
 	

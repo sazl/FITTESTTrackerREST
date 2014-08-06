@@ -20,5 +20,11 @@ $(document).ready(function($) {
   $('select[multiple="multiple"]').select2();
   $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
   $('.default-dataTable').dataTable();
+  $('.simple-dataTable').dataTable({
+    searching: false,
+    info: false,
+    lengthChange: false,
+    pageLength: 5
+  });
   $('[data-toggle="tooltip"]').tooltip();
 });

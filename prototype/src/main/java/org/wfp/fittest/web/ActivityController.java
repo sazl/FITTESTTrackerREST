@@ -5,8 +5,11 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.wfp.fittest.dto.ActivityDto;
 import org.wfp.fittest.service.ActivityService;
 import org.wfp.fittest.service.StaffService;
 import org.wfp.fittest.service.UtilityService;
@@ -44,13 +47,19 @@ public class ActivityController extends AbstractController {
 		return "forms/activity";
 	}
 
+	@RequestMapping(value = "/activity/save", method=RequestMethod.POST)
+	public String activitySave(@ModelAttribute ActivityDto activityDto,
+			Model model, Locale locale) {
+		activityService.saveOrUpdateActivity(activityDto);
+		return "redirect:activity";
+	}
+
 	@RequestMapping(value = "/activity/role/{id}/view")
 	public String activityRoleView(@PathVariable("id") Long activityRoleId,
 			Model model, Locale locale) {
 		model.addAttribute("activityRole",
 				activityService.findActivityRoleNested(activityRoleId));
-		model.addAttribute("allActivities",
-				activityService.findAllActivities());
+		model.addAttribute("allActivities", activityService.findAllActivities());
 		model.addAttribute("allProfileTypes",
 				staffService.findAllProfileTypes());
 		model.addAttribute("allStaffRoles", staffService.findAllStaffRoles());

@@ -82,22 +82,48 @@ var ftRest = (function (global, $) {
     
   }
 
-  function _saveStaffRole(staffRole) {
+  function _saveOrUpdateStaffRole(staffRole) {
     var uri = _URI['staffRoles'];
-    $.ajax({
-      type: 'POST',
-      url: uri,
-      contentType: 'application/json',
-      data: JSON.stringify(staffRole),
-      success: function(data) {
-        var entityUri = data.getRepsonseHeader('Location');
-        var staffUri = _getEntityUri('staff', staffRole.staffId);
-        var activityUri = _getEntityUri('activities', staffRole.activityId);
-        var confirmedTypeUri = _getEntityUri(
-          'confirmedTypes', staffRole.confirmedTypeId);
-        
-      }
-    });
+    var srUri = uri + '/' + staffRole.id;
+    $.get(srUri)
+      .success(function() {
+        $.ajax({
+          type: 'PUT',
+          url: srUri,
+          contentType: 'application/json',
+          data: staffRole,
+          success: function(data) {
+            var entityUri = data.getRepsonseHeader('Location');
+            var staffUri = _getEntityUri('staff', staffRole.staffId);
+            var activityUri = _getEntityUri('activities', staffRole.activityId);
+            var confirmedTypeUri = _getEntityUri(
+              'confirmedTypes', staffRole.confirmedTypeId);
+            console.log(entityUri);
+            console.log(staffUri);
+            console.log(activityUri);
+            console.log(confirmedTypeUri);
+          }
+        });
+      })
+      .fail(function() {
+        $.ajax({
+          type: 'POST',
+          url: uri,
+          contentType: 'application/json',
+          data: staffRole, // JSON.stringify(staffRole),
+          success: function(data) {
+            var entityUri = data.getRepsonseHeader('Location');
+            var staffUri = _getEntityUri('staff', staffRole.staffId);
+            var activityUri = _getEntityUri('activities', staffRole.activityId);
+            var confirmedTypeUri = _getEntityUri(
+              'confirmedTypes', staffRole.confirmedTypeId);
+            console.log(entityUri);
+            console.log(staffUri);
+            console.log(activityUri);
+            console.log(confirmedTypeUri);
+          }
+        });
+      });
   };
 
   function _getStaffRolesByActivityRoleId(activityRoleId) {
@@ -203,7 +229,7 @@ var ftRest = (function (global, $) {
     getStaffRoleById: _findByIdFunc('staffRoles'),
     getStaffRolesByIds: _findByIdsFunc('staffRoles'),
     getStaffRolesByActivityRoleId: _getStaffRolesByActivityRoleId,
-    saveStaffRole: _saveStaffRole,
+    saveOrUpdateStaffRole: _saveOrUpdateStaffRole,
     
     getCountries: _findAllFunc('countries'),
     getCountryById: _findByIdFunc('countries'),

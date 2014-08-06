@@ -1,7 +1,9 @@
 package org.wfp.fittest.converter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.wfp.fittest.entity.EntityId;
@@ -64,5 +66,13 @@ public class EntityConverter {
 			return null;
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public static <B, T extends EntityId> Set<T> toEntityList(
+			Iterable<B> beans) {
+		Set<T> entities = new HashSet<T>();
+		for (B bean : beans)
+			entities.add((T) EntityConverter.toEntity(bean));
+		return entities;
+	}
 }

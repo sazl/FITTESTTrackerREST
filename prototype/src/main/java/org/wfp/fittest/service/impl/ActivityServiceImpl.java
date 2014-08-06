@@ -9,6 +9,7 @@ import org.wfp.fittest.converter.DtoConverter;
 import org.wfp.fittest.dto.ActivityDto;
 import org.wfp.fittest.dto.ActivityRoleDto;
 import org.wfp.fittest.dto.ActivityTypeDto;
+import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.repository.ActivityRepository;
 import org.wfp.fittest.repository.ActivityRoleRepository;
 import org.wfp.fittest.repository.ActivityTypeRepository;
@@ -61,7 +62,8 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	@Transactional(readOnly = false)
 	public ActivityDto saveOrUpdateActivity(ActivityDto activityDto) {
-		// TODO Auto-generated method stub
+		Activity activity = converter.dtoToEntity(activityDto);
+		activityRepository.save(activity);
 		return null;
 	}
 

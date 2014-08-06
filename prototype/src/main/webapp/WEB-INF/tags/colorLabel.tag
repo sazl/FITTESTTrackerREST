@@ -5,6 +5,9 @@
 <%@attribute name="text" required="true" %>
 
 <label class="label label-default"
-       style="background-color:#${color};">
+       style="background-color:#${color};"
+       data-toggle="tooltip"
+       data-placement="top"
+       title="${text}">
   <c:out value="${text}" />
 </label>

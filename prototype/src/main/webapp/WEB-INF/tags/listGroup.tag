@@ -3,10 +3,11 @@
 
 <%@attribute name="items" required="false" type="java.util.List" %>
 <%@attribute name="property" required="false" %>
+<%@attribute name="styled" required="false" %>
 
-<ul class="list-unstyled">
+<ul class="${styled ? 'list-group' : 'list-unstyled'}">
   <c:forEach var="item" items="${items}">
-    <li>
+    <li class="${styled ? 'list-group-item' : ''}">
       <c:out value="${property != null ? item[property] : item}" />
     </li>
   </c:forEach>

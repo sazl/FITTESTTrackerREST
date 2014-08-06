@@ -8,32 +8,28 @@
 <table class="default-dataTable display table-bordered">
   <thead>
     <tr>
-      <th>Activity</th>
-      <th>Profile Type</th>
-      <th>Location</th>
-      <th>Start Date</th>
-      <th>End Date</th>
+      <th>Activity Type</th>
+      <th>Color Code</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <c:forEach var="ar" items="${allActivityRoles}">
+    <c:forEach var="activityType" items="${allActivityTypes}">
     <tr>
-      <td>${ar.activityDescription}</td>
-      <td>${ar.profileTypeDescription}</td>
-      <td>${ar.location}</td>
-      <td>
-        <fmt:formatDate pattern="dd/MM/yyyy" value="${ar.startDate}"/>
-      </td>
-      <td>
-        <fmt:formatDate pattern="dd/MM/yyyy" value="${ar.endDate}"/>
+      <td>${activityType.activityType}</td>
+      <td class="text-center">
+        <t:colorLabel
+          color="${activityType.colorCode}"
+          text="${activityType.colorCode}"/>
       </td>
       <td>
         <t:actionButtons
-          entity="activityRole"
-          id="${ar.id}" />
+          entity="activity/type"
+          id="${activityType.id}" />
       </td>
     </tr>
     </c:forEach>
   </tbody>
 </table>
+
+

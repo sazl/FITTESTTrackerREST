@@ -6,8 +6,20 @@
 
 <t:page pageTitle="${entity}">
   <div class="container">
-    <div class="col-sm-8 well well-sm">
-      <jsp:doBody />
+    <div class="col-sm-10 well well-lg">
+      <div class="row">
+        <jsp:doBody />
+      </div>
+      <div class="row">
+        <div class="btn-group btn-group-md">
+          <form action="<c:url value="/${entity}/${id}/view" />">
+            <button type="submit"
+                    class="btn btn-success">
+              <span class="glyphicon glyphicon-ok"></span> Save
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </t:page>

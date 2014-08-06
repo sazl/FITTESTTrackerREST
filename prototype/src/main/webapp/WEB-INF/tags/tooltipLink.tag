@@ -7,7 +7,7 @@
 <a href="<c:url value="${href}" />"
    class="label label-default"
    data-toggle="tooltip"
-   data-placement="bottom"
+   data-placement="top"
    title="${href}">
   <c:out value="${(text == '' || text == null) ? 'Link' : text}" />
 </a>

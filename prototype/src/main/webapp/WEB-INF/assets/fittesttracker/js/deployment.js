@@ -33,10 +33,6 @@ $(document).ready(function() {
     });
   });
 
-  clearDeploymentButton.click(function(event) {
-    timeline.clear();
-  });
-
   submitDeploymentButton.click(function(event) {
     var startDate = startDateInput.val();
     var endDate = endDateInput.val();
@@ -85,5 +81,10 @@ $(document).ready(function() {
       });
     });
     event.preventDefault();
+  });
+
+  
+  clearDeploymentButton.click(function(event) {
+    timeline.clear();
   });
 });

@@ -30,5 +30,10 @@ public class LanguageDto extends AbstractDto {
 	public void setStaffByLanguageIds(List<Long> staffByLanguageIds) {
 		this.staffByLanguageIds = staffByLanguageIds;
 	}
+	
+	@Override
+	public String toString() {
+		return language;
+	}
 
 }

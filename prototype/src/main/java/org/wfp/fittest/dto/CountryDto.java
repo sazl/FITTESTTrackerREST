@@ -59,4 +59,8 @@ public class CountryDto extends AbstractDto {
 		this.activityIds = activityIds;
 	}
 
+	@Override
+	public String toString() {
+		return fullName;
+	}
 }

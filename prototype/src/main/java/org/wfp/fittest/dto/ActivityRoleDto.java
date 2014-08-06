@@ -1,5 +1,6 @@
 package org.wfp.fittest.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,9 +11,9 @@ public class ActivityRoleDto extends AbstractDto {
 	private Date endDate;
 	private String location;
 
-	private Long activityId;
-	private Long profileTypeId;
-	private List<Long> staffRoleIds;
+	private ActivityDto activityDto = new ActivityDto();
+	private ProfileTypeDto profileTypeDto = new ProfileTypeDto();
+	private List<StaffRoleDto> staffRoleDtos = new ArrayList<StaffRoleDto>();
 
 	private String activityDescription;
 	private String profileTypeDescription;
@@ -49,30 +50,6 @@ public class ActivityRoleDto extends AbstractDto {
 		this.location = location;
 	}
 
-	public Long getActivityId() {
-		return activityId;
-	}
-
-	public void setActivityId(Long activityId) {
-		this.activityId = activityId;
-	}
-
-	public Long getProfileTypeId() {
-		return profileTypeId;
-	}
-
-	public void setProfileTypeId(Long profileTypeId) {
-		this.profileTypeId = profileTypeId;
-	}
-
-	public List<Long> getStaffRoleIds() {
-		return staffRoleIds;
-	}
-
-	public void setStaffRoleIds(List<Long> staffRoleIds) {
-		this.staffRoleIds = staffRoleIds;
-	}
-
 	public String getActivityDescription() {
 		return activityDescription;
 	}
@@ -87,5 +64,34 @@ public class ActivityRoleDto extends AbstractDto {
 
 	public void setProfileTypeDescription(String profileTypeDescription) {
 		this.profileTypeDescription = profileTypeDescription;
+	}
+
+	public ActivityDto getActivityDto() {
+		return activityDto;
+	}
+
+	public void setActivityDto(ActivityDto activityDto) {
+		this.activityDto = activityDto;
+	}
+
+	public ProfileTypeDto getProfileTypeDto() {
+		return profileTypeDto;
+	}
+
+	public void setProfileTypeDto(ProfileTypeDto profileTypeDto) {
+		this.profileTypeDto = profileTypeDto;
+	}
+
+	public List<StaffRoleDto> getStaffRoleDtos() {
+		return staffRoleDtos;
+	}
+
+	public void setStaffRoleDtos(List<StaffRoleDto> staffRoleDtos) {
+		this.staffRoleDtos = staffRoleDtos;
+	}
+	
+	@Override
+	public String toString() {
+		return activityDescription + " | " + profileTypeDescription;
 	}
 }

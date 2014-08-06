@@ -1,5 +1,6 @@
 package org.wfp.fittest.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityDto extends AbstractDto {
@@ -7,10 +8,10 @@ public class ActivityDto extends AbstractDto {
 	private String description;
 	private String etcServiceMap;
 
-	private Long confirmedTypeId;
-	private Long activityTypeId;
-	private List<Long> countryIds;
-	private List<Long> activityRoleIds;
+	private ConfirmedTypeDto confirmedTypeDto = new ConfirmedTypeDto();
+	private ActivityTypeDto activityTypeDto = new ActivityTypeDto();
+	private List<CountryDto> countryDtos = new ArrayList<CountryDto>();
+	private List<ActivityRoleDto> activityRoleDtos = new ArrayList<ActivityRoleDto>();
 
 	private String confirmedTypeDescription;
 	private String confirmedTypeColorCode;
@@ -42,36 +43,36 @@ public class ActivityDto extends AbstractDto {
 		this.etcServiceMap = etcServiceMap;
 	}
 
-	public Long getConfirmedTypeId() {
-		return confirmedTypeId;
+	public ConfirmedTypeDto getConfirmedTypeDto() {
+		return confirmedTypeDto;
 	}
 
-	public void setConfirmedTypeId(Long confirmedTypeId) {
-		this.confirmedTypeId = confirmedTypeId;
+	public void setConfirmedTypeDto(ConfirmedTypeDto confirmedTypeDto) {
+		this.confirmedTypeDto = confirmedTypeDto;
 	}
 
-	public Long getActivityTypeId() {
-		return activityTypeId;
+	public ActivityTypeDto getActivityTypeDto() {
+		return activityTypeDto;
 	}
 
-	public void setActivityTypeId(Long activityTypeId) {
-		this.activityTypeId = activityTypeId;
+	public void setActivityTypeDto(ActivityTypeDto activityTypeDto) {
+		this.activityTypeDto = activityTypeDto;
 	}
 
-	public List<Long> getCountryIds() {
-		return countryIds;
+	public List<CountryDto> getCountryDtos() {
+		return countryDtos;
 	}
 
-	public void setCountryIds(List<Long> countryIds) {
-		this.countryIds = countryIds;
+	public void setCountryDtos(List<CountryDto> countryDtos) {
+		this.countryDtos = countryDtos;
 	}
 
-	public List<Long> getActivityRoleIds() {
-		return activityRoleIds;
+	public List<ActivityRoleDto> getActivityRoleDtos() {
+		return activityRoleDtos;
 	}
 
-	public void setActivityRoleIds(List<Long> activityRoleIds) {
-		this.activityRoleIds = activityRoleIds;
+	public void setActivityRoleDtos(List<ActivityRoleDto> activityRoleDtos) {
+		this.activityRoleDtos = activityRoleDtos;
 	}
 
 	public String getConfirmedTypeDescription() {
@@ -113,6 +114,11 @@ public class ActivityDto extends AbstractDto {
 	public void setActivityRoleProfileTypeDescriptions(
 			List<String> activityRoleProfileTypeDescriptions) {
 		this.activityRoleProfileTypeDescriptions = activityRoleProfileTypeDescriptions;
+	}
+	
+	@Override
+	public String toString() {
+		return description;
 	}
 
 }

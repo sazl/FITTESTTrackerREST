@@ -2,8 +2,12 @@
          contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="tf" tagdir="/WEB-INF/tags/forms" %>
 
 <t:formPage entity="activityRole">
-  <jsp:include
-    page="/WEB-INF/partials/activity/activity-roles/activity-role-form.jsp"/>
+  <tf:activityRoleForm
+    activityRole="${activityRole}"
+    activities="${allActivities}"
+    profileTypes="${allProfileTypes}"
+    staffRoles="${allStaffRoles}" />
 </t:formPage>

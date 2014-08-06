@@ -10,13 +10,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.wfp.fittest.dto.StaffDto;
 import org.wfp.fittest.dto.StaffRoleDto;
+import org.wfp.fittest.service.ActivityService;
 import org.wfp.fittest.service.StaffService;
+import org.wfp.fittest.service.UtilityService;
 
 @Controller
 public class StaffController extends AbstractController {
 
 	@Autowired
+	private ActivityService activityService;
+	@Autowired
 	private StaffService staffService;
+	@Autowired
+	private UtilityService utilityService;
 
 	@RequestMapping(value = "/staffList")
 	public String staff(Model model, Locale locale) {
@@ -26,16 +32,29 @@ public class StaffController extends AbstractController {
 		model.addAttribute("allStaffRoles", staffRoles);
 		return "staff";
 	}
-	
-	@RequestMapping(value="/staffList/{id}/view")
-	public String staffView(@PathVariable("id") Long id, Model model, Locale locale) {
-		model.addAttribute("staff", staffService.findStaffById(id));
+
+	@RequestMapping(value = "/staffList/{id}/view")
+	public String staffView(@PathVariable("id") Long id, Model model,
+			Locale locale) {
+		model.addAttribute("staff", staffService.findStaffNested(id));
+		model.addAttribute("allStaffTypes", staffService.findAllStaffTypes());
+		model.addAttribute("allProfileTypes",
+				staffService.findAllProfileTypes());
+		model.addAttribute("allNationalities",
+				utilityService.findAllCountries());
+		model.addAttribute("allLanguages", utilityService.findAllLanguages());
 		return "forms/staff";
 	}
-	
-	@RequestMapping(value="/staffRole/{id}/view")
-	public String staffRoleView(@PathVariable("id") Long id, Model model, Locale locale) {
-//		model.addAttribute("staffRole", staffService.findStaffRoleById(id));
+
+	@RequestMapping(value = "/staffList/role/{id}/view")
+	public String staffRoleView(@PathVariable("id") Long id, Model model,
+			Locale locale) {
+		model.addAttribute("staffRole", staffService.findStaffRoleNested(id));
+		model.addAttribute("allConfirmedTypes",
+				utilityService.findAllConfirmedTypes());
+		model.addAttribute("allActivityRoles",
+				activityService.findAllActivityRoles());
+		model.addAttribute("allStaff", staffService.findAllStaff());
 		return "forms/staff-role";
 	}
 }

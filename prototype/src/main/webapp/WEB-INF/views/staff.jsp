@@ -3,6 +3,7 @@
          pageEncoding="UTF-8"
 %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@taglib prefix="tt" tagdir="/WEB-INF/tags/tables"%>
 
 <t:page pageTitle="Activity">
   <jsp:body>
@@ -24,11 +25,11 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="staff-list">
-        <jsp:include page="/WEB-INF/partials/staff/staff-list/staff-list.jsp"/>
+        <tt:staffTable staffList="${allStaff}" />
       </div>
 
       <div class="tab-pane" id="staff-roles">
-        <jsp:include page="/WEB-INF/partials/staff/staff-roles/staff-roles.jsp"/>
+        <tt:staffRoleTable staffRoles="${allStaffRoles}" />
       </div>
       <div class="tab-pane" id="staff-types">
         

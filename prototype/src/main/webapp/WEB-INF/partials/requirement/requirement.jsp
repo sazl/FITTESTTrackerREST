@@ -25,13 +25,13 @@
           </label>
         </t:formGroup>
       </div>
+    </div>
+    <div class="col-sm-4">
       <div class="well well-sm">
         <t:formGroup label="Show Confirmed Only">
           <input id="showConfirmedOnly" type="checkbox" />
         </t:formGroup>
       </div>
-	</div>
-	<div class="col-sm-4">
       <div class="well well-sm">
         <t:formGroup label="Activity">
           <select id="activities" class="form-control"

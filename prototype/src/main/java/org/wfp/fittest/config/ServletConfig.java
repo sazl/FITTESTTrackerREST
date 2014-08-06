@@ -16,6 +16,7 @@ public class ServletConfig {
 		resolver.setViewClass(JstlView.class);
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
+		resolver.setCache(false);
 		return resolver;
 	}
 }

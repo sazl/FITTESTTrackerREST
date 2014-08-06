@@ -11,6 +11,7 @@ import org.wfp.fittest.dto.ActivityRoleDto;
 import org.wfp.fittest.dto.ActivityTypeDto;
 import org.wfp.fittest.repository.ActivityRepository;
 import org.wfp.fittest.repository.ActivityRoleRepository;
+import org.wfp.fittest.repository.ActivityTypeRepository;
 import org.wfp.fittest.service.ActivityService;
 
 @Service
@@ -19,23 +20,28 @@ public class ActivityServiceImpl implements ActivityService {
 
 	@Autowired
 	private DtoConverter converter;
-	
-	@Autowired private ActivityRepository activityRepository;
-	@Autowired private ActivityRoleRepository activityRoleRepository;
-	
+
+	@Autowired
+	private ActivityRepository activityRepository;
+	@Autowired
+	private ActivityRoleRepository activityRoleRepository;
+	@Autowired
+	private ActivityTypeRepository activityTypeRepository;
+
 	@Override
 	public List<ActivityDto> findAllActivities() {
 		return converter.entitiesToDtos(activityRepository.findAll());
-	}
-	
-	@Override
-	public List<ActivityRoleDto> findAllActivityRoles() {
-		return converter.entitiesToDtos(activityRoleRepository.findAll());
 	}
 
 	@Override
 	public ActivityDto findActivity(Long activityId) {
 		return converter.entityToDto(activityRepository.findOne(activityId));
+	}
+
+	@Override
+	public ActivityDto findActivityNested(Long activityId) {
+		return converter.entityToDtoNested(activityRepository
+				.findOne(activityId));
 	}
 
 	@Override
@@ -60,9 +66,20 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
+	public List<ActivityRoleDto> findAllActivityRoles() {
+		return converter.entitiesToDtos(activityRoleRepository.findAll());
+	}
+
+	@Override
 	public ActivityRoleDto findActivityRole(Long activityRoleId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ActivityRoleDto findActivityRoleNested(Long activityRoleId) {
+		return converter.entityToDtoNested(activityRoleRepository
+				.findOne(activityRoleId));
 	}
 
 	@Override
@@ -89,8 +106,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 	@Override
 	public List<ActivityTypeDto> findAllActivityTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		return converter.entitiesToDtos(activityTypeRepository.findAll());
 	}
 
 	@Override

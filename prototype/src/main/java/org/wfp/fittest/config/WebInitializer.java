@@ -22,11 +22,13 @@ public class WebInitializer implements WebApplicationInitializer {
 		servletContext.setInitParameter("spring.profiles.active",
 				"spring-data-jpa");
 
+
 		WebApplicationContext rootContext = getRootContext();
 		servletContext.addListener(new ContextLoaderListener(rootContext));
-
+		
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
 				"fittesttracker", new DispatcherServlet(rootContext));
+		dispatcher.setInitParameter("trimSpaces", "true");
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/");
 

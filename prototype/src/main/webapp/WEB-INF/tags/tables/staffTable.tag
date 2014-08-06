@@ -1,10 +1,13 @@
-<%@ page language="java"
-         contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<table class="default-dataTable display table-bordered">
+<%@ attribute name="staffList" required="true" type="java.util.List" %>
+
+<%@ attribute name="simpleTable" required="false" %>
+
+<table
+  class="${simpleTable ?  'table' : 'default-dataTable'} display table-bordered">
   <thead>
     <tr>
       <th>Index</th>
@@ -17,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <c:forEach var="staff" items="${allStaff}">
+    <c:forEach var="staff" items="${staffList}">
       <tr>
         <td class="text-center">
           ${staff.id}

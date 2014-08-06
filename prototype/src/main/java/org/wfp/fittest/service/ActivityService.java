@@ -12,6 +12,8 @@ public interface ActivityService {
 	
 	public ActivityDto findActivity(Long activityId);
 	
+	public ActivityDto findActivityNested(Long activityId);
+	
 	public List<ActivityDto> findAllActivities();
 	
 	public boolean deleteActivity(ActivityDto activityDto);
@@ -25,6 +27,8 @@ public interface ActivityService {
 	public List<ActivityRoleDto> findAllActivityRoles();
 	
 	public ActivityRoleDto findActivityRole(Long activityRoleId);
+	
+	public ActivityRoleDto findActivityRoleNested(Long activityRoleId);
 
 	public boolean deleteActivityRole(ActivityRoleDto activityRoleDto);
 	

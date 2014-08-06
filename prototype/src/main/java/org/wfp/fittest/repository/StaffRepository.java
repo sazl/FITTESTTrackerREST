@@ -40,4 +40,5 @@ public interface StaffRepository extends AbstractRepository<Staff, Long> {
 
 	public List<Staff> findByStaffColorCode(String colorCode);
 
+
 }

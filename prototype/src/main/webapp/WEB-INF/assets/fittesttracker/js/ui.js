@@ -1,7 +1,7 @@
 var ftUI = (function (global, $) {
   var _appURI = '/fittesttracker/';
   function _deleteEntityDialog(entity, id) {
-    var uri = _appURI + 'country/' + id + '/delete';
+    var uri = _appURI + entity + '/' + id + '/delete';
     var name = ftUtil.camelCaseToReadable(entity);
     alertify.confirm('Confirm Deletion of ' + name, function(e) {
       if (e) {

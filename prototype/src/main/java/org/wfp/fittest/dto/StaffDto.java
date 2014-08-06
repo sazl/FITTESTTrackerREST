@@ -18,11 +18,11 @@ public class StaffDto extends AbstractDto {
 	private String staffTypeDescription;
 	private List<String> profileTypeDescriptions;
 
-	private Long staffTypeId;
-	private List<Long> profileTypeIds;
-	private List<Long> nationalityIds;
-	private List<Long> languageIds;
-	private List<Long> staffRoleIds;
+	private StaffTypeDto staffTypeDto;
+	private List<ProfileTypeDto> profileTypeDtos;
+	private List<CountryDto> nationalityDtos;
+	private List<LanguageDto> languageDtos;
+	private List<StaffRoleDto> staffRoleDtos;
 
 	public Long getId() {
 		return id;
@@ -96,46 +96,6 @@ public class StaffDto extends AbstractDto {
 		this.staffColorCode = staffColorCode;
 	}
 
-	public Long getStaffTypeId() {
-		return staffTypeId;
-	}
-
-	public void setStaffTypeId(Long staffTypeId) {
-		this.staffTypeId = staffTypeId;
-	}
-
-	public List<Long> getProfileTypeIds() {
-		return profileTypeIds;
-	}
-
-	public void setProfileTypeIds(List<Long> profileTypeIds) {
-		this.profileTypeIds = profileTypeIds;
-	}
-
-	public List<Long> getNationalityIds() {
-		return nationalityIds;
-	}
-
-	public void setNationalityIds(List<Long> nationalityIds) {
-		this.nationalityIds = nationalityIds;
-	}
-
-	public List<Long> getLanguageIds() {
-		return languageIds;
-	}
-
-	public void setLanguageIds(List<Long> languageIds) {
-		this.languageIds = languageIds;
-	}
-
-	public List<Long> getStaffRoleIds() {
-		return staffRoleIds;
-	}
-
-	public void setStaffRoleIds(List<Long> staffRoleIds) {
-		this.staffRoleIds = staffRoleIds;
-	}
-
 	public String getStaffTypeDescription() {
 		return staffTypeDescription;
 	}
@@ -152,4 +112,48 @@ public class StaffDto extends AbstractDto {
 		this.profileTypeDescriptions = profileTypeDescriptions;
 	}
 
+	public StaffTypeDto getStaffTypeDto() {
+		return staffTypeDto;
+	}
+
+	public void setStaffTypeDto(StaffTypeDto staffTypeDto) {
+		this.staffTypeDto = staffTypeDto;
+	}
+
+	public List<ProfileTypeDto> getProfileTypeDtos() {
+		return profileTypeDtos;
+	}
+
+	public void setProfileTypeDtos(List<ProfileTypeDto> profileTypeDtos) {
+		this.profileTypeDtos = profileTypeDtos;
+	}
+
+	public List<CountryDto> getNationalityDtos() {
+		return nationalityDtos;
+	}
+
+	public void setNationalityDtos(List<CountryDto> nationalityDtos) {
+		this.nationalityDtos = nationalityDtos;
+	}
+
+	public List<LanguageDto> getLanguageDtos() {
+		return languageDtos;
+	}
+
+	public void setLanguageDtos(List<LanguageDto> languageDtos) {
+		this.languageDtos = languageDtos;
+	}
+
+	public List<StaffRoleDto> getStaffRoleDtos() {
+		return staffRoleDtos;
+	}
+
+	public void setStaffRoleDtos(List<StaffRoleDto> staffRoleDtos) {
+		this.staffRoleDtos = staffRoleDtos;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

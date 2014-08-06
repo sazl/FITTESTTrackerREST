@@ -1,11 +1,14 @@
-<%@ page language="java"
-         contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<table class="default-dataTable display table-bordered">
+<%@ attribute name="staffRoles" required="true" type="java.util.List" %>
+
+<%@ attribute name="simpleTable" required="false" %>
+
+<table
+  class="${simpleTable ?  'table' : 'default-dataTable'} display table-bordered">
   <thead>
     <tr>
       <th>Activity</th>
@@ -19,7 +22,7 @@
     </tr>
   </thead>
   <tbody>
-    <c:forEach var="staffRole" items="${allStaffRoles}">
+    <c:forEach var="staffRole" items="${staffRoles}">
       <tr>
         <td>${staffRole.activityRoleDescription}</td>
         <td>${staffRole.activityRoleProfileTypeDescription}</td>
@@ -38,7 +41,7 @@
         </td>
         <td>
           <t:actionButtons
-            entity="staffRole"
+            entity="staffList/role"
             id="${staffRole.id}" />
         </td>
       </tr>

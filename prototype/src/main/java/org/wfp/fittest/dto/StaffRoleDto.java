@@ -9,9 +9,9 @@ public class StaffRoleDto extends AbstractDto {
 	private String location;
 	private String comments;
 
-	private Long activityRoleId;
-	private Long confirmedTypeId;
-	private Long staffId;
+	private ActivityRoleDto activityRoleDto;
+	private ConfirmedTypeDto confirmedTypeDto;
+	private StaffDto staffDto;
 
 	private String confirmedTypeDescription;
 	private String confirmedTypeColorCode;
@@ -61,28 +61,28 @@ public class StaffRoleDto extends AbstractDto {
 		this.comments = comments;
 	}
 
-	public Long getActivityRoleId() {
-		return activityRoleId;
+	public ActivityRoleDto getActivityRoleDto() {
+		return activityRoleDto;
 	}
 
-	public void setActivityRoleId(Long activityRoleId) {
-		this.activityRoleId = activityRoleId;
+	public void setActivityRoleDto(ActivityRoleDto activityRoleDto) {
+		this.activityRoleDto = activityRoleDto;
 	}
 
-	public Long getConfirmedTypeId() {
-		return confirmedTypeId;
+	public ConfirmedTypeDto getConfirmedTypeDto() {
+		return confirmedTypeDto;
 	}
 
-	public void setConfirmedTypeId(Long confirmedTypeId) {
-		this.confirmedTypeId = confirmedTypeId;
+	public void setConfirmedTypeDto(ConfirmedTypeDto confirmedTypeDto) {
+		this.confirmedTypeDto = confirmedTypeDto;
 	}
 
-	public Long getStaffId() {
-		return staffId;
+	public StaffDto getStaffDto() {
+		return staffDto;
 	}
 
-	public void setStaffId(Long staffId) {
-		this.staffId = staffId;
+	public void setStaffDto(StaffDto staffDto) {
+		this.staffDto = staffDto;
 	}
 
 	public String getConfirmedTypeDescription() {
@@ -142,4 +142,8 @@ public class StaffRoleDto extends AbstractDto {
 		this.activityRoleProfileTypeDescription = activityRoleProfileTypeDescription;
 	}
 
+	@Override
+	public String toString() {
+		return activityRoleProfileTypeDescription;
+	}
 }

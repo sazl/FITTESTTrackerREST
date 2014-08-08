@@ -1,4 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="tt" tagdir="/WEB-INF/tags/tables" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -9,7 +10,11 @@
 <%@ attribute name="profileTypes" required="true" type="java.util.List" %>
 <%@ attribute name="staffRoles" required="true" type="java.util.List" %>
 
+<c:url var="activityRoleSave" value="/activity/role/save" />
+
 <form:form
+  method="POST"
+  action="${activityRoleSave}"
   class="form-horizontal"
   role="form"
   id="activity-role-form"
@@ -18,15 +23,25 @@
     <form:select
       class="form-control"
       items="${activities}"
-      path="activityDto"
+      itemValue="id"
+      itemLabel="description"
+      path="activityId"
       multiple="false" />
   </t:formGroup>
   <t:formGroup label="Profile Type">
     <form:select
       class="form-control"
       items="${profileTypes}"
-      path="profileTypeDto"
+      itemValue="id"
+      itemLabel="profileType"
+      path="profileTypeId"
       multiple="false" />
+  </t:formGroup>
+  <t:formGroup label="Location">
+    <form:input
+      class="form-control"
+      type="text"
+      path="location" />
   </t:formGroup>
   <t:formGroup label="Start Date">
     <form:input
@@ -41,10 +56,17 @@
       path="endDate" />
   </t:formGroup>
   <t:formGroup label="Staff Roles">
-    <form:select
-      class="form-control"
-      items="${staffRoles}"
-      path="staffRoleDtos"
-      multiple="true" />
+    <tt:staffRoleTable
+      simpleTable="true"
+      staffRoles="${activityRole.staffRoleDtos}" />
+  </t:formGroup>
+
+    <t:formGroup label="">
+    <div class="btn-group btn-group-md">
+        <button type="submit"
+                class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+    </div>
   </t:formGroup>
 </form:form>

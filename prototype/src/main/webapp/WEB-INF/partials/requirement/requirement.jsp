@@ -29,7 +29,7 @@
     <div class="col-sm-4">
       <div class="well well-sm">
         <t:formGroup label="Show Confirmed Only">
-          <input id="showConfirmedOnly" type="checkbox" />
+          <input id="showConfirmedOnly" class="form-control" type="checkbox" />
         </t:formGroup>
       </div>
       <div class="well well-sm">

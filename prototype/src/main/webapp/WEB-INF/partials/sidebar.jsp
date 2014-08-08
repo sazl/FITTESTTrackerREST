@@ -9,6 +9,7 @@
   id="sidebar"
   class="col-sm-2 collapse sidebar"
   role="navigation">
+  
   <ul class="nav nav-sidebar">
     <li>
       <a href="<c:url value="/dashboard" />">
@@ -40,6 +41,7 @@
         <span class="glyphicon glyphicon-user"> Staff</span>
       </a>
     </li>
+
     <li>
       <a href="<c:url value="/misc" />">
         <span class="glyphicon glyphicon-stats"> Misc</span>

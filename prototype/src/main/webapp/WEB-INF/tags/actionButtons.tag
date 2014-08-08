@@ -36,7 +36,7 @@
   <div class="btn-group btn-group-md">
     <form action="<c:url value="/${entity}/${id}/view" />">
       <button type="submit"
-              class="btn btn-success"
+              class="btn btn-primary"
               data-toggle="tooltip"
               data-placement="top"
               title="View">

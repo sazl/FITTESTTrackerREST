@@ -37,6 +37,12 @@ var ftUtil = (function (global, $) {
       .replace(/^./, function(str){ return str.toUpperCase(); });
   }
 
+  function _linkToReadable(link) {
+    return _.map(link.split('/'), function(s) {
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }).join(' ');
+  }
+
   return {
     colorLabel: _colorLabel,
     simpleDate: _simpleDate,
@@ -44,6 +50,7 @@ var ftUtil = (function (global, $) {
     ISODate: _ISODate,
     ISODateToDate: _ISODateToDate,
     arrayToCSV: _arrayToCSV,
-    camelCaseToReadable: _camelCaseToReadable
-  };  
+    camelCaseToReadable: _camelCaseToReadable,
+    linkToReadable: _linkToReadable
+  };
 }(window || this, jQuery));

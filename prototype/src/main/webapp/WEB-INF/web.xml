@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee">
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://www.wfp.org/fittest/el/utility</taglib-uri>
+      <taglib-location>/WEB-INF/tags/util/util.tld</taglib-location>
+    </taglib> 
+  </jsp-config>  
+</web-app>

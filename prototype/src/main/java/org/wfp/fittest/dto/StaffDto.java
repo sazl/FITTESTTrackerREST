@@ -1,5 +1,6 @@
 package org.wfp.fittest.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,12 @@ public class StaffDto extends AbstractDto {
 	private String staffTypeDescription;
 	private List<String> profileTypeDescriptions;
 
+	private Long staffTypeId;
+	private List<Long> profileTypeIds = new ArrayList<Long>();
+	private List<Long> countryIds = new ArrayList<Long>();
+	private List<Long> languageIds = new ArrayList<Long>();
+	private List<Long> staffRoleIds = new ArrayList<Long>();
+	
 	private StaffTypeDto staffTypeDto;
 	private List<ProfileTypeDto> profileTypeDtos;
 	private List<CountryDto> nationalityDtos;
@@ -110,6 +117,46 @@ public class StaffDto extends AbstractDto {
 
 	public void setProfileTypeDescriptions(List<String> profileTypeDescriptions) {
 		this.profileTypeDescriptions = profileTypeDescriptions;
+	}
+		
+	public Long getStaffTypeId() {
+		return staffTypeId;
+	}
+
+	public void setStaffTypeId(Long staffTypeId) {
+		this.staffTypeId = staffTypeId;
+	}
+
+	public List<Long> getProfileTypeIds() {
+		return profileTypeIds;
+	}
+
+	public void setProfileTypeIds(List<Long> profileTypeIds) {
+		this.profileTypeIds = profileTypeIds;
+	}
+
+	public List<Long> getCountryIds() {
+		return countryIds;
+	}
+
+	public void setCountryIds(List<Long> countryIds) {
+		this.countryIds = countryIds;
+	}
+
+	public List<Long> getLanguageIds() {
+		return languageIds;
+	}
+
+	public void setLanguageIds(List<Long> languageIds) {
+		this.languageIds = languageIds;
+	}
+
+	public List<Long> getStaffRoleIds() {
+		return staffRoleIds;
+	}
+
+	public void setStaffRoleIds(List<Long> staffRoleIds) {
+		this.staffRoleIds = staffRoleIds;
 	}
 
 	public StaffTypeDto getStaffTypeDto() {

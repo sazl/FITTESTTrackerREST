@@ -19,6 +19,8 @@
   role="form"
   id="activity-form"
   modelAttribute="activity">
+  <form:hidden
+    path="id" />
   <t:formGroup label="Descritpion">
     <form:input
       class="form-control"

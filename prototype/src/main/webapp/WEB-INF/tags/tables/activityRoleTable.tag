@@ -9,10 +9,16 @@
    type="java.util.List" %>
 
 <%@ attribute name="simpleTable" required="false" %>
+<%@ attribute name="readOnly" required="false" %>
 
-<table
-  class="${simpleTable ?  'table' : 'default-dataTable'} display table-bordered">
-  <thead>
+<c:set var="entity" value="activity/role" />
+
+<t:actionTable
+  entity="${entity}"
+  items="${activityRoles}"
+  simpleTable="${simpleTable}"
+  readOnly="${readOnly}">
+  <jsp:attribute name="actionTableHeader">
     <tr>
       <th>Activity</th>
       <th>Profile Type</th>
@@ -21,25 +27,27 @@
       <th>End Date</th>
       <th>Actions</th>
     </tr>
-  </thead>
-  <tbody>
-    <c:forEach var="ar" items="${activityRoles}">
-    <tr>
-      <td>${ar.activityDescription}</td>
-      <td>${ar.profileTypeDescription}</td>
-      <td>${ar.location}</td>
-      <td>
-        <fmt:formatDate pattern="dd/MM/yyyy" value="${ar.startDate}"/>
-      </td>
-      <td>
-        <fmt:formatDate pattern="dd/MM/yyyy" value="${ar.endDate}"/>
-      </td>
-      <td>
-        <t:actionButtons
-          entity="activity/role"
-          id="${ar.id}" />
-      </td>
-    </tr>
+  </jsp:attribute>
+
+  <jsp:body>
+    <c:forEach var="item" items="${activityRoles}">
+      <tr>
+        <td>${item.activityDescription}</td>
+        <td>${item.profileTypeDescription}</td>
+        <td>${item.location}</td>
+        <td>
+          <fmt:formatDate pattern="dd/MM/yyyy" value="${item.startDate}"/>
+        </td>
+        <td>
+          <fmt:formatDate pattern="dd/MM/yyyy" value="${item.endDate}"/>
+        </td>
+        <td>
+          <t:actionButtons
+            readOnly="${readOnly}"
+            entity="${entity}"
+            id="${item.id}" />
+        </td>
+      </tr>
     </c:forEach>
-  </tbody>
-</table>
+  </jsp:body>
+</t:actionTable>

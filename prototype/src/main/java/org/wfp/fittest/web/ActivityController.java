@@ -15,6 +15,7 @@ import org.wfp.fittest.service.StaffService;
 import org.wfp.fittest.service.UtilityService;
 
 @Controller
+@RequestMapping(value = "/activity")
 public class ActivityController extends AbstractController {
 
 	@Autowired
@@ -24,7 +25,7 @@ public class ActivityController extends AbstractController {
 	@Autowired
 	private UtilityService utilityService;
 
-	@RequestMapping("/activity")
+	@RequestMapping("")
 	public String activity(Model model, Locale locale) {
 		model.addAttribute("allActivities", activityService.findAllActivities());
 		model.addAttribute("allActivityTypes",
@@ -34,7 +35,25 @@ public class ActivityController extends AbstractController {
 		return "activity";
 	}
 
-	@RequestMapping(value = "/activity/{id}/view")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String activitySave(@ModelAttribute ActivityDto activityDto,
+			Model model, Locale locale) {
+		activityService.saveOrUpdateActivity(activityDto);
+		return "redirect:/activity";
+	}
+
+	@RequestMapping(value = "/new")
+	public String activityNew(Model model, Locale locale) {
+		model.addAttribute("activity", new ActivityDto());
+		model.addAttribute("allActivityTypes",
+				activityService.findAllActivityTypes());
+		model.addAttribute("allConfirmedTypes",
+				utilityService.findAllConfirmedTypes());
+		model.addAttribute("allCountries", utilityService.findAllCountries());
+		return "forms/activity";
+	}
+
+	@RequestMapping(value = "/{id}/view")
 	public String activityView(@PathVariable("id") Long activityId,
 			Model model, Locale locale) {
 		model.addAttribute("activity",
@@ -47,22 +66,11 @@ public class ActivityController extends AbstractController {
 		return "forms/activity";
 	}
 
-	@RequestMapping(value = "/activity/save", method=RequestMethod.POST)
-	public String activitySave(@ModelAttribute ActivityDto activityDto,
+	@RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
+	public String activityDelete(@PathVariable("id") Long activityId,
 			Model model, Locale locale) {
-		activityService.saveOrUpdateActivity(activityDto);
-		return "redirect:activity";
+		activityService.deleteActivityById(activityId);
+		return "redirect:/activity";
 	}
 
-	@RequestMapping(value = "/activity/role/{id}/view")
-	public String activityRoleView(@PathVariable("id") Long activityRoleId,
-			Model model, Locale locale) {
-		model.addAttribute("activityRole",
-				activityService.findActivityRoleNested(activityRoleId));
-		model.addAttribute("allActivities", activityService.findAllActivities());
-		model.addAttribute("allProfileTypes",
-				staffService.findAllProfileTypes());
-		model.addAttribute("allStaffRoles", staffService.findAllStaffRoles());
-		return "forms/activity-role";
-	}
 }

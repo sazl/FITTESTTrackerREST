@@ -20,22 +20,36 @@ import org.wfp.fittest.dto.StaffRoleDto;
 import org.wfp.fittest.dto.StaffTypeDto;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityRole;
+import org.wfp.fittest.entity.ActivityType;
+import org.wfp.fittest.entity.ConfirmedType;
 import org.wfp.fittest.entity.Country;
 import org.wfp.fittest.entity.EntityId;
+import org.wfp.fittest.entity.Language;
+import org.wfp.fittest.entity.ProfileType;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffRole;
+import org.wfp.fittest.entity.StaffType;
 import org.wfp.fittest.repository.ActivityRepository;
+import org.wfp.fittest.repository.ActivityRoleRepository;
 import org.wfp.fittest.repository.ActivityTypeRepository;
 import org.wfp.fittest.repository.ConfirmedTypeRepository;
 import org.wfp.fittest.repository.CountryRepository;
+import org.wfp.fittest.repository.LanguageRepository;
+import org.wfp.fittest.repository.ProfileTypeRepository;
 import org.wfp.fittest.repository.StaffRepository;
+import org.wfp.fittest.repository.StaffRoleRepository;
+import org.wfp.fittest.repository.StaffTypeRepository;
+
+import com.google.common.collect.Sets;
 
 @Service
 @Transactional(readOnly = true)
 public class DtoConverter {
 
 	@Autowired
-	private ActivityRepository activityRepsository;
+	private ActivityRepository activityRepository;
+	@Autowired
+	private ActivityRoleRepository activityRoleRepository;
 	@Autowired
 	private ActivityTypeRepository activityTypeRepository;
 	@Autowired
@@ -43,7 +57,19 @@ public class DtoConverter {
 	@Autowired
 	private CountryRepository countryRepository;
 	@Autowired
+	private LanguageRepository languageRepository;
+	@Autowired
+	private ProfileTypeRepository profileTypeRepository;
+	@Autowired
 	private StaffRepository staffRepository;
+	@Autowired
+	private StaffRoleRepository staffRoleRepository;
+	@Autowired
+	private StaffTypeRepository staffTypeRepository;
+
+	/*------------------------------------------------------------------------*
+	 * Entity -> DTO                                                          *
+	 *------------------------------------------------------------------------*/
 
 	public <D extends AbstractDto, E extends EntityId> D entityToDto(E entity) {
 		return EntityConverter.toBean(entity);
@@ -118,6 +144,10 @@ public class DtoConverter {
 		return staffRoleDto;
 	}
 
+	/*------------------------------------------------------------------------*
+	 * DTO -> Entity                                                          *
+	 *------------------------------------------------------------------------*/
+
 	public <E extends EntityId, D extends AbstractDto> E dtoToEntity(D dto) {
 		return EntityConverter.toEntity(dto);
 	}
@@ -128,14 +158,74 @@ public class DtoConverter {
 	}
 
 	public Activity dtoToEntityNested(ActivityDto activityDto) {
-		Activity activity = EntityConverter.toEntity(activityDto);
+		Activity activity = dtoToEntity(activityDto);
 		activity.setActivityType(activityTypeRepository.findOne(activityDto
 				.getActivityTypeId()));
 		activity.setConfirmedType(confirmedTypeRepository.findOne(activityDto
 				.getConfirmedTypeId()));
-		activity.setCountries((Set<Country>) countryRepository.findAll(activityDto
-				.getCountryIds()));
+		activity.setCountries(Sets.newHashSet(countryRepository
+				.findAll(activityDto.getCountryIds())));
 		return activity;
+	}
+
+	public ActivityRole dtoToEntityNested(ActivityRoleDto activityRoleDto) {
+		ActivityRole activityRole = dtoToEntity(activityRoleDto);
+		activityRole.setActivity(activityRepository.findOne(activityRoleDto
+				.getActivityId()));
+		activityRole.setProfileType(profileTypeRepository
+				.findOne(activityRoleDto.getProfileTypeId()));
+		activityRole.setStaffRoles(Sets.newHashSet(staffRoleRepository
+				.findAll(activityRoleDto.getStaffRoleIds())));
+		return activityRole;
+	}
+
+	public ActivityType dtoToEntityNested(ActivityTypeDto activityTypeDto) {
+		return dtoToEntity(activityTypeDto);
+	}
+
+	public ConfirmedType dtoToEntityNested(ConfirmedTypeDto confirmedTypeDto) {
+		return dtoToEntity(confirmedTypeDto);
+	}
+
+	public Country dtoToEntityNested(CountryDto countryDto) {
+		return dtoToEntity(countryDto);
+	}
+
+	public Language dtoToEntityNested(LanguageDto languageDto) {
+		return dtoToEntity(languageDto);
+	}
+
+	public ProfileType dtoToEntityNested(ProfileTypeDto profileTypeDto) {
+		return dtoToEntity(profileTypeDto);
+	}
+
+	public Staff dtoToEntityNested(StaffDto staffDto) {
+		Staff staff = dtoToEntity(staffDto);
+		staff.setStaffType(staffTypeRepository.findOne(staffDto
+				.getStaffTypeId()));
+		staff.setLanguages(Sets.newHashSet(languageRepository.findAll(staffDto
+				.getLanguageIds())));
+		staff.setNationalities(Sets.newHashSet(countryRepository
+				.findAll(staffDto.getCountryIds())));
+		staff.setProfileTypes(Sets.newHashSet(profileTypeRepository
+				.findAll(staffDto.getProfileTypeIds())));
+		staff.setStaffRoles(Sets.newHashSet(staffRoleRepository
+				.findAll(staffDto.getStaffRoleIds())));
+		return staff;
+	}
+
+	public StaffRole dtoToEntityNested(StaffRoleDto staffRoleDto) {
+		StaffRole staffRole = dtoToEntity(staffRoleDto);
+		staffRole.setActivityRole(activityRoleRepository.findOne(staffRoleDto
+				.getActivityRoleId()));
+		staffRole.setConfirmedType(confirmedTypeRepository.findOne(staffRoleDto
+				.getConfirmedTypeId()));
+		staffRole.setStaff(staffRepository.findOne(staffRoleDto.getStaffId()));
+		return staffRole;
+	}
+
+	public StaffType dtoToEntityNested(StaffTypeDto staffTypeDto) {
+		return dtoToEntity(staffTypeDto);
 	}
 
 }

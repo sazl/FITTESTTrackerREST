@@ -10,6 +10,7 @@ import org.wfp.fittest.dto.ActivityDto;
 import org.wfp.fittest.dto.ActivityRoleDto;
 import org.wfp.fittest.dto.ActivityTypeDto;
 import org.wfp.fittest.entity.Activity;
+import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.repository.ActivityRepository;
 import org.wfp.fittest.repository.ActivityRoleRepository;
 import org.wfp.fittest.repository.ActivityTypeRepository;
@@ -48,23 +49,21 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteActivity(ActivityDto activityDto) {
-		// TODO Auto-generated method stub
-		return false;
+		return deleteActivityById(activityDto.getId());
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteActivityById(Long activityId) {
-		// TODO Auto-generated method stub
-		return false;
+		activityRepository.delete(activityId);
+		return true;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public ActivityDto saveOrUpdateActivity(ActivityDto activityDto) {
-		Activity activity = converter.dtoToEntity(activityDto);
-		activityRepository.save(activity);
-		return null;
+		Activity activity = converter.dtoToEntityNested(activityDto);
+		return converter.entityToDtoNested(activityRepository.save(activity));
 	}
 
 	@Override
@@ -87,23 +86,22 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteActivityRole(ActivityRoleDto activityRoleDto) {
-		// TODO Auto-generated method stub
-		return false;
+		return deleteActivityRoleById(activityRoleDto.getId());
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteActivityRoleById(Long activityRoleId) {
-		// TODO Auto-generated method stub
-		return false;
+		activityRoleRepository.delete(activityRoleId);
+		return true;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public ActivityRoleDto saveOrUpdateActivityRole(
 			ActivityRoleDto activityRoleDto) {
-		// TODO Auto-generated method stub
-		return null;
+		ActivityRole activityRole = converter.dtoToEntityNested(activityRoleDto);
+		return converter.entityToDtoNested(activityRole);
 	}
 
 	@Override

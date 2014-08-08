@@ -21,7 +21,8 @@ public class WebInitializer implements WebApplicationInitializer {
 			throws ServletException {
 		servletContext.setInitParameter("spring.profiles.active",
 				"spring-data-jpa");
-
+		servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES",
+				"/WEB-INF/tags/util");
 
 		WebApplicationContext rootContext = getRootContext();
 		servletContext.addListener(new ContextLoaderListener(rootContext));
@@ -50,8 +51,7 @@ public class WebInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
 		rootContext.setDisplayName("FITTEST Tracker");
 		rootContext.setConfigLocation("org.wfp.fittest.config");
-		rootContext.register(ServletConfig.class);
-		rootContext.register(RestConfig.class);
+		rootContext.register(AppConfig.class);
 		return rootContext;
 	}
 }

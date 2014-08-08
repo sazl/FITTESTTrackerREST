@@ -14,3 +14,13 @@ body {
   background-color: #006DCC;
   color: white;
 }
+
+.control-label-left {
+  text-align: left;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.create-button {
+  margin-bottom: 20px;
+}

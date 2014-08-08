@@ -3,6 +3,11 @@ $(document).ready(function() {
   var activitiesSelect = $('#activities');
   var countriesList = $("#countries");
   var activityTypeLabel = $("#activityType");
+
+  var planningPanelBody = $('#planning-panel-body');
+  var planningPanelCollapseButton = $('#collapse-planning-panel');
+  var planningTablePanelBody = $('#planning-table-panel-body');
+  var planningTablePanelCollapseButton = $('#collapse-planning-table-panel');
   var planningTableBody = $('#planning-table-body');
 
   var staffRoleForm = $('#staff-role-form');
@@ -239,5 +244,38 @@ $(document).ready(function() {
     console.log(staffRole);
     ftRest.saveOrUpdateStaffRole(staffRole);
   });
+
+  planningPanelCollapseButton.click(function(event) {
+    var button = $(this);
+    var icon = button.children('span');
+    if (button.hasClass('btn-danger')) {
+      button.switchClass('btn-danger', 'btn-success', 0);
+      icon.switchClass('glyphicon-arrow-up', 'glyphicon-arrow-down', 0);
+    }
+    else {
+      button.switchClass('btn-success', 'btn-danger', 0);
+      icon.switchClass('glyphicon-arrow-down', 'glyphicon-arrow-up', 0);
+    }
+    planningPanelBody.toggle({
+      effect: 'highlight',
+      duration: 150
+    });
+  });
   
+  planningTablePanelCollapseButton.click(function(event) {
+    var button = $(this);
+    var icon = button.children('span');
+    if (button.hasClass('btn-danger')) {
+      button.switchClass('btn-danger', 'btn-success', 0);
+      icon.switchClass('glyphicon-arrow-up', 'glyphicon-arrow-down', 0);
+    }
+    else {
+      button.switchClass('btn-success', 'btn-danger', 0);
+      icon.switchClass('glyphicon-arrow-down', 'glyphicon-arrow-up', 0);
+    }
+    planningTablePanelBody.toggle({
+      effect: 'highlight',
+      duration: 150
+    });
+  });  
 });

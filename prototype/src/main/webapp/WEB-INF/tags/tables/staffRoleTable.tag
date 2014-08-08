@@ -8,7 +8,7 @@
 <%@ attribute name="simpleTable" required="false" %>
 
 <table
-  class="${simpleTable ?  'table' : 'default-dataTable'} display table-bordered">
+  class="${simpleTable ?  'simple-dataTable' : 'default-dataTable'} display table-bordered">
   <thead>
     <tr>
       <th>Activity</th>

@@ -10,6 +10,10 @@ public class ActivityRoleDto extends AbstractDto {
 	private Date startDate;
 	private Date endDate;
 	private String location;
+	
+	private Long activityId;
+	private Long profileTypeId;
+	private List<Long> staffRoleIds = new ArrayList<>();
 
 	private ActivityDto activityDto = new ActivityDto();
 	private ProfileTypeDto profileTypeDto = new ProfileTypeDto();
@@ -64,6 +68,30 @@ public class ActivityRoleDto extends AbstractDto {
 
 	public void setProfileTypeDescription(String profileTypeDescription) {
 		this.profileTypeDescription = profileTypeDescription;
+	}
+
+	public Long getActivityId() {
+		return activityId;
+	}
+
+	public void setActivityId(Long activityId) {
+		this.activityId = activityId;
+	}
+
+	public Long getProfileTypeId() {
+		return profileTypeId;
+	}
+
+	public void setProfileTypeId(Long profileTypeId) {
+		this.profileTypeId = profileTypeId;
+	}
+
+	public List<Long> getStaffRoleIds() {
+		return staffRoleIds;
+	}
+
+	public void setStaffRoleIds(List<Long> staffRoleIds) {
+		this.staffRoleIds = staffRoleIds;
 	}
 
 	public ActivityDto getActivityDto() {

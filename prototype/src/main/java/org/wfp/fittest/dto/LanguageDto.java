@@ -5,6 +5,7 @@ import java.util.List;
 public class LanguageDto extends AbstractDto {
 	private Long id;
 	private String language;
+	
 	private List<Long> staffByLanguageIds;
 
 	public Long getId() {

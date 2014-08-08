@@ -8,6 +8,7 @@ public class CountryDto extends AbstractDto {
 	private String isoCode;
 	private String fullName;
 	private String region;
+	
 	private List<Long> staffByNationalityIds;
 	private List<Long> activityIds;
 

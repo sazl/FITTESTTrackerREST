@@ -3,19 +3,41 @@
          pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<div class="col-sm-12 col-centered">
-  <div class="row">
-    <div class="col-sm-4">
-      <jsp:include page="/WEB-INF/partials/planning/planning-form.jsp" />
+<div class="col-sm-12">
+  <div id="planning-panel"
+       class="panel panel-default">
+    <div class="panel-heading">
+      <button id="collapse-planning-panel"
+              class="btn btn-sm btn-danger">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+      </button> Planning Form
     </div>
-    <div class="col-sm-4">
-      <div class="well well-sm">
-        <jsp:include
-          page="/WEB-INF/partials/staff/staff-roles/staff-role-form-js.jsp" />
+    <div id="planning-panel-body"
+         class="panel-body">
+      <div class="col-sm-6">
+        <jsp:include page="/WEB-INF/partials/planning/planning-form.jsp" />
+      </div>
+      <div class="col-sm-6">
+        <div class="well well-sm">
+          <jsp:include
+            page="/WEB-INF/partials/staff/staff-roles/staff-role-form-js.jsp" />
+        </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <jsp:include page="/WEB-INF/partials/planning/planning-table.jsp" />
+
+    <div id="planning-table-panel"
+         class="panel panel-default">
+      <div class="panel-heading">
+        <button id="collapse-planning-table-panel"
+                class="btn btn-sm btn-danger">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+      </button> Planning Table
+      </div>
+      <div class="panel-body"
+           id="planning-table-panel-body">
+        <jsp:include page="/WEB-INF/partials/planning/planning-table.jsp" />
+      </div>
+
   </div>
 </div>

@@ -1,57 +1,46 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <%@ attribute
-   name="activities"
+   name="activityTypes"
    required="true"
    type="java.util.List" %>
 
 <%@ attribute name="simpleTable" required="false" %>
 <%@ attribute name="readOnly" required="false" %>
 
-<c:set var="entity" value="activity" />
+<c:set var="entity" value="activity/type" />
 
 <t:actionTable
   entity="${entity}"
-  items="${activities}"
+  items="${activityTypes}"
   simpleTable="${simpleTable}"
   readOnly="${readOnly}">
 
   <jsp:attribute name="actionTableHeader">
     <tr>
-      <th>Description</th>
       <th>Activity Type</th>
-      <th>ETC Service Map</th>
-      <th>Country</th>
-      <th>Confirmed Type</th>
+      <th>Color Code</th>
       <th>Actions</th>
     </tr>
   </jsp:attribute>
-  
+
   <jsp:body>
-    <c:forEach var="activity" items="${activities}">
+    <c:forEach var="activityType" items="${allActivityTypes}">
       <tr>
-        <td>${activity.description}</td>
-        <td>${activity.activityTypeDescription}</td>
-        <td>
-          <c:if test="${activity.etcServiceMap != ''}">
-            <t:tooltipLink href="${activity.etcServiceMap}"/>
-          </c:if>
-        </td>
-        <td>
-          <t:listGroup items="${activity.countryNames}" />
-        </td>
+        <td>${activityType.activityType}</td>
         <td class="text-center">
           <t:colorLabel
-            color="${activity.confirmedTypeColorCode}"
-            text="${activity.confirmedTypeDescription}" />
+            color="${activityType.colorCode}"
+            text="${activityType.colorCode}"/>
         </td>
         <td>
           <t:actionButtons
             readOnly="${readOnly}"
             entity="${entity}"
-            id="${activity.id}" />
+            id="${activityType.id}" />
         </td>
       </tr>
     </c:forEach>

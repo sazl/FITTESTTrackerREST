@@ -29,8 +29,7 @@
         <tt:activityRoleTable activityRoles="${allActivityRoles}" />
       </div>
       <div class="tab-pane" id="activity-types">
-        <jsp:include
-          page="/WEB-INF/partials/activity/activity-types/activity-types-table.jsp" />
+        <tt:activityTypeTable activityTypes="${allActivityTypes}" />
       </div>
       <div class="tab-pane" id="events">
 

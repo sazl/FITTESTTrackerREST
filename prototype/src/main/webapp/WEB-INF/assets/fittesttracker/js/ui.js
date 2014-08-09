@@ -7,12 +7,12 @@ var ftUI = (function (global, $) {
       if (e) {
         $.ajax({
           url: uri,
-          type: 'DELETE'
+          type: 'POST'
+        }).fail(function() {
+          alertify.alert('Failed to delete ' + name);
         }).success(function() {
           window.location.reload();
           alertify.success('Deleted ' + name);
-        }).fail(function() {
-          alertify.alert('Failed to delete ' + name);
         });
       }
       else {

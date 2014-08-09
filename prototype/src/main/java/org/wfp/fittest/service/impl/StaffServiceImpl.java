@@ -11,6 +11,8 @@ import org.wfp.fittest.dto.ProfileTypeDto;
 import org.wfp.fittest.dto.StaffDto;
 import org.wfp.fittest.dto.StaffRoleDto;
 import org.wfp.fittest.dto.StaffTypeDto;
+import org.wfp.fittest.entity.Staff;
+import org.wfp.fittest.entity.StaffRole;
 import org.wfp.fittest.repository.ProfileTypeRepository;
 import org.wfp.fittest.repository.StaffRepository;
 import org.wfp.fittest.repository.StaffRoleRepository;
@@ -32,7 +34,12 @@ public class StaffServiceImpl implements StaffService {
 	private StaffTypeRepository staffTypeRepository;
 	@Autowired
 	private ProfileTypeRepository profileTypeRepository;
-
+	
+	@Override
+	public StaffDto findStaffById(Long staffId) {
+		return converter.entityToDto(staffRepository.findOne(staffId));
+	}
+	
 	@Override
 	public StaffDto findStaffNested(Long staffId) {
 		return converter.entityToDtoNested(staffRepository.findOne(staffId));
@@ -64,6 +71,20 @@ public class StaffServiceImpl implements StaffService {
 	public List<StaffDto> findAllStaff() {
 		return converter.entitiesToDtos(staffRepository.findAll());
 	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteStaffById(Long staffId) {
+		staffRepository.delete(staffId);
+		return true;
+	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public StaffDto saveOrUpdateStaff(StaffDto staffDto) {
+		Staff staff = converter.dtoToEntityNested(staffDto);
+		return converter.entityToDtoNested(staffRepository.save(staff));
+	}
 
 	@Override
 	public StaffRoleDto findStaffRoleNested(Long staffRoleId) {
@@ -72,13 +93,22 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
+	public StaffRoleDto saveOrUpdateStaffRole(StaffRoleDto staffRoleDto) {
+		StaffRole staffRole = converter.dtoToEntityNested(staffRoleDto);
+		return converter.entityToDtoNested(staffRoleRepository.save(staffRole));
+	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteStaffRoleById(Long staffRoleId) {
+		staffRoleRepository.delete(staffRoleId);
+		return true;
+	}
+	
+	@Override
 	public List<StaffRoleDto> findAllStaffRoles() {
 		return converter.entitiesToDtos(staffRoleRepository.findAll());
-	}
-
-	@Override
-	public StaffDto findStaffById(Long staffId) {
-		return converter.entityToDto(staffRepository.findOne(staffId));
 	}
 
 	@Override

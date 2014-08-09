@@ -21,8 +21,6 @@ public class WebInitializer implements WebApplicationInitializer {
 			throws ServletException {
 		servletContext.setInitParameter("spring.profiles.active",
 				"spring-data-jpa");
-		servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES",
-				"/WEB-INF/tags/util");
 
 		WebApplicationContext rootContext = getRootContext();
 		servletContext.addListener(new ContextLoaderListener(rootContext));

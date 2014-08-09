@@ -6,10 +6,17 @@
 <%@ attribute name="staffRoles" required="true" type="java.util.List" %>
 
 <%@ attribute name="simpleTable" required="false" %>
+<%@ attribute name="readOnly" required="false" %>
 
-<table
-  class="${simpleTable ?  'simple-dataTable' : 'default-dataTable'} display table-bordered">
-  <thead>
+<c:set var="entity" value="staffList/role" />
+
+<t:actionTable
+  entity="${entity}"
+  items="${staffRoles}"
+  simpleTable="${simpleTable}"
+  readOnly="${readOnly}">
+
+  <jsp:attribute name="actionTableHeader">
     <tr>
       <th>Activity</th>
       <th>Profile Type</th>
@@ -20,8 +27,9 @@
       <th>Confirmed Type</th>
       <th>Actions</th>
     </tr>
-  </thead>
-  <tbody>
+  </jsp:attribute>
+  
+  <jsp:body>
     <c:forEach var="staffRole" items="${staffRoles}">
       <tr>
         <td>${staffRole.activityRoleDescription}</td>
@@ -46,5 +54,5 @@
         </td>
       </tr>
     </c:forEach>
-  </tbody>
-</table>
+  </jsp:body>
+</t:actionTable>

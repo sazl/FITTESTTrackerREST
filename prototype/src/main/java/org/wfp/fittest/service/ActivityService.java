@@ -42,6 +42,8 @@ public interface ActivityService {
 	
 	public ActivityTypeDto findActivityType(Long activityTypeId);
 	
+	public ActivityTypeDto findActivityTypeNested(Long activityTypeId);
+	
 	public boolean deleteActivityType(ActivityTypeDto activityTypeDto);
 	
 	public boolean deleteActivityTypeById(Long activityTypeId);

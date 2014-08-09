@@ -21,7 +21,7 @@ public class StaffDto extends AbstractDto {
 
 	private Long staffTypeId;
 	private List<Long> profileTypeIds = new ArrayList<Long>();
-	private List<Long> countryIds = new ArrayList<Long>();
+	private List<Long> nationalityIds = new ArrayList<Long>();
 	private List<Long> languageIds = new ArrayList<Long>();
 	private List<Long> staffRoleIds = new ArrayList<Long>();
 	
@@ -135,12 +135,12 @@ public class StaffDto extends AbstractDto {
 		this.profileTypeIds = profileTypeIds;
 	}
 
-	public List<Long> getCountryIds() {
-		return countryIds;
+	public List<Long> getNationalityIds() {
+		return nationalityIds;
 	}
 
-	public void setCountryIds(List<Long> countryIds) {
-		this.countryIds = countryIds;
+	public void setNationalityIds(List<Long> nationalityIds) {
+		this.nationalityIds = nationalityIds;
 	}
 
 	public List<Long> getLanguageIds() {

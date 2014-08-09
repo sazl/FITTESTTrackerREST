@@ -18,6 +18,7 @@
   items="${activityRoles}"
   simpleTable="${simpleTable}"
   readOnly="${readOnly}">
+
   <jsp:attribute name="actionTableHeader">
     <tr>
       <th>Activity</th>

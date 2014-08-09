@@ -14,7 +14,7 @@
 
 <%@ attribute name="actionTableHeader" fragment="true" %>
 
-<c:if test="${not readOnly}">
+<c:if test="${not (readOnly or simpleTable)}">
   <t:createButton entity="${entity}" />
 </c:if>
 

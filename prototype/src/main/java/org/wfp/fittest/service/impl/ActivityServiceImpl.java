@@ -11,6 +11,7 @@ import org.wfp.fittest.dto.ActivityRoleDto;
 import org.wfp.fittest.dto.ActivityTypeDto;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityRole;
+import org.wfp.fittest.entity.ActivityType;
 import org.wfp.fittest.repository.ActivityRepository;
 import org.wfp.fittest.repository.ActivityRoleRepository;
 import org.wfp.fittest.repository.ActivityTypeRepository;
@@ -100,8 +101,10 @@ public class ActivityServiceImpl implements ActivityService {
 	@Transactional(readOnly = false)
 	public ActivityRoleDto saveOrUpdateActivityRole(
 			ActivityRoleDto activityRoleDto) {
-		ActivityRole activityRole = converter.dtoToEntityNested(activityRoleDto);
-		return converter.entityToDtoNested(activityRole);
+		ActivityRole activityRole = converter
+				.dtoToEntityNested(activityRoleDto);
+		return converter.entityToDtoNested(activityRoleRepository
+				.save(activityRole));
 	}
 
 	@Override
@@ -116,25 +119,30 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
+	public ActivityTypeDto findActivityTypeNested(Long activityTypeId) {
+		return converter.entityToDtoNested(activityTypeRepository
+				.findOne(activityTypeId));
+	}
+
+	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteActivityType(ActivityTypeDto activityTypeDto) {
-		// TODO Auto-generated method stub
-		return false;
+		return deleteActivityTypeById(activityTypeDto.getId());
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteActivityTypeById(Long activityTypeId) {
-		// TODO Auto-generated method stub
-		return false;
+		activityTypeRepository.delete(activityTypeId);
+		return true;
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public ActivityTypeDto saveOrUpdateActivityType(
 			ActivityTypeDto activityTypeDto) {
-		// TODO Auto-generated method stub
-		return null;
+		ActivityType activityType = converter.dtoToEntityNested(activityTypeDto);
+		return converter.entityToDtoNested(activityTypeRepository.save(activityType));
 	}
 
 }

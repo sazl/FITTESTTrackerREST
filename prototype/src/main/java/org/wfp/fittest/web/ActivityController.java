@@ -2,7 +2,6 @@ package org.wfp.fittest.web;
 
 import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,20 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.wfp.fittest.dto.ActivityDto;
-import org.wfp.fittest.service.ActivityService;
-import org.wfp.fittest.service.StaffService;
-import org.wfp.fittest.service.UtilityService;
 
 @Controller
 @RequestMapping(value = "/activity")
 public class ActivityController extends AbstractController {
-
-	@Autowired
-	private ActivityService activityService;
-	@Autowired
-	private StaffService staffService;
-	@Autowired
-	private UtilityService utilityService;
 
 	@RequestMapping("")
 	public String activity(Model model, Locale locale) {
@@ -66,7 +55,7 @@ public class ActivityController extends AbstractController {
 		return "forms/activity";
 	}
 
-	@RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
 	public String activityDelete(@PathVariable("id") Long activityId,
 			Model model, Locale locale) {
 		activityService.deleteActivityById(activityId);

@@ -5,10 +5,17 @@
 <%@ attribute name="staffList" required="true" type="java.util.List" %>
 
 <%@ attribute name="simpleTable" required="false" %>
+<%@ attribute name="readOnly" required="false" %>
 
-<table
-  class="${simpleTable ?  'table' : 'default-dataTable'} display table-bordered">
-  <thead>
+<c:set var="entity" value="staffList" />
+
+<t:actionTable
+  entity="${entity}"
+  items="${staffList}"
+  simpleTable="${simpleTable}"
+  readOnly="${readOnly}">
+
+  <jsp:attribute name="actionTableHeader">
     <tr>
       <th>Index</th>
       <th>First Name</th>
@@ -18,8 +25,9 @@
       <th>Profile Type</th>
       <th>Actions</th>
     </tr>
-  </thead>
-  <tbody>
+  </jsp:attribute>
+
+  <jsp:body>
     <c:forEach var="staff" items="${staffList}">
       <tr>
         <td class="text-center">
@@ -42,10 +50,11 @@
         </td>
         <td>
           <t:actionButtons
-            entity="staffList"
-            id="${staff.id}" />          
+            readOnly="${readOnly}"
+            entity="${entity}"
+            id="${staff.id}" />
         </td>
       </tr>
     </c:forEach>
-  </tbody>
-</table>
+  </jsp:body>
+</t:actionTable>

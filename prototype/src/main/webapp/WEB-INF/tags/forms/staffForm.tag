@@ -1,4 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="tt" tagdir="/WEB-INF/tags/tables" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -10,11 +11,21 @@
 <%@ attribute name="nationalities" required="true" type="java.util.List" %>
 <%@ attribute name="languages" required="true" type="java.util.List" %>
 
+<c:url var="staffSave" value="/staffList/save" />
+
 <form:form
+  method="POST"
+  action="${staffSave}"
   class="form-horizontal"
   role="form"
   id="staff-form"
   modelAttribute="staff">
+  <t:formGroup label="Index">
+    <form:input
+      class="form-control"
+      type="text"
+      path="id" />
+  </t:formGroup>
   <t:formGroup label="First Name">
     <form:input
       class="form-control"
@@ -61,28 +72,36 @@
     <form:select
       class="form-control"
       items="${staffTypes}"
-      path="staffTypeDto"
+      itemLabel="staffType"
+      itemValue="id"
+      path="staffTypeId"
       multiple="false" />    
   </t:formGroup>
   <t:formGroup label="Profile Type">
     <form:select
       class="form-control"
       items="${profileTypes}"
-      path="profileTypeDtos"
+      itemLabel="profileType"
+      itemValue="id"
+      path="profileTypeIds"
       multiple="true" />
   </t:formGroup>
   <t:formGroup label="Nationality">
-        <form:select
+    <form:select
       class="form-control"
       items="${allNationalities}"
-      path="nationalityDtos"
+      itemLabel="fullName"
+      itemValue="id"
+      path="nationalityIds"
       multiple="true" />
   </t:formGroup>
   <t:formGroup label="Language">
-        <form:select
+    <form:select
       class="form-control"
       items="${allLanguages}"
-      path="languageDtos"
+      itemLabel="language"
+      itemValue="id"
+      path="languageIds"
       multiple="true" />
   </t:formGroup>
   <t:formGroup
@@ -90,5 +109,14 @@
     <tt:staffRoleTable
       simpleTable="true"
       staffRoles="${staff.staffRoleDtos}" />
+  </t:formGroup>
+
+  <t:formGroup label="">
+    <div class="btn-group btn-group-md">
+      <button type="submit"
+              class="btn btn-success">
+        <span class="glyphicon glyphicon-ok"></span> Save
+      </button>
+    </div>
   </t:formGroup>
 </form:form>

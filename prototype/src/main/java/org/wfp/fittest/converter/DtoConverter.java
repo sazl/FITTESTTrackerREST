@@ -111,6 +111,15 @@ public class DtoConverter {
 	}
 
 	@SuppressWarnings("unchecked")
+	public ActivityTypeDto entityToDtoNested(ActivityType activityType) {
+		ActivityTypeDto activityTypeDto = entityToDto(activityType);
+		activityTypeDto
+				.setActivityDtos((List<ActivityDto>) (List<?>) entitiesToDtos(activityType
+						.getActivities()));
+		return activityTypeDto;
+	}
+
+	@SuppressWarnings("unchecked")
 	public StaffDto entityToDtoNested(Staff staff) {
 		StaffDto staffDto = entityToDto(staff);
 		staffDto.setStaffTypeDto((StaffTypeDto) entityToDto(staff
@@ -206,7 +215,7 @@ public class DtoConverter {
 		staff.setLanguages(Sets.newHashSet(languageRepository.findAll(staffDto
 				.getLanguageIds())));
 		staff.setNationalities(Sets.newHashSet(countryRepository
-				.findAll(staffDto.getCountryIds())));
+				.findAll(staffDto.getNationalityIds())));
 		staff.setProfileTypes(Sets.newHashSet(profileTypeRepository
 				.findAll(staffDto.getProfileTypeIds())));
 		staff.setStaffRoles(Sets.newHashSet(staffRoleRepository

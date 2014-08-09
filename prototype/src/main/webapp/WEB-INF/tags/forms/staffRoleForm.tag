@@ -4,11 +4,17 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<%@ attribute name="staffRole" required="true"
+              type="org.wfp.fittest.dto.StaffRoleDto" %>
 <%@ attribute name="activityRoles" required="true" type="java.util.List" %>
 <%@ attribute name="confirmedTypes" required="true" type="java.util.List" %>
 <%@ attribute name="staffList" required="true" type="java.util.List" %>
 
+<c:url var="staffRoleSave" value="/staffList/role/save" />
+
 <form:form
+  method="POST"
+  action="${staffRoleSave}"
   class="form-horizontal"
   role="form"
   id="staff-role-form"
@@ -17,21 +23,24 @@
     <form:select
       class="form-control"
       items="${activityRoles}"
-      path="activityRoleDto"
+      path="activityRoleId"
+      itemValue="id"
       multiple="false" />
   </t:formGroup>
   <t:formGroup label="Staff">
     <form:select
       class="form-control"
       items="${staffList}"
-      path="staffDto"
+      itemValue="id"
+      path="staffId"
       multiple="false" />
   </t:formGroup>  
   <t:formGroup label="Confirmed Type">
     <form:select
       class="form-control"
       items="${confirmedTypes}"
-      path="confirmedTypeDto"
+      itemValue="id"
+      path="confirmedTypeId"
       multiple="false" />
   </t:formGroup>
     <t:formGroup label="Start Date">
@@ -57,5 +66,14 @@
       class="form-control"
       type="text"
       path="comments" />
+  </t:formGroup>
+
+  <t:formGroup label="">
+    <div class="btn-group btn-group-md">
+      <button type="submit"
+              class="btn btn-success">
+        <span class="glyphicon glyphicon-ok"></span> Save
+      </button>
+    </div>
   </t:formGroup>
 </form:form>

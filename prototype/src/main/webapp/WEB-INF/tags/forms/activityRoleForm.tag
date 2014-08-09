@@ -19,6 +19,8 @@
   role="form"
   id="activity-role-form"
   modelAttribute="activityRole">
+  <form:hidden
+    path="id" />
   <t:formGroup label="Activity">
     <form:select
       class="form-control"
@@ -61,7 +63,7 @@
       staffRoles="${activityRole.staffRoleDtos}" />
   </t:formGroup>
 
-    <t:formGroup label="">
+  <t:formGroup label="">
     <div class="btn-group btn-group-md">
         <button type="submit"
                 class="btn btn-success">

@@ -10,9 +10,17 @@
 </div>
 
 <div class="staff-available col-sm-4">
-  <t:defaultPanel title="TEST" />
+  <t:defaultPanel title="Available">
+    <jsp:attribute name="panelBody">
+      <t:staffDetailList staffList="${staffAvailable}" />
+    </jsp:attribute>
+  </t:defaultPanel>
 </div>
 
 <div class="staff-notavailable col-sm-4">
-  <t:defaultPanel title="TEST" />
+  <t:defaultPanel title="Not Available">
+    <jsp:attribute name="panelBody">
+      <t:staffDetailList staffList="${staffNotAvailable}" />
+    </jsp:attribute>
+  </t:defaultPanel>
 </div>

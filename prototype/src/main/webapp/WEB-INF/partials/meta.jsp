@@ -27,8 +27,7 @@
       href="<c:url value="/external/css/select2-bootstrap.css" />">
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/external/css/jquery.dataTables.min.css" />">
-<link rel="stylesheet" type="text/css"
-      href="<c:url value="/external/css/dataTables.bootstrap.css" />">
+
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/external/css/alertify.core.css" />">
 <link rel="stylesheet" type="text/css"
@@ -40,6 +39,8 @@
       href="<c:url value="/fittesttracker/css/fittesttracker.css" />">
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/fittesttracker/css/sidebar.css" />">
+<link rel="stylesheet" type="text/css"
+      href="<c:url value="/fittesttracker/css/timeline.css" />">
 
 <!--[if lt IE 9]>
 <script type="text/javascript"

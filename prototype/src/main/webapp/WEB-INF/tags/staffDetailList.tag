@@ -3,7 +3,6 @@
 
 <%@attribute name="staffList" required="true" type="java.util.List" %>
 
-
 <table class="simple-dataTable display">
   <thead>
     <tr>
@@ -29,6 +28,7 @@
                 <h4 class="media-heading">
                   <c:out value="${staff.name}" />
                 </h4>
+                
               </div>
             </li>
           </ul>

@@ -22,9 +22,7 @@
 <script
     type="text/javascript"
     src="<c:url value="/external/js/jquery.dataTables.min.js" />"></script>
-<script
-    type="text/javascript"
-    src="<c:url value="/external/js/dataTables.bootstrap.js" />"></script>
+
 <script
     type="text/javascript"
     src="<c:url value="/external/js/select2.min.js"/>"></script>

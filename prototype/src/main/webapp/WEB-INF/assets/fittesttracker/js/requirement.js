@@ -28,12 +28,14 @@ $(document).ready(function() {
 
   clearRequirementButton.click(function(event) {
     timeline.clear();
+    $('select').select2('data', null);
   });
 
   submitRequirementButton.click(function(event) {
     var startDate = startDateInput.val();
     var endDate = endDateInput.val();
     var activities = activitiesSelect.val();
+    timeline.setCustomTime(ftUtil.simpleDateToDate(startDate));
 
     ftRest.getRequirements(startDate, endDate, activities).then(function(activityRoles) {
       if (activityRoles == undefined || activityRoles.length == 0) {
@@ -42,20 +44,23 @@ $(document).ready(function() {
       }
 
       var groups = _.map(activityRoles, function(ar) {
-        return {id: ar.activityId, content: ar.activityDescription, value: ar.activityId};
-      });
-
-      groups = _.map(_.groupBy(groups, function(ar){
-        return ar.id;
-      }), function(grouped){
-        return grouped[0];
+        return {
+          id: ar.id,
+          content: $('<div>')
+            .append($('<b>').text(ar.activityDescription))
+            .append('<br/>')
+            .append($('<b>').text('[' + ar.profileTypeDescription + ']'))[0],
+          value: ar.activityId
+        };
       });
 
       var items = _.map(activityRoles, function(ar) {
         return {
           id: ar.id,
-          group: ar.activityId,
-          content: ar.profileTypeDescription,
+          group: ar.id,
+          className: 'green',
+          content: $('<div>')
+            .append($('<b>').text(ar.profileTypeDescription))[0],
           start: ftUtil.ISODateToDate(ar.startDate),
           end: ftUtil.ISODateToDate(ar.endDate)
         };
@@ -77,10 +82,18 @@ $(document).ready(function() {
         $.each(activityRolesStaffRoles, function(i, staffRoles) {
           var ar = activityRoles[i];
           $.each(staffRoles, function(j, sr) {
+            var itemId = Math.floor(Math.random() * 100000000);
+            var className = 'color' + itemId;
+            ftUtil.timelineAppendColorClass(className, sr.staffColorCode);
+            
             var item = {
-              id: Math.floor(Math.random() * 100000000),
-              group: ar.activityId,
-              content: sr.staffName,
+              id: itemId,
+              group: ar.id,
+              className: className,
+              content: $('<div>')
+                .append($('<b>').text(sr.staffName))
+                .append($('<br/>'))
+                .append(ftUtil.simpleDate(sr.startDate) + ' to ' + ftUtil.simpleDate(sr.endDate))[0],
               start: ftUtil.ISODateToDate(sr.startDate),
               end: ftUtil.ISODateToDate(sr.endDate)
             };

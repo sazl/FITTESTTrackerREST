@@ -19,6 +19,8 @@
   role="form"
   id="staff-role-form"
   modelAttribute="staffRole">
+  <form:hidden
+    path="id" />
   <t:formGroup label="Activity Role">
     <form:select
       class="form-control"

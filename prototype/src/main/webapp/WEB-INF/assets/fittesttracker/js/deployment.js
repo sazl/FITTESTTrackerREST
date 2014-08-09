@@ -38,6 +38,8 @@ $(document).ready(function() {
     var endDate = endDateInput.val();
     var staffTypes = staffTypesSelect.val();
     var activities = activitiesSelect.val();
+    timeline.setCustomTime(ftUtil.simpleDateToDate(startDate));
+    
     ftRest.getDeployments(startDate, endDate, staffTypes, activities).then(function(staffRoles) {
       if (staffRoles.length == 0) {
         alertify.alert('No staff roles found');
@@ -58,7 +60,6 @@ $(document).ready(function() {
             sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
           var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
           var content = $('<div>')
-                // .css('background-color', 'red')
                 .append(activityName)
                 .append('<br/>')
                 .append(profileType)
@@ -66,9 +67,13 @@ $(document).ready(function() {
                 .append(confirmedType)
                 .append('<br/>')
                 .append(dates)[0];
+          var className = 'color' + sr.id;
+          ftUtil.timelineAppendColorClass(className, sr.activityTypeColorCode);
+          
           return {
             id: sr.id,
             group: sr.staffId,
+            className: className,
             content: content,
             start: ftUtil.ISODateToDate(sr.startDate),
             end: ftUtil.ISODateToDate(sr.endDate)
@@ -86,5 +91,6 @@ $(document).ready(function() {
   
   clearDeploymentButton.click(function(event) {
     timeline.clear();
+    $('select').select2('data', null);
   });
 });

@@ -59,12 +59,12 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public List<StaffDto> findStaffAvailable(Date date) {
-		return null;
+		return converter.entitiesToDtosNested(staffRepository.findByAvailableInDate(date));
 	}
 
 	@Override
 	public List<StaffDto> findStaffNotAvailable(Date date) {
-		return null;
+		return converter.entitiesToDtosNested(staffRepository.findByNotAvailableInDate(date));
 	}
 
 	@Override

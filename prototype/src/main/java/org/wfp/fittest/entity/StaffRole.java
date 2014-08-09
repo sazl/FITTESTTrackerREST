@@ -175,6 +175,14 @@ public class StaffRole implements EntityId {
 	public String getStaffName() {
 		return getStaff().getName();
 	}
+	
+	public String getStaffColorCode() {
+		return getStaff().getStaffColorCode();
+	}
+	
+	public String getActivityTypeColorCode() {
+		return getActivityRole().getActivity().getActivityType().getColorCode();
+	}
 
 	@Override
 	public int hashCode() {

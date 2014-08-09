@@ -43,6 +43,16 @@ var ftUtil = (function (global, $) {
     }).join(' ');
   }
 
+  function _timelineAppendColorClass(className, color) {
+    $('<style>')
+      .prop('type', 'text/css')
+      .html('.vis.timeline .item.'
+            + className
+            + ' { background-color: #' + color + ';'
+            + ' box-shadow: 0 0 5px gray; }')
+      .appendTo('head');
+  }
+
   return {
     colorLabel: _colorLabel,
     simpleDate: _simpleDate,
@@ -51,6 +61,7 @@ var ftUtil = (function (global, $) {
     ISODateToDate: _ISODateToDate,
     arrayToCSV: _arrayToCSV,
     camelCaseToReadable: _camelCaseToReadable,
-    linkToReadable: _linkToReadable
+    linkToReadable: _linkToReadable,
+    timelineAppendColorClass: _timelineAppendColorClass
   };
 }(window || this, jQuery));

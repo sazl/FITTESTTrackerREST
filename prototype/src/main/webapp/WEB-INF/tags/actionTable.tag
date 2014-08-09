@@ -19,6 +19,8 @@
 </c:if>
 
 <table
+  cellspacing="0"
+  width="100%"
   class="${simpleTable ?  'simple-dataTable' : 'default-dataTable'} display table-bordered">
   <thead>
     <jsp:invoke fragment="actionTableHeader" />

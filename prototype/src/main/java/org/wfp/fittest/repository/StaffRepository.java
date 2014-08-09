@@ -42,16 +42,26 @@ public interface StaffRepository extends AbstractRepository<Staff, Long> {
 
 	public List<Staff> findByStaffColorCode(String colorCode);
 
-	@Query("select distinct(s) from Staff s"
-			+ " join s.staffRoles sr"
-			+ " join sr.activityRole ar"
-			+ " join ar.activity act"
+	@Query("select distinct(s) from Staff s" + " join s.staffRoles sr"
+			+ " join sr.activityRole ar" + " join ar.activity act"
 			+ " join act.activityType at"
-		    + " where at.activityType = :activityType"
-			+ " and sr.startDate <= :date"
-		    + " and sr.endDate >= :date")
+			+ " where at.activityType = :activityType"
+			+ " and sr.startDate <= :date" + " and sr.endDate >= :date")
 	public List<Staff> findByActivityTypeInDate(
 			@Param("activityType") String activityType,
+			@Param("date") @DateTimeFormat(iso = ISO.DATE) Date date);
+
+	@Query("select distinct(s) from Staff s"
+			+ " join s.staffRoles sr"
+			+ " where sr = null or "
+			+ " not (sr.startDate <= :date and sr.endDate >= :date)")
+	public List<Staff> findByAvailableInDate(
+			@Param("date") @DateTimeFormat(iso = ISO.DATE) Date date);
+	
+	@Query("select distinct(s) from Staff s"
+			+ " join s.staffRoles sr"
+			+ " where sr.startDate <= :date and sr.endDate >= :date")
+	public List<Staff> findByNotAvailableInDate(
 			@Param("date") @DateTimeFormat(iso = ISO.DATE) Date date);
 
 }

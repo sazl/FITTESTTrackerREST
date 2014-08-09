@@ -45,6 +45,8 @@ public class IndexController extends AbstractController {
 	public String dashboard(Model model, Locale locale) {
 		Date currentDate = new Date();
 		model.addAttribute("staffBIS", staffService.findStaffBIS(currentDate));
+		model.addAttribute("staffAvailable", staffService.findStaffAvailable(currentDate));
+		model.addAttribute("staffNotAvailable", staffService.findStaffNotAvailable(currentDate));
 		return "dashboard";
 	}
 

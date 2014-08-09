@@ -227,6 +227,8 @@ $(document).ready(function() {
   staffRoleClearButton.click(function(event) {
     staffRoleStaffRoleId.empty();
     staffRoleActivityRoles.empty();
+    staffRoleStaff.select2('data', null);
+    staffRoleConfirmedTypes.select2('data', null);
     removeActiveStaffRoleRow();
   });
 

@@ -120,6 +120,39 @@ public class DtoConverter {
 	}
 
 	@SuppressWarnings("unchecked")
+	public ConfirmedTypeDto entityToDtoNested(ConfirmedType confirmedType) {
+		ConfirmedTypeDto confirmedTypeDto = entityToDto(confirmedType);
+		confirmedTypeDto
+				.setStaffRoleDtos((List<StaffRoleDto>) (List<?>) entitiesToDtos(confirmedType
+						.getStaffRoles()));
+		confirmedTypeDto
+				.setActivityDtos((List<ActivityDto>) (List<?>) entitiesToDtos(confirmedType
+						.getActivities()));
+		return confirmedTypeDto;
+	}
+
+	@SuppressWarnings("unchecked")
+	public CountryDto entityToDtoNested(Country country) {
+		CountryDto countryDto = entityToDto(country);
+		countryDto
+				.setActivityDtos((List<ActivityDto>) (List<?>) entitiesToDtos(country
+						.getActivities()));
+		countryDto
+				.setStaffByNationalityDtos((List<StaffDto>) (List<?>) entitiesToDtos(country
+						.getStaffByNationality()));
+		return countryDto;
+	}
+
+	@SuppressWarnings("unchecked")
+	public LanguageDto entityToDtoNested(Language language) {
+		LanguageDto languageDto = entityToDto(language);
+		languageDto
+				.setStaffByLanguageDtos((List<StaffDto>) (List<?>) entitiesToDtos(language
+						.getStaffByLanguage()));
+		return languageDto;
+	}
+
+	@SuppressWarnings("unchecked")
 	public StaffDto entityToDtoNested(Staff staff) {
 		StaffDto staffDto = entityToDto(staff);
 		staffDto.setStaffTypeDto((StaffTypeDto) entityToDto(staff
@@ -135,14 +168,36 @@ public class DtoConverter {
 		return staffDto;
 	}
 
+	@SuppressWarnings("unchecked")
+	public StaffTypeDto entityToDtoNested(StaffType staffType) {
+		StaffTypeDto staffTypeDto = entityToDto(staffType);
+		staffTypeDto
+				.setStaffDtos((List<StaffDto>) (List<?>) entitiesToDtos(staffType
+						.getStaff()));
+		return staffTypeDto;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ProfileTypeDto entityToDtoNested(ProfileType profileType) {
+		ProfileTypeDto profileTypeDto = entityToDto(profileType);
+		profileTypeDto
+				.setStaffDtos((List<StaffDto>) (List<?>) entitiesToDtos(profileType
+						.getStaff()));
+		profileTypeDto
+				.setActivityRoleDtos((List<ActivityRoleDto>) (List<?>) entitiesToDtos(profileType
+						.getActivityRoles()));
+		return profileTypeDto;
+	}
+
 	public List<StaffDto> entitiesToDtosNested(Iterable<Staff> staffList) {
 		List<StaffDto> dtos = new ArrayList<>();
 		for (Staff entity : staffList)
 			dtos.add(entityToDtoNested(entity));
 		return dtos;
 	}
-	
-	public List<StaffRoleDto> entitiesToDtosNested_StaffRole(Iterable<StaffRole> staffRoles) {
+
+	public List<StaffRoleDto> entitiesToDtosNested_StaffRole(
+			Iterable<StaffRole> staffRoles) {
 		List<StaffRoleDto> dtos = new ArrayList<>();
 		for (StaffRole entity : staffRoles)
 			dtos.add(entityToDtoNested(entity));

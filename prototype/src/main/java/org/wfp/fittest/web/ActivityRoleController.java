@@ -11,15 +11,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.wfp.fittest.dto.ActivityRoleDto;
 
 @Controller
-@RequestMapping(value = "/activity/role")
+@RequestMapping(value = "/activityRole")
 public class ActivityRoleController extends AbstractController {
 
+	@RequestMapping(value = "")
+	public String activityRole(Model model, Locale locale) {
+		model.addAttribute("allActivityRoles",
+				activityService.findAllActivityRoles());
+		return "activityRole";
+	}
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String activityRoleSave(
 			@ModelAttribute ActivityRoleDto activityRoleDto, Model model,
 			Locale locale) {
 		activityService.saveOrUpdateActivityRole(activityRoleDto);
-		return "redirect:/activity#activity-roles";
+		return "redirect:/activityRole";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -38,7 +45,7 @@ public class ActivityRoleController extends AbstractController {
 	public String activityRoleDelete(@PathVariable("id") Long activityRoleId,
 			Model model, Locale locale) {
 		activityService.deleteActivityRoleById(activityRoleId);
-		return "redirect:/activity#activity-roles";
+		return "redirect:/activityRole";
 	}
 
 	@RequestMapping(value = "/{id}/view")

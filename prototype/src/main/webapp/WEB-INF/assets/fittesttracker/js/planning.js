@@ -268,17 +268,21 @@ $(document).ready(function() {
 
   staffRoleSaveButton.click(function(event) {
     var staffRole = {
-      "id": staffRoleStaffRoleId.val(),
+      "id": parseInt(staffRoleStaffRoleId.val()),
       "startDate": ftUtil.ISODate(staffRoleStartDate.val()),
       "endDate": ftUtil.ISODate(staffRoleEndDate.val()),
       "location": staffRoleLocation.val(),
       "comments": staffRoleComments.val(),
-      "activityRoleId": staffRoleActivityRoles.val(),
-      "confirmedTypeId": staffRoleConfirmedTypes.val(),
-      "staffId": staffRoleStaff.val()
+      "activityRoleId": parseInt(staffRoleActivityRoles.val()),
+      "confirmedTypeId": parseInt(staffRoleConfirmedTypes.val()),
+      "staffId": parseInt(staffRoleStaff.val())
     };
     console.log(staffRole);
-    ftRest.saveOrUpdateStaffRole(staffRole);
+    ftRest.saveOrUpdateStaffRole(staffRole).then(function() {
+      var activityId = activitiesSelect.val();
+      alertify.success('Saved Staff Role');
+      buildActivityRoleTable(activityId);
+    });
   });
 
   planningPanelCollapseButton.click(function(event) {

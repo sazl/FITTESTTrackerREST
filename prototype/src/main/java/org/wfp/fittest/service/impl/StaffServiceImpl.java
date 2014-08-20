@@ -18,6 +18,7 @@ import org.wfp.fittest.dto.StaffTypeDto;
 import org.wfp.fittest.entity.ProfileType;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffRole;
+import org.wfp.fittest.entity.StaffType;
 import org.wfp.fittest.repository.ProfileTypeRepository;
 import org.wfp.fittest.repository.StaffRepository;
 import org.wfp.fittest.repository.StaffRoleRepository;
@@ -171,6 +172,46 @@ public class StaffServiceImpl implements StaffService {
 	public List<StaffRoleDto> findStaffRolesNotAvailable(Date date) {
 		return converter.entitiesToDtosNested_StaffRole(staffRoleRepository
 				.findByNotAvailableInDate(date));
+	}
+
+	@Override
+	public StaffTypeDto findStaffTypeNested(Long staffTypeId) {
+		return converter.entityToDtoNested(staffTypeRepository
+				.findOne(staffTypeId));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public StaffTypeDto saveOrUpdateStaffType(StaffTypeDto staffTypeDto) {
+		StaffType staffType = converter.dtoToEntityNested(staffTypeDto);
+		return converter.entityToDtoNested(staffTypeRepository.save(staffType));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteStaffTypeById(Long staffTypeId) {
+		staffTypeRepository.delete(staffTypeId);
+		return true;
+	}
+
+	@Override
+	public ProfileTypeDto findProfileTypeNested(Long profileTypeId) {
+		return converter.entityToDtoNested(profileTypeRepository
+				.findOne(profileTypeId));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public ProfileTypeDto saveOrUpdateProfileType(ProfileTypeDto profileTypeDto) {
+		ProfileType profileType = converter.dtoToEntityNested(profileTypeDto);
+		return converter.entityToDtoNested(profileTypeRepository.save(profileType));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteProfileTypeById(Long profileTypeId) {
+		profileTypeRepository.delete(profileTypeId);
+		return true;
 	}
 
 }

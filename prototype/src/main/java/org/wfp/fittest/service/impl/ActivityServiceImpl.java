@@ -13,6 +13,7 @@ import org.wfp.fittest.dto.EventDto;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.entity.ActivityType;
+import org.wfp.fittest.entity.Event;
 import org.wfp.fittest.repository.ActivityRepository;
 import org.wfp.fittest.repository.ActivityRoleRepository;
 import org.wfp.fittest.repository.ActivityTypeRepository;
@@ -152,6 +153,25 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	public List<EventDto> findAllEvents() {
 		return converter.entitiesToDtos(eventRepository.findAll());
+	}
+
+	@Override
+	public EventDto findEventNested(Long eventId) {
+		return converter.entityToDto(eventRepository.findOne(eventId));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteEventById(Long eventId) {
+		eventRepository.delete(eventId);
+		return true;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public EventDto saveOrUpdateEvent(EventDto eventDto) {
+		Event event = converter.dtoToEntity(eventDto);
+		return converter.entityToDto(event);
 	}
 
 }

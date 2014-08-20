@@ -1,5 +1,6 @@
 package org.wfp.fittest.web;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
@@ -11,14 +12,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.wfp.fittest.dto.StaffRoleDto;
 
 @Controller
-@RequestMapping(value = "/staffList/role")
+@RequestMapping(value = "/staffRole")
 public class StaffRoleController extends AbstractController {
+	
+	@RequestMapping(value = "")
+	public String staffRole(Model model, Locale locale) {
+		List<StaffRoleDto> staffRoles = staffService.findAllStaffRoles();
+		model.addAttribute("allStaffRoles", staffRoles);
+		return "staffRole";
+	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String staffRoleSave(@ModelAttribute StaffRoleDto staffRoleDto, Model model,
 			Locale locale) {
 		staffService.saveOrUpdateStaffRole(staffRoleDto);
-		return "redirect:/staffList#staff-roles";
+		return "redirect:/staffRole";
 	}
 
 	@RequestMapping(value = "/new")
@@ -48,6 +56,6 @@ public class StaffRoleController extends AbstractController {
 	public String staffDelete(@PathVariable("id") Long staffRoleId, Model model,
 			Locale locale) {
 		staffService.deleteStaffRoleById(staffRoleId);
-		return "redirect:/staffList#staff-roles";
+		return "redirect:/staffRole";
 	}
 }

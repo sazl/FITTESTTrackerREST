@@ -11,7 +11,23 @@ public interface UtilityService {
 	
 	public CountryDto findCountryById(Long countryId);
 	
+	public CountryDto saveOrUpdateCountry(CountryDto countryDto);
+	
+	public boolean deleteCountryById(Long countryId);
+	
 	public List<LanguageDto> findAllLanguages();
 	
+	public LanguageDto findLanguageById(Long languageId);
+	
+	public LanguageDto saveOrUpdateLanguage(LanguageDto languageDto);
+	
+	public boolean deleteLanguageById(Long languageId);
+	
 	public List<ConfirmedTypeDto> findAllConfirmedTypes();
+
+	public ConfirmedTypeDto findConfirmedTypeNested(Long confirmedTypeId);
+
+	public boolean deleteConfirmedTypeById(Long confirmedTypeId);
+
+	public ConfirmedTypeDto saveOrUpdateConfirmedType(ConfirmedTypeDto confirmedTypeDto);
 }

@@ -7,7 +7,7 @@
 <%@ attribute name="activityType" required="true"
               type="org.wfp.fittest.dto.ActivityTypeDto" %>
 
-<c:url var="activityTypeSave" value="/activity/type/save" />
+<c:url var="activityTypeSave" value="/activityType/save" />
 
 <form:form
   method="POST"

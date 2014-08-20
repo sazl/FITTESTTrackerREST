@@ -10,15 +10,6 @@
       <li class="active">
         <a href="#activities" role="tab">Activity</a>
       </li>
-      <li>
-        <a href="#activity-roles" role="tab">Activity Role</a>
-      </li>
-      <li>
-        <a href="#activity-types" role="tab">Activity Type</a>
-      </li>
-      <li>
-        <a href="#events" role="tab">Event</a>
-      </li>
     </ul>
 
     <div class="tab-content">
@@ -26,21 +17,6 @@
         <tt:activityTable
           readOnly="${readOnly}"
           activities="${allActivities}" />
-      </div>
-      <div class="tab-pane" id="activity-roles">
-        <tt:activityRoleTable
-          readOnly="${readOnly}"
-          activityRoles="${allActivityRoles}" />
-      </div>
-      <div class="tab-pane" id="activity-types">
-        <tt:activityTypeTable
-          readOnly="${readOnly}"
-          activityTypes="${allActivityTypes}" />
-      </div>
-      <div class="tab-pane" id="events">
-        <tt:eventTable
-          readOnly="${readOnly}"
-          events="${allEvents}" />
       </div>
     </div>
   </jsp:body>

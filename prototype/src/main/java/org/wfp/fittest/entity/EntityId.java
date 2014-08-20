@@ -1,6 +1,8 @@
 package org.wfp.fittest.entity;
 
-public interface EntityId {
+import java.io.Serializable;
+
+public interface EntityId extends Serializable {
 	public Long getId();
 	public void setId(Long id);
 }

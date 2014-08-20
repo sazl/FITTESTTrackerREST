@@ -1,5 +1,6 @@
 package org.wfp.fittest.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CountryDto extends AbstractDto {
@@ -11,6 +12,9 @@ public class CountryDto extends AbstractDto {
 	
 	private List<Long> staffByNationalityIds;
 	private List<Long> activityIds;
+	
+	private List<StaffDto> staffByNationalityDtos = new ArrayList<>();
+	private List<ActivityDto> activityDtos = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -58,6 +62,22 @@ public class CountryDto extends AbstractDto {
 
 	public void setActivityIds(List<Long> activityIds) {
 		this.activityIds = activityIds;
+	}
+	
+	public List<StaffDto> getStaffByNationalityDtos() {
+		return staffByNationalityDtos;
+	}
+
+	public void setStaffByNationalityDtos(List<StaffDto> staffByNationalityDtos) {
+		this.staffByNationalityDtos = staffByNationalityDtos;
+	}
+
+	public List<ActivityDto> getActivityDtos() {
+		return activityDtos;
+	}
+
+	public void setActivityDtos(List<ActivityDto> activityDtos) {
+		this.activityDtos = activityDtos;
 	}
 
 	@Override

@@ -10,7 +10,7 @@
 <%@ attribute name="confirmedTypes" required="true" type="java.util.List" %>
 <%@ attribute name="staffList" required="true" type="java.util.List" %>
 
-<c:url var="staffRoleSave" value="/staffList/role/save" />
+<c:url var="staffRoleSave" value="/staffRole/save" />
 
 <form:form
   method="POST"

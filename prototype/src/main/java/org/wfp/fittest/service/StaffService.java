@@ -43,8 +43,20 @@ public interface StaffService {
 	public List<StaffRoleDto> findStaffRolesNotAvailable(Date date);
 
 	public List<StaffTypeDto> findAllStaffTypes();
+	
+	public StaffTypeDto findStaffTypeNested(Long staffTypeId);
+	
+	public StaffTypeDto saveOrUpdateStaffType(StaffTypeDto staffTypeDto);
+	
+	public boolean deleteStaffTypeById(Long staffTypeId);
 
 	public List<ProfileTypeDto> findAllProfileTypes();
+	
+	public ProfileTypeDto findProfileTypeNested(Long profileTypeId);
+	
+	public ProfileTypeDto saveOrUpdateProfileType(ProfileTypeDto profileTypeDto);
+	
+	public boolean deleteProfileTypeById(Long profileTypeId);
 	
 	public Map<String, Long> countStaffByStaffType();
 

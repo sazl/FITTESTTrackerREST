@@ -7,7 +7,7 @@ public class StaffTypeDto extends AbstractDto {
 	private Long id;
 	private String staffType;
 	
-	private List<StaffDto> staffDto = new ArrayList<>();
+	private List<StaffDto> staffDtos = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -25,12 +25,12 @@ public class StaffTypeDto extends AbstractDto {
 		this.staffType = staffType;
 	}
 
-	public List<StaffDto> getStaffDto() {
-		return staffDto;
+	public List<StaffDto> getStaffDtos() {
+		return staffDtos;
 	}
 
-	public void setStaffDto(List<StaffDto> staffDto) {
-		this.staffDto = staffDto;
+	public void setStaffDtos(List<StaffDto> staffDtos) {
+		this.staffDtos = staffDtos;
 	}
 	
 	@Override

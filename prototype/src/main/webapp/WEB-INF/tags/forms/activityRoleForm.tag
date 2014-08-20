@@ -10,7 +10,7 @@
 <%@ attribute name="profileTypes" required="true" type="java.util.List" %>
 <%@ attribute name="staffRoles" required="true" type="java.util.List" %>
 
-<c:url var="activityRoleSave" value="/activity/role/save" />
+<c:url var="activityRoleSave" value="/activityRole/save" />
 
 <form:form
   method="POST"

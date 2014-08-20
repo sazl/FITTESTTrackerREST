@@ -18,6 +18,28 @@ $(document).ready(function($) {
     e.preventDefault();
   });
 
+  $('.navbar-toggle').click(function (e) {
+    e.preventDefault();
+    $('.nav-sm').html($('.navbar-collapse').html());
+    $('.sidebar-nav').toggleClass('active');
+    $(this).toggleClass('active');
+  });
+
+  var $sidebarNav = $('.sidebar-nav');
+
+  $(document).mouseup(function (e) {
+    if (!$sidebarNav.is(e.target)
+        && $sidebarNav.has(e.target).length === 0
+        && !$('.navbar-toggle').is(e.target)
+        && $('.navbar-toggle').has(e.target).length === 0
+        && $sidebarNav.hasClass('active')
+       )
+    {
+      e.stopPropagation();
+      $('.navbar-toggle').click();
+    }
+  });
+
   $('.btn-close').click(function (e) {
     e.preventDefault();
     $(this).parent().parent().parent().fadeOut();

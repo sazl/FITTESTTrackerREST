@@ -1,5 +1,6 @@
 package org.wfp.fittest.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LanguageDto extends AbstractDto {
@@ -7,6 +8,8 @@ public class LanguageDto extends AbstractDto {
 	private String language;
 	
 	private List<Long> staffByLanguageIds;
+	
+	private List<StaffDto> staffByLanguageDtos = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -32,6 +35,14 @@ public class LanguageDto extends AbstractDto {
 		this.staffByLanguageIds = staffByLanguageIds;
 	}
 	
+	public List<StaffDto> getStaffByLanguageDtos() {
+		return staffByLanguageDtos;
+	}
+
+	public void setStaffByLanguageDtos(List<StaffDto> staffByLanguageDtos) {
+		this.staffByLanguageDtos = staffByLanguageDtos;
+	}
+
 	@Override
 	public String toString() {
 		return language;

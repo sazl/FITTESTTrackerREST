@@ -9,9 +9,11 @@ var ftUI = (function (global, $) {
           url: uri,
           type: 'POST'
         }).fail(function() {
+          console.log('there');
           alertify.alert('Failed to delete ' + name);
         }).success(function() {
           window.location.reload();
+          console.log('here');
           alertify.success('Deleted ' + name);
         });
       }

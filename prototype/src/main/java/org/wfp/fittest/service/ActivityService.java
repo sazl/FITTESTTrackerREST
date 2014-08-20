@@ -51,7 +51,13 @@ public interface ActivityService {
 	
 	public ActivityTypeDto saveOrUpdateActivityType(ActivityTypeDto activityTypeDto);
 	
-	//
+	// Event
 	
 	public List<EventDto> findAllEvents();
+	
+	public EventDto findEventNested(Long eventId);
+	
+	public boolean deleteEventById(Long eventId);
+
+	public EventDto saveOrUpdateEvent(EventDto eventDto);
 }

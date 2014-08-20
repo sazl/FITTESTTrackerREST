@@ -17,12 +17,6 @@ public class ActivityController extends AbstractController {
 	@RequestMapping("")
 	public String activity(Model model, Locale locale) {
 		model.addAttribute("allActivities", activityService.findAllActivities());
-		model.addAttribute("allActivityTypes",
-				activityService.findAllActivityTypes());
-		model.addAttribute("allActivityRoles",
-				activityService.findAllActivityRoles());
-		model.addAttribute("allEvents",
-				activityService.findAllEvents());
 		return "activity";
 	}
 

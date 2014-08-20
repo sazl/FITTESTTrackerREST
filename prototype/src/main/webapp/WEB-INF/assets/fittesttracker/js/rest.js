@@ -87,23 +87,33 @@ var ftRest = (function (global, $) {
   function _saveOrUpdateStaffRole(staffRole) {
     var uri = _URI['staffRoles'];
     var srUri = uri + '/' + staffRole.id;
-    $.get(srUri)
+    return $.get(srUri)
       .success(function() {
         $.ajax({
           type: 'PUT',
           url: srUri,
           contentType: 'application/json',
-          data: staffRole,
-          success: function(data) {
-            var entityUri = data.getRepsonseHeader('Location');
+          data: JSON.stringify(staffRole),
+          success: function(data, status, xhr) {
+            var entityUri = srUri;
             var staffUri = _getEntityUri('staff', staffRole.staffId);
             var activityUri = _getEntityUri('activities', staffRole.activityId);
             var confirmedTypeUri = _getEntityUri(
               'confirmedTypes', staffRole.confirmedTypeId);
-            console.log(entityUri);
-            console.log(staffUri);
-            console.log(activityUri);
-            console.log(confirmedTypeUri);
+
+            $.ajax({
+              type: 'PUT',
+              url: entityUri + '/staff',
+              contentType: 'text/uri-list',
+              data: staffUri
+            }).then(function() {
+              $.ajax({
+                type: 'PUT',
+                url: entityUri + '/confirmedType',
+                contentType: 'text/uri-list',
+                data: confirmedTypeUri
+              });
+            });
           }
         });
       })
@@ -112,17 +122,25 @@ var ftRest = (function (global, $) {
           type: 'POST',
           url: uri,
           contentType: 'application/json',
-          data: staffRole, // JSON.stringify(staffRole),
-          success: function(data) {
-            var entityUri = data.getRepsonseHeader('Location');
+          data: JSON.stringify(staffRole),
+          success: function(data, status, xhr) {
+            var entityUri = xhr.getRepsonseHeader('Location');
             var staffUri = _getEntityUri('staff', staffRole.staffId);
-            var activityUri = _getEntityUri('activities', staffRole.activityId);
             var confirmedTypeUri = _getEntityUri(
               'confirmedTypes', staffRole.confirmedTypeId);
-            console.log(entityUri);
-            console.log(staffUri);
-            console.log(activityUri);
-            console.log(confirmedTypeUri);
+            $.ajax({
+              type: 'PUT',
+              url: entityUri + '/staff',
+              contentType: 'text/uri-list',
+              data: staffUri
+            }).then(function() {
+              $.ajax({
+                type: 'PUT',
+                url: entityUri + '/confirmedType',
+                contentType: 'text/uri-list',
+                data: confirmedTypeUri
+              });
+            });
           }
         });
       });

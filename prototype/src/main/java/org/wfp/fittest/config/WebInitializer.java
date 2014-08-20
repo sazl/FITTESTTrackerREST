@@ -43,11 +43,13 @@ public class WebInitializer implements WebApplicationInitializer {
 
 		FilterRegistration.Dynamic loginFilter = servletContext.addFilter(
 				"loginFilter", new LoginFilter());
-		loginFilter.addMappingForServletNames(null, true, "fittesttracker");
+//		loginFilter.addMappingForServletNames(null, true, "fittesttracker");
 
+		/*
 		FilterRegistration.Dynamic corsFilter = servletContext.addFilter(
 				"cors", new SimpleCORSFilter());
 		corsFilter.addMappingForUrlPatterns(null, true, "/*");
+		*/
 	}
 
 	private AnnotationConfigWebApplicationContext getRootContext() {

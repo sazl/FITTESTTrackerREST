@@ -8,7 +8,7 @@
 <%@ attribute name="simpleTable" required="false" %>
 <%@ attribute name="readOnly" required="false" %>
 
-<c:set var="entity" value="staffList/role" />
+<c:set var="entity" value="staffRole" />
 
 <t:actionTable
   entity="${entity}"
@@ -49,7 +49,7 @@
         </td>
         <td>
           <t:actionButtons
-            entity="staffList/role"
+            entity="${entity}"
             id="${staffRole.id}" />
         </td>
       </tr>

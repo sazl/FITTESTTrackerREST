@@ -11,15 +11,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.wfp.fittest.dto.ActivityTypeDto;
 
 @Controller
-@RequestMapping(value = "/activity/type")
+@RequestMapping(value = "/activityType")
 public class ActivityTypeController extends AbstractController {
 	
+	@RequestMapping(value = "")
+	public String activityType(Model model, Locale locale) {
+		model.addAttribute("allActivityTypes",
+				activityService.findAllActivityTypes());
+		return "activityType";
+	}
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String activityRoleSave(
+	public String activityTypeSave(
 			@ModelAttribute ActivityTypeDto activityTypeDto, Model model,
 			Locale locale) {
 		activityService.saveOrUpdateActivityType(activityTypeDto);
-		return "redirect:/activity#activity-types";
+		return "redirect:/activityType";
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -34,7 +41,7 @@ public class ActivityTypeController extends AbstractController {
 	public String activityTypeDelete(@PathVariable("id") Long activityTypeId,
 			Model model, Locale locale) {
 		activityService.deleteActivityTypeById(activityTypeId);
-		return "redirect:/activity#activity-types";
+		return "redirect:/activityType";
 	}
 	
 	@RequestMapping(value = "/{id}/view")

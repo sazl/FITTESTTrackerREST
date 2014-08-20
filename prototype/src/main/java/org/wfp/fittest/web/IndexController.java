@@ -1,17 +1,12 @@
 package org.wfp.fittest.web;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.wfp.fittest.dto.ConfirmedTypeDto;
-import org.wfp.fittest.dto.CountryDto;
-import org.wfp.fittest.dto.LanguageDto;
 import org.wfp.fittest.service.ActivityService;
 import org.wfp.fittest.service.StaffService;
 import org.wfp.fittest.service.UtilityService;
@@ -52,25 +47,6 @@ public class IndexController extends AbstractController {
 	@RequestMapping(value = "/deployment")
 	public String deployment(Model model, Locale locale) {
 		return "deployment";
-	}
-
-	@RequestMapping(value = "/misc")
-	public String misc(Model model, Locale locale) {
-		List<CountryDto> countries = utilityService.findAllCountries();
-		model.addAttribute("allCountries", countries);
-		List<LanguageDto> languages = utilityService.findAllLanguages();
-		model.addAttribute("allLanguages", languages);
-		List<ConfirmedTypeDto> confirmedTypes = utilityService
-				.findAllConfirmedTypes();
-		model.addAttribute("allConfirmedTypes", confirmedTypes);
-		return "misc";
-	}
-
-	@RequestMapping(value = "/country/{id}/view")
-	public String countryView(@PathVariable("id") Long id, Model model,
-			Locale locale) {
-		model.addAttribute("country", utilityService.findCountryById(id));
-		return "view/country";
 	}
 
 	@RequestMapping(value = "/planning")

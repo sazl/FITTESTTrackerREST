@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.wfp.fittest.dto.ProfileTypeDto;
 import org.wfp.fittest.dto.StaffDto;
-import org.wfp.fittest.dto.StaffRoleDto;
-import org.wfp.fittest.dto.StaffTypeDto;
 import org.wfp.fittest.service.ActivityService;
 import org.wfp.fittest.service.StaffService;
 import org.wfp.fittest.service.UtilityService;
@@ -33,12 +30,6 @@ public class StaffController extends AbstractController {
 	public String staff(Model model, Locale locale) {
 		List<StaffDto> staff = staffService.findAllStaff();
 		model.addAttribute("allStaff", staff);
-		List<StaffRoleDto> staffRoles = staffService.findAllStaffRoles();
-		model.addAttribute("allStaffRoles", staffRoles);
-		List<StaffTypeDto> staffTypes = staffService.findAllStaffTypes();
-		model.addAttribute("allStaffTypes", staffTypes);
-		List<ProfileTypeDto> profileTypes = staffService.findAllProfileTypes();
-		model.addAttribute("allProfileTypes", profileTypes);
 		return "staff";
 	}
 

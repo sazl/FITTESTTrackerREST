@@ -10,6 +10,9 @@ import org.wfp.fittest.converter.DtoConverter;
 import org.wfp.fittest.dto.ConfirmedTypeDto;
 import org.wfp.fittest.dto.CountryDto;
 import org.wfp.fittest.dto.LanguageDto;
+import org.wfp.fittest.entity.ConfirmedType;
+import org.wfp.fittest.entity.Country;
+import org.wfp.fittest.entity.Language;
 import org.wfp.fittest.repository.ConfirmedTypeRepository;
 import org.wfp.fittest.repository.CountryRepository;
 import org.wfp.fittest.repository.LanguageRepository;
@@ -45,9 +48,61 @@ public class UtilityServiceImpl implements UtilityService {
 	}
 
 	@Override
+	public LanguageDto findLanguageById(Long languageId) {
+		return converter.entityToDtoNested(languageRepository.findOne(languageId));
+	}
+	
+	@Override
 	public List<ConfirmedTypeDto> findAllConfirmedTypes() {
-		return converter.entitiesToDtos(confirmedTypeRepository.findAll(
-				new Sort("confirmedType")));
+		return converter.entitiesToDtos(confirmedTypeRepository
+				.findAll(new Sort("confirmedType")));
 	}
 
+	@Override
+	public ConfirmedTypeDto findConfirmedTypeNested(Long confirmedTypeId) {
+		return converter.entityToDtoNested(confirmedTypeRepository
+				.findOne(confirmedTypeId));
+	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public ConfirmedTypeDto saveOrUpdateConfirmedType(ConfirmedTypeDto confirmedTypeDto) {
+		ConfirmedType confirmedType = converter.dtoToEntityNested(confirmedTypeDto);
+		return converter.entityToDtoNested(confirmedTypeRepository.save(confirmedType));
+	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteConfirmedTypeById(Long confirmedTypeId) {
+		confirmedTypeRepository.delete(confirmedTypeId);
+		return true;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public CountryDto saveOrUpdateCountry(CountryDto countryDto) {
+		Country country = converter.dtoToEntityNested(countryDto);
+		return converter.entityToDtoNested(countryRepository.save(country));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteCountryById(Long countryId) {
+		countryRepository.delete(countryId);
+		return true;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public LanguageDto saveOrUpdateLanguage(LanguageDto languageDto) {
+		Language language = converter.dtoToEntityNested(languageDto);
+		return converter.entityToDtoNested(languageRepository.save(language));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteLanguageById(Long languageId) {
+		languageRepository.delete(languageId);
+		return true;
+	}
 }

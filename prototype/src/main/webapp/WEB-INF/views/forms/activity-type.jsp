@@ -6,5 +6,5 @@
 
 <t:formPage entity="activityType">
   <tf:activityTypeForm
-    activityType="${activityRole}" />
+    activityType="${activityType}" />
 </t:formPage>

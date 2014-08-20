@@ -11,7 +11,7 @@
 <%@ attribute name="simpleTable" required="false" %>
 <%@ attribute name="readOnly" required="false" %>
 
-<c:set var="entity" value="activity/type" />
+<c:set var="entity" value="activityType" />
 
 <t:actionTable
   entity="${entity}"

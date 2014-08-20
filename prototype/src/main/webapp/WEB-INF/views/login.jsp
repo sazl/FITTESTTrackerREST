@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css"
           href="<c:url value="/fittesttracker/css/login.css" />" />
     <style type="text/css">
+
+.container{ margin-top:2%; }
      #bg {
        position: fixed; 
        top: -50%; 
@@ -32,7 +34,9 @@
        margin: auto; 
        min-width: 50%;
        min-height: 50%;
+	    opacity: 0.75;
      }
+	 .container .account-wall{ border: 1px solid; border-radius: 25px; }
      .login-title {
        color: white;
      }
@@ -42,19 +46,21 @@
   <body>
     <div class="container">
       <div id="bg">
-        <img src="<c:url value="/fittesttracker/images/background.jpg" />" alt="">
+        <img src="<c:url value="/fittesttracker/images/background1.JPG" />" alt="">
       </div>
       <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-          <h1 class="text-center login-title">
-            FITTEST Tracker
-          </h1>
+          
           <c:if test="${loginErrorMessage != null}">
             <div class="alert alert-danger" role="alert">
               <c:out value="${loginErrorMessage}" />
             </div>
           </c:if>
           <div class="account-wall">
+		  <h1 class="text-center">
+            FITTEST Tracker
+          </h1>
+		  <br/>
             <img class="profile-img"
                  src="<c:url value="/fittesttracker/images/profile_alt.png" />"
                  alt="">
@@ -83,6 +89,8 @@
                 Remember me
               </label>
             </form:form>
+			<center>  <img  src="<c:url value="/fittesttracker/images/FITTEST.jpg" />"  alt=""> <p/><br/>
+			<small> &#169; World Food Programme 2014 </small> </center>
           </div>
         </div>
       </div>

@@ -21,6 +21,7 @@
          src="<c:url value="/fittesttracker/images/logo.png" />" />
 
     <ul class="nav nav-pills nav-stacked main-menu">
+      <li class="nav-header">Main</li>
       <li>
         <a href="<c:url value="/dashboard" />">
           <span class="glyphicon glyphicon-home"> Dashboard</span>
@@ -41,20 +42,65 @@
           <span class="glyphicon glyphicon-search"> Requirement</span>
         </a>
       </li>
+      
+      <li class="nav-header">Activity</li>
       <li>
         <a href="<c:url value="/activity" />">
           <span class="glyphicon glyphicon-star"> Activity</span>
         </a>
       </li>
       <li>
+        <a href="<c:url value="/activityRole" />">
+          <span class="glyphicon glyphicon-bookmark"> Activity Role</span>
+        </a>
+      </li>
+      <li>
+        <a href="<c:url value="/activityType" />">
+          <span class="glyphicon glyphicon-tags"> Activity Type</span>
+        </a>
+      </li>
+      <li>
+        <a href="<c:url value="/event" />">
+          <span class="glyphicon glyphicon-road"> Event</span>
+        </a>
+      </li>
+      
+      <li class="nav-header">Staff</li>
+      <li>
         <a href="<c:url value="/staffList" />">
           <span class="glyphicon glyphicon-user"> Staff</span>
         </a>
       </li>
-
       <li>
-        <a href="<c:url value="/misc" />">
-          <span class="glyphicon glyphicon-stats"> Misc</span>
+        <a href="<c:url value="/staffRole" />">
+          <span class="glyphicon glyphicon-pushpin"> Staff Role</span>
+        </a>
+      </li>
+      <li>
+        <a href="<c:url value="/staffType" />">
+          <span class="glyphicon glyphicon-tag"> Staff Type</span>
+        </a>
+      </li>
+      <li>
+        <a href="<c:url value="/profileType" />">
+          <span class="glyphicon glyphicon-paperclip"> Profile Type</span>
+        </a>
+      </li>
+      
+      <li class="nav-header">Misc</li>
+      <li>
+        <a href="<c:url value="/country" />">
+          <span class="glyphicon glyphicon-globe"> Country</span>
+        </a>
+      </li>
+      <li>
+        <a href="<c:url value="/language" />">
+          <span class="glyphicon glyphicon-italic"> Language</span>
+        </a>
+      </li>
+      <li>
+        <a href="<c:url value="/confirmedType" />">
+          <span class="glyphicon glyphicon-ok-circle"> Confirmed Type</span>
         </a>
       </li>
     </ul>

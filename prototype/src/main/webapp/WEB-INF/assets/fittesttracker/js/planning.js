@@ -201,6 +201,35 @@ $(document).ready(function() {
     });
   });
 
+  $('#planning-table-collapse-button').click(function() {
+    var button = $(this);
+    var icon = button.children('span');
+    var toggleButtons = $('#planning-table .collapse-button');
+    
+    if (button.hasClass('btn-warning')) {
+      button.switchClass('btn-warning', 'btn-success', 0);
+      icon.switchClass('glyphicon-chevron-up', 'glyphicon-chevron-down', 0);
+      icon.text(' Expand');
+      $.each(toggleButtons, function(i, b) {
+        var btn = $(b);
+        if (btn.hasClass('btn-danger')) {
+          btn.click();
+        }
+      });
+    }
+    else {
+      button.switchClass('btn-success', 'btn-warning', 0);
+      icon.switchClass('glyphicon-chevron-down', 'glyphicon-chevron-up', 0);
+      icon.text(' Collapse');
+      $.each(toggleButtons, function(i, b) {
+        var btn = $(b);
+        if (btn.hasClass('btn-success')) {
+          btn.click();
+        }
+      });
+    }
+  });
+
   $('body').on('click', '.staff-role-table :not(thead) tr', function(event) {
     $('.staff-role-table tr').removeClass('active');
     var row = $(this);
@@ -209,19 +238,24 @@ $(document).ready(function() {
     ftRest.getStaffRoleById(staffRoleId).then(function(sr) {
       staffRoleStaffRoleId.val(staffRoleId);
       staffRoleStaff.val(sr.staffId);
+      staffRoleStaff.select2();
+
       staffRoleLocation.val(sr.location);
       staffRoleComments.val(sr.comments);
       staffRoleStartDate.val(ftUtil.simpleDate(sr.startDate));
       staffRoleEndDate.val(ftUtil.simpleDate(sr.endDate));
+
       staffRoleConfirmedTypes.val(sr.confirmedTypeId);
-      
+      staffRoleConfirmedTypes.select2();
+
       staffRoleActivityRoles.empty();
       staffRoleActivityRoles.append(
         new Option(sr.activityRoleProfileTypeDescription, sr.activityRoleId));
       staffRoleActivityRoles.val(sr.activityRoleId);
+      staffRoleActivityRoles.select2();
     });
     $("html, body").animate({ scrollTop: 0 }, "fast");
-    staffRoleForm.effect('highlight', 1400);
+    staffRoleForm.effect('highlight', 1600);
   });
 
   staffRoleClearButton.click(function(event) {

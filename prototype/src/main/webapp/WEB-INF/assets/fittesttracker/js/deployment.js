@@ -1,15 +1,15 @@
 $(document).ready(function() {
-  var timelineContainer = $('#timeline')[0];
+  var timelineContainer = $('#timeline').addClass('timeline-print')[0];
   var timelineMarker = $('#timelineMarker')[0];
   var timelineOptions = {
-      orientation: 'top',
-      showCustomTime: true
+    orientation: 'top',
+    showCustomTime: true
   };
   var timeline = new vis.Timeline(timelineContainer);
   timeline.setOptions(timelineOptions);
   
   timeline.on('timechange', function (properties) {
-	  timelineMarker.innerHTML = ftUtil.simpleDate(properties.time);
+    timelineMarker.innerHTML = ftUtil.simpleDate(properties.time);
   });
 
   var startDateInput = $('#startDate');
@@ -20,6 +20,9 @@ $(document).ready(function() {
   var showEventsCheckbox = $('#showEvents');
   var submitDeploymentButton = $('#submit-deployment');
   var clearDeploymentButton = $('#clear-deployment');
+  
+  var selectAllActivities = $('#select-all-activities');
+  var selectAllStaffTypes = $('#select-all-staffTypes');
   
   ftRest.getStaffTypes().then(function(staffTypes) {
     $.each(staffTypes, function(idx, st) {
@@ -34,6 +37,7 @@ $(document).ready(function() {
   });
 
   submitDeploymentButton.click(function(event) {
+    event.preventDefault();
     var startDate = startDateInput.val();
     var endDate = endDateInput.val();
     var staffTypes = staffTypesSelect.val();
@@ -85,12 +89,65 @@ $(document).ready(function() {
         timeline.redraw();
       });
     });
-    event.preventDefault();
-  });
 
+  });
   
   clearDeploymentButton.click(function(event) {
     timeline.clear();
     $('select').select2('data', null);
+  });
+  
+  selectAllActivities.click(function() {
+    if(selectAllActivities.is(':checked') ){
+      activitiesSelect.find('option').prop("selected","selected");
+      activitiesSelect.trigger("change");
+    }else{
+      activitiesSelect.find('option').removeAttr("selected");
+      activitiesSelect.trigger("change");
+    } 
+  });
+  
+  selectAllStaffTypes.click(function() {
+    if(selectAllStaffTypes.is(':checked') ){
+      staffTypesSelect.find('option').prop("selected","selected");
+      staffTypesSelect.trigger("change");
+    }
+    else {
+      staffTypesSelect.find('option').removeAttr("selected");
+      staffTypesSelect.trigger("change");
+    } 
+  });
+
+  $('#deployment-form').bootstrapValidator({
+    feedbackIcons: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+    },
+    live: 'enabled',
+    fields: {
+      startDate: {
+        validators: {
+          notEmpty: {
+            message: 'Start date is required'
+          },
+          date: {
+            format: 'DD/MM/YYYY',
+            message: 'Start date is not valid'
+          }
+        }
+      },
+      endDate: {
+        validators: {
+          notEmpty: {
+            message: 'End date is required'
+          },
+          date: {
+            format: 'DD/MM/YYYY',
+            message: 'End date is not valid'
+          }
+        }
+      }
+    }
   });
 });

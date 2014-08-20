@@ -4,6 +4,10 @@
   display: none;
 }
 
+#logo {
+	margin-left: -20px;
+}
+
 @media ( min-width : 768px) {
   .sidebar {
     position: fixed;

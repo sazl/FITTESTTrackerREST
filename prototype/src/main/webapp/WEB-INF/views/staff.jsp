@@ -25,17 +25,25 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="staff-list">
-        <tt:staffTable staffList="${allStaff}" />
+        <tt:staffTable
+          readOnly="${readOnly}"
+          staffList="${allStaff}" />
       </div>
 
       <div class="tab-pane" id="staff-roles">
-        <tt:staffRoleTable staffRoles="${allStaffRoles}" />
+        <tt:staffRoleTable
+          readOnly="${readOnly}"
+          staffRoles="${allStaffRoles}" />
       </div>
       <div class="tab-pane" id="staff-types">
-        
+        <tt:staffTypeTable
+          readOnly="${readOnly}"
+          staffTypes="${allStaffTypes}" />
       </div>
       <div class="tab-pane" id="profile-types">
-
+        <tt:profileTypeTable
+          readOnly="${readOnly}"
+          profileTypes="${allProfileTypes}" />
       </div>
     </div>
   </jsp:body>

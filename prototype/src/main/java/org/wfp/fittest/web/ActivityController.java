@@ -21,6 +21,8 @@ public class ActivityController extends AbstractController {
 				activityService.findAllActivityTypes());
 		model.addAttribute("allActivityRoles",
 				activityService.findAllActivityRoles());
+		model.addAttribute("allEvents",
+				activityService.findAllEvents());
 		return "activity";
 	}
 

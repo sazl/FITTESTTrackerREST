@@ -11,10 +11,13 @@
 
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/external/css/normalize.css" />">
-<link rel="stylesheet" type="text/css"
+<link id="bs-css" rel="stylesheet" type="text/css"
       href="<c:url value="/external/css/bootstrap.min.css" />">
 <link rel="stylesheet" type="text/css"
-      href="<c:url value="/external/css/bootstrap-theme.min.css" />">
+      href="<c:url value="/external/css/font-awesome.min.css" />">
+<link rel="stylesheet" type="text/css"
+      href="<c:url value="/external/css/bootstrapValidator.min.css" />">
+
 <link rel="stylesheet" type="text/css"
       href="<c:url value="/external/css/jquery-ui.min.css" />">
 <link rel="stylesheet" type="text/css"
@@ -46,3 +49,12 @@
 <script type="text/javascript"
         src="<c:url value="/external/js/html5shiv.js" />"></script>
 <![endif]-->
+
+<link rel="stylesheet" type="text/css"
+      href="<c:url value="/external/css/nv.d3.css" />">
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/d3.v3.min.js"/>"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/nv.d3.min.js"/>"></script>

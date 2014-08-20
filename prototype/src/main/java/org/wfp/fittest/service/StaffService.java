@@ -2,6 +2,7 @@ package org.wfp.fittest.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.wfp.fittest.dto.ProfileTypeDto;
 import org.wfp.fittest.dto.StaffDto;
@@ -36,9 +37,19 @@ public interface StaffService {
 	public StaffRoleDto saveOrUpdateStaffRole(StaffRoleDto staffRoleDto);
 
 	public List<StaffRoleDto> findAllStaffRoles();
+	
+	public List<StaffRoleDto> findStaffRolesBIS(Date date);
+	
+	public List<StaffRoleDto> findStaffRolesNotAvailable(Date date);
 
 	public List<StaffTypeDto> findAllStaffTypes();
 
 	public List<ProfileTypeDto> findAllProfileTypes();
+	
+	public Map<String, Long> countStaffByStaffType();
+
+	public Map<String, Long> countStaffByProfileType();
+
+	public Map<String, Long> countStaffAvailability(Date date);
 
 }

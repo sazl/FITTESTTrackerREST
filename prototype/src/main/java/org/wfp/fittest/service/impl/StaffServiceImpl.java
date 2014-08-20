@@ -1,7 +1,11 @@
 package org.wfp.fittest.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,7 @@ import org.wfp.fittest.dto.ProfileTypeDto;
 import org.wfp.fittest.dto.StaffDto;
 import org.wfp.fittest.dto.StaffRoleDto;
 import org.wfp.fittest.dto.StaffTypeDto;
+import org.wfp.fittest.entity.ProfileType;
 import org.wfp.fittest.entity.Staff;
 import org.wfp.fittest.entity.StaffRole;
 import org.wfp.fittest.repository.ProfileTypeRepository;
@@ -26,20 +31,20 @@ public class StaffServiceImpl implements StaffService {
 	@Autowired
 	private DtoConverter converter;
 
-	@Autowired
+	@Resource
 	private StaffRepository staffRepository;
-	@Autowired
+	@Resource
 	private StaffRoleRepository staffRoleRepository;
-	@Autowired
+	@Resource
 	private StaffTypeRepository staffTypeRepository;
-	@Autowired
+	@Resource
 	private ProfileTypeRepository profileTypeRepository;
-	
+
 	@Override
 	public StaffDto findStaffById(Long staffId) {
 		return converter.entityToDto(staffRepository.findOne(staffId));
 	}
-	
+
 	@Override
 	public StaffDto findStaffNested(Long staffId) {
 		return converter.entityToDtoNested(staffRepository.findOne(staffId));
@@ -59,26 +64,28 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public List<StaffDto> findStaffAvailable(Date date) {
-		return converter.entitiesToDtosNested(staffRepository.findByAvailableInDate(date));
+		return converter.entitiesToDtosNested(staffRepository
+				.findByAvailableInDate(date));
 	}
 
 	@Override
 	public List<StaffDto> findStaffNotAvailable(Date date) {
-		return converter.entitiesToDtosNested(staffRepository.findByNotAvailableInDate(date));
+		return converter.entitiesToDtosNested(staffRepository
+				.findByNotAvailableInDate(date));
 	}
 
 	@Override
 	public List<StaffDto> findAllStaff() {
 		return converter.entitiesToDtos(staffRepository.findAll());
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteStaffById(Long staffId) {
 		staffRepository.delete(staffId);
 		return true;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public StaffDto saveOrUpdateStaff(StaffDto staffDto) {
@@ -98,14 +105,14 @@ public class StaffServiceImpl implements StaffService {
 		StaffRole staffRole = converter.dtoToEntityNested(staffRoleDto);
 		return converter.entityToDtoNested(staffRoleRepository.save(staffRole));
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteStaffRoleById(Long staffRoleId) {
 		staffRoleRepository.delete(staffRoleId);
 		return true;
 	}
-	
+
 	@Override
 	public List<StaffRoleDto> findAllStaffRoles() {
 		return converter.entitiesToDtos(staffRoleRepository.findAll());
@@ -119,6 +126,51 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public List<StaffTypeDto> findAllStaffTypes() {
 		return converter.entitiesToDtos(staffTypeRepository.findAll());
+	}
+
+	@Override
+	public Map<String, Long> countStaffByStaffType() {
+		Map<String, Long> result = new HashMap<>();
+		for (Object item : staffRepository.countByStaffType()) {
+			Object[] tuple = (Object[]) item;
+			Long id = ((Long) tuple[0]);
+			String staffType = staffTypeRepository.findOne(id).getStaffType();
+			Long value = (Long) tuple[1];
+			result.put(staffType, value);
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, Long> countStaffByProfileType() {
+		Map<String, Long> result = new HashMap<>();
+		for (ProfileType pt : profileTypeRepository.findAll()) {
+			result.put(pt.getProfileType(), Long.valueOf(pt.getStaff().size()));
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, Long> countStaffAvailability(Date date) {
+		Map<String, Long> result = new HashMap<>();
+		result.put("Available",
+				Long.valueOf(this.findStaffAvailable(date).size()));
+		result.put("Not Available",
+				Long.valueOf(this.findStaffNotAvailable(date).size()));
+		result.put("Staff BIS", Long.valueOf(this.findStaffBIS(date).size()));
+		return result;
+	}
+
+	@Override
+	public List<StaffRoleDto> findStaffRolesBIS(Date date) {
+		return converter.entitiesToDtosNested_StaffRole(staffRoleRepository
+				.findByActivityTypeInDate("Break in Service", date));
+	}
+
+	@Override
+	public List<StaffRoleDto> findStaffRolesNotAvailable(Date date) {
+		return converter.entitiesToDtosNested_StaffRole(staffRoleRepository
+				.findByNotAvailableInDate(date));
 	}
 
 }

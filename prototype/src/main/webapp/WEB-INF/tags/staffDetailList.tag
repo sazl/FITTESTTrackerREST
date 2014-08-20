@@ -3,7 +3,7 @@
 
 <%@attribute name="staffList" required="true" type="java.util.List" %>
 
-<table class="simple-dataTable display">
+<table class="simple-dataTable display" cellspacing="0">
   <thead>
     <tr>
       <th>
@@ -25,10 +25,22 @@
                      alt="Profile Image">
               </a>
               <div class="media-body">
-                <h4 class="media-heading">
+                <c:url
+                  var="staffLink"
+                  value="/staffList/${staff.id}/view" />
+                <a href="${staffLink}" target="_blank">
                   <c:out value="${staff.name}" />
-                </h4>
-                
+                </a>
+                <br />
+                <ul class="list-inline">
+                  <c:forEach var="pt" items="${staff.profileTypeDescriptions}">
+                    <li style="font-size: 8pt;">
+                      <b>
+                        ${pt}
+                      </b>
+                    </li>
+                  </c:forEach>
+                </ul>
               </div>
             </li>
           </ul>

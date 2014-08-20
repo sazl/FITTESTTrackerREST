@@ -141,6 +141,13 @@ public class DtoConverter {
 			dtos.add(entityToDtoNested(entity));
 		return dtos;
 	}
+	
+	public List<StaffRoleDto> entitiesToDtosNested_StaffRole(Iterable<StaffRole> staffRoles) {
+		List<StaffRoleDto> dtos = new ArrayList<>();
+		for (StaffRole entity : staffRoles)
+			dtos.add(entityToDtoNested(entity));
+		return dtos;
+	}
 
 	public StaffRoleDto entityToDtoNested(StaffRole staffRole) {
 		StaffRoleDto staffRoleDto = entityToDto(staffRole);

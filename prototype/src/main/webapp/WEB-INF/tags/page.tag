@@ -34,17 +34,20 @@
      </c:if>
   </jsp:attribute>
   
+  <jsp:attribute name="footer">
+  </jsp:attribute>
+  
   <jsp:body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
-    <div class="page-content">
-      <div class="container-fluid">
+    <div class="ch-container">
         <div class="row">
-          <jsp:include page="/WEB-INF/partials/sidebar.jsp" />
-          <div class="col-sm-10 col-sm-offset-2">
-            <div class="page-main-content">
-              <jsp:doBody />
-            </div>
+          <div class="col-sm-2 col-lg-2">
+            <jsp:include page="/WEB-INF/partials/sidebar.jsp" />
+          </div>
+          
+          <div id="content" class="col-lg-10 col-sm-10">
+            <jsp:doBody />
           </div>
         </div>
       </div>

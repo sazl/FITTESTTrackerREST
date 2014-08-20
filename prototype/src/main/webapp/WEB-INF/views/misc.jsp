@@ -3,6 +3,7 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="tt" tagdir="/WEB-INF/tags/tables" %>
 
 <t:page pageTitle="Misc">
   <jsp:body>
@@ -20,13 +21,19 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="countries">
-        <jsp:include page="/WEB-INF/partials/misc/countries.jsp" />
+        <tt:countryTable
+          readOnly="${readOnly}"
+          countries="${allCountries}" />
       </div>
       <div class="tab-pane" id="languages">
-        <jsp:include page="/WEB-INF/partials/misc/languages.jsp" />
+        <tt:languageTable
+          readOnly="${readOnly}"
+          languages="${allLanguages}" />
       </div>
       <div class="tab-pane" id="confirmed-types">
-        <jsp:include page="/WEB-INF/partials/misc/confirmed-types.jsp" />
+        <tt:confirmedTypeTable
+          readOnly="${readOnly}"
+          confirmedTypes="${allConfirmedTypes}" />
       </div>
     </div>
   </jsp:body>

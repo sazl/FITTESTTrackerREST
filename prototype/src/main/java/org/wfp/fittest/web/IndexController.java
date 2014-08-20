@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.wfp.fittest.dto.ConfirmedTypeDto;
 import org.wfp.fittest.dto.CountryDto;
 import org.wfp.fittest.dto.LanguageDto;
 import org.wfp.fittest.service.ActivityService;
@@ -31,22 +31,21 @@ public class IndexController extends AbstractController {
 		return "redirect:login";
 	}
 
-	@RequestMapping(value = "/login")
-	public String login(Model model, Locale locale) {
-		return "login";
-	}
-
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public String authenticate(Model model, Locale locale) {
-		return "redirect:/dashboard";
-	}
-
 	@RequestMapping(value = "/dashboard")
 	public String dashboard(Model model, Locale locale) {
 		Date currentDate = new Date();
-		model.addAttribute("staffBIS", staffService.findStaffBIS(currentDate));
-		model.addAttribute("staffAvailable", staffService.findStaffAvailable(currentDate));
-		model.addAttribute("staffNotAvailable", staffService.findStaffNotAvailable(currentDate));
+		model.addAttribute("staffAvailable",
+				staffService.findStaffAvailable(currentDate));
+		model.addAttribute("staffRolesBIS",
+				staffService.findStaffRolesBIS(currentDate));
+		model.addAttribute("staffRolesNotAvailable",
+				staffService.findStaffRolesNotAvailable(currentDate));
+		model.addAttribute("countStaffTypes",
+				staffService.countStaffByStaffType());
+		model.addAttribute("countProfileTypes",
+				staffService.countStaffByProfileType());
+		model.addAttribute("countStaffAvailability",
+				staffService.countStaffAvailability(currentDate));
 		return "dashboard";
 	}
 
@@ -61,6 +60,9 @@ public class IndexController extends AbstractController {
 		model.addAttribute("allCountries", countries);
 		List<LanguageDto> languages = utilityService.findAllLanguages();
 		model.addAttribute("allLanguages", languages);
+		List<ConfirmedTypeDto> confirmedTypes = utilityService
+				.findAllConfirmedTypes();
+		model.addAttribute("allConfirmedTypes", confirmedTypes);
 		return "misc";
 	}
 

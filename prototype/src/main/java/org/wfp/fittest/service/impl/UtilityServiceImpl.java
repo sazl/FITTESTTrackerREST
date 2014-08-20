@@ -3,6 +3,7 @@ package org.wfp.fittest.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wfp.fittest.converter.DtoConverter;
@@ -45,7 +46,8 @@ public class UtilityServiceImpl implements UtilityService {
 
 	@Override
 	public List<ConfirmedTypeDto> findAllConfirmedTypes() {
-		return converter.entitiesToDtos(confirmedTypeRepository.findAll());
+		return converter.entitiesToDtos(confirmedTypeRepository.findAll(
+				new Sort("confirmedType")));
 	}
 
 }

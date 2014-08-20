@@ -10,18 +10,22 @@
       <li class="active">
         <a href="#home" role="tab">Home</a>
       </li>
+      <%--
       <li>
         <a href="#charts" role="tab">Charts</a>
       </li>
+      --%>
     </ul>
 
     <div class="tab-content">
       <div class="tab-pane active" id="home">
         <jsp:include page="/WEB-INF/partials/dashboard/home.jsp" />
       </div>
+      <%--
       <div class="tab-pane" id="charts">
         <jsp:include page="/WEB-INF/partials/dashboard/charts.jsp" />
       </div>
+      --%>
     </div>
   </jsp:body>
 </t:page>

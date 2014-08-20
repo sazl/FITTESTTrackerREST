@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var timelineContainer = $('#timeline')[0];
+  var timelineContainer = $('#timeline').addClass('timeline-print')[0];
   var timelineMarker = $('#timelineMarker')[0];
   var timelineOptions = {
     orientation: 'top',
@@ -19,6 +19,8 @@ $(document).ready(function() {
   var showEventsCheckbox = $('#showEvents');
   var submitRequirementButton = $('#submit-requirement');
   var clearRequirementButton = $('#clear-requirement');
+  
+  var selectAllActivities = $('#select-all-activities');
 
   ftRest.getActivities().then(function(activities) {
     $.each(activities, function(idx, act) {
@@ -29,6 +31,17 @@ $(document).ready(function() {
   clearRequirementButton.click(function(event) {
     timeline.clear();
     $('select').select2('data', null);
+  });
+  
+  selectAllActivities.click(function() {
+	  if(selectAllActivities.is(':checked') ){
+	        activitiesSelect.find('option').prop("selected","selected");
+	        activitiesSelect.trigger("change");
+	  }
+	  else {
+	    	activitiesSelect.find('option').removeAttr("selected");
+	        activitiesSelect.trigger("change");
+	  } 
   });
 
   submitRequirementButton.click(function(event) {

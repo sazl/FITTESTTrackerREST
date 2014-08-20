@@ -23,16 +23,24 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="activities">
-        <tt:activityTable activities="${allActivities}" />
+        <tt:activityTable
+          readOnly="${readOnly}"
+          activities="${allActivities}" />
       </div>
       <div class="tab-pane" id="activity-roles">
-        <tt:activityRoleTable activityRoles="${allActivityRoles}" />
+        <tt:activityRoleTable
+          readOnly="${readOnly}"
+          activityRoles="${allActivityRoles}" />
       </div>
       <div class="tab-pane" id="activity-types">
-        <tt:activityTypeTable activityTypes="${allActivityTypes}" />
+        <tt:activityTypeTable
+          readOnly="${readOnly}"
+          activityTypes="${allActivityTypes}" />
       </div>
       <div class="tab-pane" id="events">
-
+        <tt:eventTable
+          readOnly="${readOnly}"
+          events="${allEvents}" />
       </div>
     </div>
   </jsp:body>

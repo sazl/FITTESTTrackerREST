@@ -3,17 +3,27 @@
 
 <%@attribute name="type" required="false" %>
 <%@attribute name="title" required="true" %>
-<c:set var="typeDefault" value="${panelType ? panelType : 'panel-default'}"/>
 
 <%@attribute name="panelBody" fragment="true" %>
 
-<div class="panel ${typeDefault}">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-      <c:out value="${title}" />
-    </h3>
-  </div>
-  <div class="panel-body">
-    <jsp:invoke fragment="panelBody" />
+<div class="box col-md-12">
+  <div class="box-inner ${typeDefault}">
+    <div class="box-header well">
+      <h2>
+        <c:out value="${title}" />
+      </h2>
+        
+      <div class="box-icon">
+        <a href="#" class="btn btn-minimize btn-round btn-default"><i
+          class="glyphicon glyphicon-chevron-up"></i></a>
+        <a href="#" class="btn btn-close btn-round btn-default"><i
+          class="glyphicon glyphicon-remove"></i></a>
+      </div>
+    </div>
+    <div class="box-content row">
+      <div class="col-md-12">
+        <jsp:invoke fragment="panelBody" />
+      </div>
+    </div>
   </div>
 </div>

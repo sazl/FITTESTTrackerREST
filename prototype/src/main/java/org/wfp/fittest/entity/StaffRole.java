@@ -147,7 +147,7 @@ public class StaffRole implements EntityId {
 	public String getActivityRoleDescription() {
 		return getActivityRole().getActivityDescription();
 	}
-	
+
 	public String getActivityRoleProfileTypeDescription() {
 		return getActivityRole().getProfileTypeDescription();
 	}
@@ -175,11 +175,11 @@ public class StaffRole implements EntityId {
 	public String getStaffName() {
 		return getStaff().getName();
 	}
-	
+
 	public String getStaffColorCode() {
 		return getStaff().getStaffColorCode();
 	}
-	
+
 	public String getActivityTypeColorCode() {
 		return getActivityRole().getActivity().getActivityType().getColorCode();
 	}

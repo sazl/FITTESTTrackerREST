@@ -5,6 +5,7 @@ import java.util.List;
 import org.wfp.fittest.dto.ActivityDto;
 import org.wfp.fittest.dto.ActivityRoleDto;
 import org.wfp.fittest.dto.ActivityTypeDto;
+import org.wfp.fittest.dto.EventDto;
 
 public interface ActivityService {
 	
@@ -49,4 +50,8 @@ public interface ActivityService {
 	public boolean deleteActivityTypeById(Long activityTypeId);
 	
 	public ActivityTypeDto saveOrUpdateActivityType(ActivityTypeDto activityTypeDto);
+	
+	//
+	
+	public List<EventDto> findAllEvents();
 }

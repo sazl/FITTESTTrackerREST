@@ -34,6 +34,8 @@ public class RestConfig extends RepositoryRestMvcConfiguration {
 		for (Class<?> cls : classes)
 			config.exposeIdsFor(cls);
 		config.useHalAsDefaultJsonMediaType(true);
+		config.setDefaultPageSize(250);
+		config.setMaxPageSize(500);
 	}
 
 	@Override

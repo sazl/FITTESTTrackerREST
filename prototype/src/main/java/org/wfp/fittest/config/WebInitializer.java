@@ -12,6 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.wfp.fittest.filter.LoginFilter;
 import org.wfp.fittest.filter.SimpleCORSFilter;
 
 public class WebInitializer implements WebApplicationInitializer {
@@ -24,21 +25,25 @@ public class WebInitializer implements WebApplicationInitializer {
 
 		WebApplicationContext rootContext = getRootContext();
 		servletContext.addListener(new ContextLoaderListener(rootContext));
-		
+
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
 				"fittesttracker", new DispatcherServlet(rootContext));
 		dispatcher.setInitParameter("trimSpaces", "true");
-		dispatcher.setLoadOnStartup(1);
+		dispatcher.setLoadOnStartup(3);
 		dispatcher.addMapping("/");
-
+	
 		ServletRegistration.Dynamic restDispatcher = servletContext.addServlet(
 				"rest", new RepositoryRestDispatcherServlet(rootContext));
-		restDispatcher.setLoadOnStartup(2);
+		restDispatcher.setLoadOnStartup(1);
 		restDispatcher.addMapping("/rest/*");
 
 		FilterRegistration.Dynamic httpFilter = servletContext.addFilter(
 				"httpMethodFilter", new HiddenHttpMethodFilter());
 		httpFilter.addMappingForServletNames(null, true, "fittesttracker");
+
+		FilterRegistration.Dynamic loginFilter = servletContext.addFilter(
+				"loginFilter", new LoginFilter());
+		loginFilter.addMappingForServletNames(null, true, "fittesttracker");
 
 		FilterRegistration.Dynamic corsFilter = servletContext.addFilter(
 				"cors", new SimpleCORSFilter());

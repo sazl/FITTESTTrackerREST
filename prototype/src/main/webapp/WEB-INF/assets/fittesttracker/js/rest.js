@@ -23,14 +23,17 @@ var ftRest = (function (global, $) {
     return _URI[entity] + '/' + id;
   };
 
-  function _findAll(entity) {
-    return $.getJSON(_URI[entity]).then(function(data) {
+  function _findAll(entity, sortColumn, pageSize) {
+    sortColumn = (typeof(sortColumn)==='undefined') ? '' : 'sort=' + sortColumn;
+    pageSize = 'size=' + ((typeof(pageSize)==='undefined') ? '400' : pageSize);
+    var uri = _URI[entity] + '?' + pageSize + '&' + sortColumn;
+    return $.getJSON(uri).then(function(data) {
       return data._embedded[entity];
     });
   }
 
-  function _findAllFunc(entity) {
-    return function () { return _findAll(entity); };
+  function _findAllFunc(entity, sort) {
+    return function () { return _findAll(entity, sort); };
   }
   
   function _findById(entity, id) {
@@ -78,8 +81,7 @@ var ftRest = (function (global, $) {
   }
 
   function _getProfileTypeByActivityRoleId(activityRoleId) {
-    var uri = _URI.profileTypes + '/search/findByActivityRole_Id?activityRoleId=' + activityRoleId;
-    
+    var uri = _URI.profileTypes + '/search/findByActivityRole_Id?activityRoleId=' + activityRoleId;    
   }
 
   function _saveOrUpdateStaffRole(staffRole) {
@@ -196,12 +198,12 @@ var ftRest = (function (global, $) {
   }
   
   return {
-    getConfirmedTypes: _findAllFunc('confirmedTypes'),
+    getConfirmedTypes: _findAllFunc('confirmedTypes', 'confirmedType'),
     getConfirmedTypeById: _findByIdFunc('confirmedTypes'),
     getConfirmedTypeByActivityId: _getConfirmedTypeByActivityId,
     getConfirmedTypeByStaffRoleId: _getConfirmedTypeByStaffRoleId,
     
-    getActivities: _findAllFunc('activities'),
+    getActivities: _findAllFunc('activities', 'description'),
     getActivityById: _findByIdFunc('activities'),
     getActivitiesByConfirmedTypeId: _getActivitiesByConfirmedTypeId,
 
@@ -217,7 +219,7 @@ var ftRest = (function (global, $) {
     getProfileTypeById: _findByIdFunc('profileTypes'),
     getProfileTypeByActivityRoleId: _getProfileTypeByActivityRoleId,
 
-    getStaff: _findAllFunc('staff'),
+    getStaff: _findAllFunc('staff', 'lastName'),
     getStaffById: _findByIdFunc('staff'),
     getStaffByIds: _findByIdsFunc('staff'),
     getStaffByStaffRoleId: _getStaffByStaffRoleId,

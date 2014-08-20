@@ -9,12 +9,14 @@ import org.wfp.fittest.converter.DtoConverter;
 import org.wfp.fittest.dto.ActivityDto;
 import org.wfp.fittest.dto.ActivityRoleDto;
 import org.wfp.fittest.dto.ActivityTypeDto;
+import org.wfp.fittest.dto.EventDto;
 import org.wfp.fittest.entity.Activity;
 import org.wfp.fittest.entity.ActivityRole;
 import org.wfp.fittest.entity.ActivityType;
 import org.wfp.fittest.repository.ActivityRepository;
 import org.wfp.fittest.repository.ActivityRoleRepository;
 import org.wfp.fittest.repository.ActivityTypeRepository;
+import org.wfp.fittest.repository.EventRepository;
 import org.wfp.fittest.service.ActivityService;
 
 @Service
@@ -30,6 +32,8 @@ public class ActivityServiceImpl implements ActivityService {
 	private ActivityRoleRepository activityRoleRepository;
 	@Autowired
 	private ActivityTypeRepository activityTypeRepository;
+	@Autowired
+	private EventRepository eventRepository;
 
 	@Override
 	public List<ActivityDto> findAllActivities() {
@@ -143,6 +147,11 @@ public class ActivityServiceImpl implements ActivityService {
 			ActivityTypeDto activityTypeDto) {
 		ActivityType activityType = converter.dtoToEntityNested(activityTypeDto);
 		return converter.entityToDtoNested(activityTypeRepository.save(activityType));
+	}
+
+	@Override
+	public List<EventDto> findAllEvents() {
+		return converter.entitiesToDtos(eventRepository.findAll());
 	}
 
 }

@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +33,6 @@ public class Staff implements EntityId {
 	@Column(name = "firstname", nullable = false)
 	private String firstName;
 
-	@OrderBy
 	@Column(name = "lastname", nullable = false)
 	private String lastName;
 

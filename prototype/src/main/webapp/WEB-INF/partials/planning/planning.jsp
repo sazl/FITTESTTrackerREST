@@ -4,40 +4,44 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <div class="col-sm-12">
-  <div id="planning-panel"
-       class="panel panel-default">
-    <div class="panel-heading">
-      <button id="collapse-planning-panel"
-              class="btn btn-sm btn-danger">
-        <span class="glyphicon glyphicon-arrow-up"></span>
-      </button> Planning Form
-    </div>
-    <div id="planning-panel-body"
-         class="panel-body">
-      <div class="col-sm-6">
-        <jsp:include page="/WEB-INF/partials/planning/planning-form.jsp" />
+  <div id="planning-panel">
+    <div class="row">
+      <div class="col-md-6">
+        <t:defaultPanel title="Activity">
+          <jsp:attribute name="panelBody">
+            <jsp:include page="/WEB-INF/partials/planning/planning-form.jsp" />
+          </jsp:attribute>
+        </t:defaultPanel>
       </div>
       <div class="col-sm-6">
-        <div class="well well-sm">
-          <jsp:include
-            page="/WEB-INF/partials/staff/staff-roles/staff-role-form-js.jsp" />
-        </div>
+        <t:defaultPanel title="Staff Role">
+          <jsp:attribute name="panelBody">
+            <jsp:include
+              page="/WEB-INF/partials/staff/staff-roles/staff-role-form-js.jsp" />
+          </jsp:attribute>
+        </t:defaultPanel>
       </div>
     </div>
   </div>
-
-    <div id="planning-table-panel"
-         class="panel panel-default">
-      <div class="panel-heading">
-        <button id="collapse-planning-table-panel"
-                class="btn btn-sm btn-danger">
-        <span class="glyphicon glyphicon-arrow-up"></span>
-      </button> Planning Table
+  
+  <div id="planning-table-panel"
+       class="box col-md-12">
+    <div class="box-inner">
+      <div class="box-header well">
+        <h2>Planning Table</h2>
+        <div class="box-icon">
+          <a href="#" class="btn btn-minimize btn-round btn-default"><i
+            class="glyphicon glyphicon-chevron-up"></i></a>
+          <a href="#" class="btn btn-close btn-round btn-default"><i
+            class="glyphicon glyphicon-remove"></i></a>
+        </div>
       </div>
-      <div class="panel-body"
+      <div class="box-content row"
            id="planning-table-panel-body">
-        <jsp:include page="/WEB-INF/partials/planning/planning-table.jsp" />
+        <div class="col-sm-12">
+          <jsp:include page="/WEB-INF/partials/planning/planning-table.jsp" />
+        </div>
       </div>
-
+    </div>
   </div>
 </div>

@@ -41,6 +41,9 @@ public interface StaffRepository extends AbstractRepository<Staff, Long> {
 	public List<Staff> findByStaffType(StaffType staffType);
 
 	public List<Staff> findByStaffColorCode(String colorCode);
+	
+	@Query("select s.staffType.id, count(*) from Staff s group by s.staffType.id")
+	public Object[] countByStaffType();
 
 	@Query("select distinct(s) from Staff s" + " join s.staffRoles sr"
 			+ " join sr.activityRole ar" + " join ar.activity act"
@@ -53,8 +56,7 @@ public interface StaffRepository extends AbstractRepository<Staff, Long> {
 
 	@Query("select distinct(s) from Staff s"
 			+ " join s.staffRoles sr"
-			+ " where sr = null or "
-			+ " not (sr.startDate <= :date and sr.endDate >= :date)")
+			+ " where not (sr.startDate <= :date and sr.endDate >= :date)")
 	public List<Staff> findByAvailableInDate(
 			@Param("date") @DateTimeFormat(iso = ISO.DATE) Date date);
 	

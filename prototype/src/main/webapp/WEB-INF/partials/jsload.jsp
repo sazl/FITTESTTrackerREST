@@ -18,6 +18,10 @@
     src="<c:url value="/external/js/bootstrap.min.js" />"></script>
 <script
     type="text/javascript"
+    src="<c:url value="/external/js/bootstrapValidator.min.js" />"></script>
+
+<script
+    type="text/javascript"
     src="<c:url value="/external/js/jquery.cookie.js" />"></script>
 <script
     type="text/javascript"
@@ -29,9 +33,6 @@
 <script
     type="text/javascript"
     src="<c:url value="/external/js/alertify.min.js"/>"></script>
-<script
-    type="text/javascript"
-    src="<c:url value="/external/js/parsley.min.js"/>"></script>
 <script
     type="text/javascript"
     src="<c:url value="/external/js/underscore-min.js"/>"></script>

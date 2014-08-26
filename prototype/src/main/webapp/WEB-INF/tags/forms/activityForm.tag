@@ -19,19 +19,22 @@
   role="form"
   id="activity-form"
   modelAttribute="activity">
+
   <form:hidden
     path="id" />
   <t:formGroup label="Descritpion">
     <form:input
       class="form-control"
       type="text"
-      path="description" />
+      path="description"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="ETC Service Map">
     <form:input
       class="form-control"
       type="text"
-      path="etcServiceMap" />
+      path="etcServiceMap"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Confirmed Type">
     <form:select
@@ -40,7 +43,8 @@
       itemValue="id"
       itemLabel="confirmedType"
       path="confirmedTypeId"
-      multiple="false" />
+      multiple="false"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Activity Type">
     <form:select
@@ -49,7 +53,8 @@
       itemValue="id"
       itemLabel="activityType"
       path="activityTypeId"
-      multiple="false" />
+      multiple="false"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Country">
     <form:select
@@ -58,20 +63,24 @@
       itemValue="id"
       itemLabel="fullName"
       path="countryIds"
-      multiple="true" />
+      multiple="true"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="Activity Role">
     <tt:activityRoleTable
       simpleTable="true"
       activityRoles="${activity.activityRoleDtos}" />
   </t:formGroup>
-
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
+  
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
         <button type="submit"
                 class="btn btn-success">
           <span class="glyphicon glyphicon-ok"></span> Save
         </button>
-    </div>
-  </t:formGroup>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

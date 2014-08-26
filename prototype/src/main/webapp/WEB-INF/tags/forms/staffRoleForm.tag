@@ -27,7 +27,9 @@
       items="${activityRoles}"
       path="activityRoleId"
       itemValue="id"
-      multiple="false" />
+      multiple="false"
+      disabled="${readOnly ? 'true' : 'false'}"/>
+
   </t:formGroup>
   <t:formGroup label="Staff">
     <form:select
@@ -35,7 +37,9 @@
       items="${staffList}"
       itemValue="id"
       path="staffId"
-      multiple="false" />
+      multiple="false"
+      disabled="${readOnly ? 'true' : 'false'}"/>
+
   </t:formGroup>  
   <t:formGroup label="Confirmed Type">
     <form:select
@@ -43,39 +47,51 @@
       items="${confirmedTypes}"
       itemValue="id"
       path="confirmedTypeId"
-      multiple="false" />
+      multiple="false"
+      disabled="${readOnly ? 'true' : 'false'}"/>
+
   </t:formGroup>
-    <t:formGroup label="Start Date">
+  <t:formGroup label="Start Date">
     <form:input
       class="datepicker form-control"
       type="text"
-      path="startDate" />
+      path="startDate"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
-    <t:formGroup label="End Date">
+  <t:formGroup label="End Date">
     <form:input
       class="datepicker form-control"
       type="text"
-      path="endDate" />
+      path="endDate"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="Location">
     <form:input
       class="form-control"
       type="text"
-      path="location" />
+      path="location"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="Comments">
     <form:input
       class="form-control"
       type="text"
-      path="comments" />
+      path="comments"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
 
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
-      <button type="submit"
-              class="btn btn-success">
-        <span class="glyphicon glyphicon-ok"></span> Save
-      </button>
-    </div>
-  </t:formGroup>
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
+        <button type="submit"
+                class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

@@ -10,7 +10,7 @@
       <jsp:attribute name="panelBody">
         <tc:donutChart
           id="staff-availability-chart"
-          width="650px"
+          width="500px"
           height="500px"
           data="${countStaffAvailability}" />
       </jsp:attribute>
@@ -23,7 +23,7 @@
       <jsp:attribute name="panelBody">
         <tc:donutChart
           id="staff-type-chart"
-          width="650px"
+          width="500px"
           height="500px"
           data="${countStaffTypes}" />
       </jsp:attribute>

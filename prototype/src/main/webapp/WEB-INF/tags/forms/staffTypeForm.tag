@@ -22,19 +22,24 @@
     <form:input
       class="form-control"
       type="text"
-      path="staffType" />
+      path="staffType"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="Staff">
     <tt:staffTable
       simpleTable="true"
       staffList="${staffType.staffDtos}"/>
   </t:formGroup>
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
-      <button type="submit"
-              class="btn btn-success">
-        <span class="glyphicon glyphicon-ok"></span> Save
-      </button>
-    </div>
-  </t:formGroup>
+  
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
+        <button type="submit"
+                class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

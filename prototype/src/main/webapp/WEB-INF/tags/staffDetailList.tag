@@ -33,13 +33,11 @@
                 </a>
                 <br />
                 <ul class="list-inline">
-                  <c:forEach var="pt" items="${staff.profileTypeDescriptions}">
-                    <li style="font-size: 8pt;">
-                      <b>
-                        ${pt}
-                      </b>
+                    <li>
+                      <small>
+                        ${staff.title}
+                      </small>
                     </li>
-                  </c:forEach>
                 </ul>
               </div>
             </li>

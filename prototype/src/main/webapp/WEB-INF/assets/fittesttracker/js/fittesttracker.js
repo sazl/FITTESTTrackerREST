@@ -58,7 +58,8 @@ $(document).ready(function($) {
     $target.slideToggle();
   });
 
-  $('.default-dataTable').dataTable({});
+  $('.default-dataTable').dataTable({
+  });
   $('.simple-dataTable').dataTable({
     searching: true,
     info: false,

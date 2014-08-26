@@ -22,19 +22,22 @@
     <form:input
       class="form-control"
       type="text"
-      path="isoCode" />
+      path="isoCode"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Name">
     <form:input
       class="form-control"
       type="text"
-      path="fullName" />
+      path="fullName"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
-    <t:formGroup label="Region">
+  <t:formGroup label="Region">
     <form:input
       class="form-control"
       type="text"
-      path="region" />
+      path="region"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Activities">
     <tt:activityTable
@@ -42,12 +45,14 @@
       activities="${country.activityDtos}"/>
   </t:formGroup>
   
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
-      <button type="submit"
-              class="btn btn-success">
-        <span class="glyphicon glyphicon-ok"></span> Save
-      </button>
-    </div>
-  </t:formGroup>
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
+        <button type="submit"
+                class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

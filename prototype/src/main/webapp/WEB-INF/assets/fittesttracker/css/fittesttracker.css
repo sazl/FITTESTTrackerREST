@@ -1,4 +1,9 @@
 
+.alertify-logs {
+    top: 10px;
+    right: 10px;
+}
+
 .tab-content {
   padding: 20px;
 }

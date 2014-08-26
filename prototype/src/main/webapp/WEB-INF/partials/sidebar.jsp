@@ -13,13 +13,12 @@
   <div class="nav-canvas">
     <div class="nav-sm nav nav-stacked">
     </div>
-    
     <img id="logo"
          class="center"
          width="150"
          height="150"
          src="<c:url value="/fittesttracker/images/logo.png" />" />
-
+         
     <ul class="nav nav-pills nav-stacked main-menu">
       <li class="nav-header">Main</li>
       <li>

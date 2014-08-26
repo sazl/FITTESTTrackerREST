@@ -13,10 +13,10 @@
           <span class="glyphicon glyphicon-chevron-up"> Collapse</span>
         </button>
       </th>
-      <th style="width: 25%;">Profile</th>
-      <th style="width: 30%;">Location</th>
-      <th style="width: 15%;">Start Date</th>
-      <th style="width: 15%;">End Date</th>
+      <th id="planning-table-profile-col" style="width: 25%;">Profile</th>
+      <th id="planning-table-location-col" style="width: 30%;">Location</th>
+      <th id="planning-table-end-date-col" style="width: 15%;">Start Date</th>
+      <th id="planning-table-start-date-col" style="width: 15%;">End Date</th>
     </tr>
   </thead>
   <tbody id="planning-table-body">

@@ -2,6 +2,7 @@ $(document).ready(function() {
   var timelineContainer = $('#timeline').addClass('timeline-print')[0];
   var timelineMarker = $('#timelineMarker')[0];
   var timelineOptions = {
+    groupOrder: 'value',
     orientation: 'top',
     showCustomTime: true
   };
@@ -49,7 +50,8 @@ $(document).ready(function() {
     var endDate = endDateInput.val();
     var activities = activitiesSelect.val();
     timeline.setCustomTime(ftUtil.simpleDateToDate(startDate));
-
+    timelineMarker.innerHTML = startDate;
+    
     ftRest.getRequirements(startDate, endDate, activities).then(function(activityRoles) {
       if (activityRoles == undefined || activityRoles.length == 0) {
         alertify.alert('No activity roles found');
@@ -63,7 +65,7 @@ $(document).ready(function() {
             .append($('<b>').text(ar.activityDescription))
             .append('<br/>')
             .append($('<b>').text('[' + ar.profileTypeDescription + ']'))[0],
-          value: ar.activityId
+          value: ar.activityDescription
         };
       });
 
@@ -78,6 +80,7 @@ $(document).ready(function() {
           end: ftUtil.ISODateToDate(ar.endDate)
         };
       });
+
       timeline.setGroups(new vis.DataSet(groups));
       timeline.setItems(new vis.DataSet(items));
       return [activityRoles, items, groups];
@@ -85,6 +88,7 @@ $(document).ready(function() {
       var activityRoles = data[0];
       var items = data[1];
       var groups = data[2];
+      var showConfirmedOnly = showConfirmedOnlyCheckbox.is(':checked');
       
       var staffRolesPromises = _.map(activityRoles, function(ar) {
         return ftRest.getStaffRolesByIds(ar.staffRoleIds);
@@ -93,6 +97,13 @@ $(document).ready(function() {
       $.when.apply($, staffRolesPromises).then(function() {
         var activityRolesStaffRoles = arguments;
         $.each(activityRolesStaffRoles, function(i, staffRoles) {
+
+          if (showConfirmedOnly) {
+            staffRoles = _.filter(staffRoles, function(sr) {
+              return sr.confirmedTypeDescription === 'Confirmed';
+            });
+          }
+          
           var ar = activityRoles[i];
           $.each(staffRoles, function(j, sr) {
             var itemId = Math.floor(Math.random() * 100000000);

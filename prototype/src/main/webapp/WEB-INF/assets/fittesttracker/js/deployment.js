@@ -2,6 +2,7 @@ $(document).ready(function() {
   var timelineContainer = $('#timeline').addClass('timeline-print')[0];
   var timelineMarker = $('#timelineMarker')[0];
   var timelineOptions = {
+    groupOrder: 'value',
     orientation: 'top',
     showCustomTime: true
   };
@@ -20,7 +21,6 @@ $(document).ready(function() {
   var showEventsCheckbox = $('#showEvents');
   var submitDeploymentButton = $('#submit-deployment');
   var clearDeploymentButton = $('#clear-deployment');
-  
   var selectAllActivities = $('#select-all-activities');
   var selectAllStaffTypes = $('#select-all-staffTypes');
   
@@ -42,53 +42,59 @@ $(document).ready(function() {
     var endDate = endDateInput.val();
     var staffTypes = staffTypesSelect.val();
     var activities = activitiesSelect.val();
-    timeline.setCustomTime(ftUtil.simpleDateToDate(startDate));
+    var confirmedOnly = showConfirmedOnlyCheckbox.is(':checked');
     
-    ftRest.getDeployments(startDate, endDate, staffTypes, activities).then(function(staffRoles) {
-      if (staffRoles.length == 0) {
-        alertify.alert('No staff roles found');
-        return;
-      }
+    timeline.setCustomTime(ftUtil.simpleDateToDate(startDate));
+    timelineMarker.innerHTML = startDate;
+    
+    ftRest.getDeployments(startDate, endDate, staffTypes, activities, confirmedOnly)
+      .then(function(staffRoles) {
+        if (staffRoles.length == 0) {
+          alertify.alert('No staff roles found');
+          return;
+        }
 
-      var staffIds = _.uniq(_.map(staffRoles, function(sr) { return sr.staffId; }));
-      ftRest.getStaffByIds(staffIds).then(function(staff) {
-        var groups = _.map(staff, function(s) {
-          return {id: s.id, content: $('<b>').text(s.name)[0], value: s.id};
-        });
-        return groups;
-      }).then(function(groups) {
-        var items = _.map(staffRoles, function(sr) {
-          var activityName = $('<b>').text(sr.activityRoleDescription)[0];
-          var profileType = $('<b>').text('[' + sr.activityRoleProfileTypeDescription + ']')[0];
-          var confirmedType = ftUtil.colorLabel(
-            sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
-          var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
-          var content = $('<div>')
-                .append(activityName)
-                .append('<br/>')
-                .append(profileType)
-                .append('  ')
-                .append(confirmedType)
-                .append('<br/>')
-                .append(dates)[0];
-          var className = 'color' + sr.id;
-          ftUtil.timelineAppendColorClass(className, sr.activityTypeColorCode);
+        var staffIds = _.uniq(_.map(staffRoles, function(sr) { return sr.staffId; }));
+        ftRest.getStaffByIds(staffIds).then(function(staff) {
+          var groups = _.map(staff, function(s) {
+            return {id: s.id, content: $('<b>').text(s.name)[0], value: s.lastName};
+          });
+          return groups;
+        }).then(function(groups) {
+          var items = _.map(staffRoles, function(sr) {
+            var activityName = $('<b>').text(sr.activityRoleDescription)[0];
+            var profileType = $('<b>').text('[' + sr.activityRoleProfileTypeDescription + ']')[0];
+            var confirmedType = ftUtil.colorLabel(
+              sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
+            var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
+            var content = $('<span>')
+                  .append(activityName)
+                  .append('<br/>')
+                  .append(profileType)
+                  .append('  ')
+                  .append(confirmedType)
+                  .append('<br/>')
+                  .append(dates)[0];
+            var className = 'color' + sr.id;
+            ftUtil.timelineAppendColorClass(className, sr.activityTypeColorCode);
+            
+            return {
+              id: sr.id,
+              group: sr.staffId,
+              className: className,
+              content: content,
+              start: ftUtil.ISODateToDate(sr.startDate),
+              end: ftUtil.ISODateToDate(sr.endDate)
+            };
+          });
           
-          return {
-            id: sr.id,
-            group: sr.staffId,
-            className: className,
-            content: content,
-            start: ftUtil.ISODateToDate(sr.startDate),
-            end: ftUtil.ISODateToDate(sr.endDate)
-          };
+          timeline.setGroups(new vis.DataSet(groups));
+          timeline.setItems(new vis.DataSet(items));
+          timeline.redraw();
+          timeline.setWindow(ftUtil.simpleDateToDate(startDate),
+                             ftUtil.simpleDateToDate(endDate));
         });
-        
-        timeline.setGroups(new vis.DataSet(groups));
-        timeline.setItems(new vis.DataSet(items));
-        timeline.redraw();
       });
-    });
 
   });
   

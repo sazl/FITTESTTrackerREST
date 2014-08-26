@@ -24,7 +24,8 @@
     <form:input
       class="form-control"
       type="text"
-      path="language" />
+      path="language"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Staff By Language">
     <tt:staffTable
@@ -32,12 +33,14 @@
       staffList="${language.staffByLanguageDtos}"/>
   </t:formGroup>
   
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
-      <button type="submit"
-              class="btn btn-success">
-        <span class="glyphicon glyphicon-ok"></span> Save
-      </button>
-    </div>
-  </t:formGroup>
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
+        <button type="submit"
+                class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

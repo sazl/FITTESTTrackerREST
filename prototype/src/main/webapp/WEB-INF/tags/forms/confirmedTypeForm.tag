@@ -22,13 +22,15 @@
     <form:input
       class="form-control"
       type="text"
-      path="confirmedType" />
+      path="confirmedType"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Color Code">
     <form:input
       class="form-control"
       type="text"
-      path="confirmedColorCode" />
+      path="confirmedColorCode"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Activities">
     <tt:activityTable
@@ -40,13 +42,15 @@
       simpleTable="true"
       staffRoles="${confirmedType.staffRoleDtos}"/>
   </t:formGroup>
-  
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
-      <button type="submit"
-              class="btn btn-success">
-        <span class="glyphicon glyphicon-ok"></span> Save
-      </button>
-    </div>
-  </t:formGroup>
+
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
+        <button type="submit"
+                class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

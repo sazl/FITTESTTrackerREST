@@ -20,7 +20,6 @@ $(document).ready(function() {
   var staffRoleStartDate = $('#staff-role-startDate');
   var staffRoleEndDate = $('#staff-role-endDate');
   var staffRoleActivityRoles = $('#staff-role-activityRoles');
-  staffRoleActivityRoles.attr('disabled', true);
   
   var staffRoleConfirmedTypes = $('#staff-role-confirmedTypes');
   var staffRoleSaveButton = $('#staff-role-save');
@@ -76,7 +75,7 @@ $(document).ready(function() {
     return ftRest.getStaffRolesByActivityRoleId(activityRoleId)
       .then(function(staffRoles) {
         var tbl = $('<table>')
-              .addClass('table table-bordered table-responsive' +
+              .addClass('simple-dataTable table table-bordered table-responsive' +
                         ' table-hover staff-role-table');
 
         var headers = [
@@ -131,34 +130,35 @@ $(document).ready(function() {
       });
   }
 
-  function buildActivityRoleTable(activityId) {
-    return ftRest.getActivityRolesByActivityId(activityId).then(function(activityRoles) {
+  function buildActivityRoleTable(activityId, sortColumn) {
+    return ftRest.getActivityRolesByActivityId(activityId, sortColumn).then(function(activityRoles) {
       planningTableBody.empty();
       $.each(activityRoles, function(idx, ar) {
+
         var trinfo = $('<tr>').addClass('info');
-        var trStaffRole = $('<tr>');
-        var tdStaffRole = $('<td>').attr('colspan', 5);
-        buildStaffRoleTable(ar.id).then(function(staffRoleTable) {
+        trinfo.append($('<td>').append(
+          $('<button>')
+            .addClass('btn btn-sm btn-danger collapse-button')
+            .append(
+              $('<span>')
+                .addClass('glyphicon glyphicon-arrow-up'))));
+        trinfo.append($('<td>').addClass('warning').append(
+          $('<b>').text(ar.profileTypeDescription)));
+        trinfo.append($('<td>').append(ar.location));
+        trinfo.append($('<td>').append(ftUtil.simpleDate(ar.startDate)));
+        trinfo.append($('<td>').append(ftUtil.simpleDate(ar.endDate)));        
+
+        
+        return buildStaffRoleTable(ar.id).then(function(staffRoleTable) {
+          var trStaffRole = $('<tr>');
+          var tdStaffRole = $('<td>').attr('colspan', 5);
           tdStaffRole.append(staffRoleTable);
           trStaffRole.append(tdStaffRole);
-        }).then(function() {
-          trinfo.append($('<td>').append(
-            $('<button>')
-              .addClass('btn btn-sm btn-danger collapse-button')
-              .append(
-                $('<span>')
-                  .addClass('glyphicon glyphicon-arrow-up'))));
-          trinfo.append($('<td>').addClass('warning').append(
-            $('<b>').text(ar.profileTypeDescription)));
-          trinfo.append($('<td>').append(ar.location));
-          trinfo.append($('<td>').append(ftUtil.simpleDate(ar.startDate)));
-          trinfo.append($('<td>').append(ftUtil.simpleDate(ar.endDate)));
-
-        }).then(function() {
           planningTableBody.append(trinfo);
           planningTableBody.append(trStaffRole);
           return planningTableBody;
         });
+
       });
     });
   }
@@ -166,21 +166,40 @@ $(document).ready(function() {
   function removeActiveStaffRoleRow() {
     $('.staff-role-table tr').removeClass('active');
   }
-  
-  activitiesSelect.change(function() {
-    var activityId = $(this).val();
+
+  function buildPlanningPage(activityId, sortColumn) {
     ftRest.getCountriesByActivityId(activityId).then(function(cnts) {
       countriesList.empty();
       $.each(cnts, function(idx, cnt) {
         countriesList.append('<li>' + cnt.fullName + '</li>');
       });
     }).then(function() {
-      ftRest.getActivityTypeByActivityId(activityId).then(function(at) {
+      return ftRest.getActivityTypeByActivityId(activityId).then(function(at) {
         activityTypeLabel.text(at.activityType);
       });
     }).then(function() {
-      buildActivityRoleTable(activityId);
+      staffRoleActivityRoles.empty();
+      return ftRest.getActivityRolesByActivityId(activityId, 'profileType.profileType')
+        .then(function(activityRoles) {
+          $.each(activityRoles, function(i, ar) {
+            staffRoleActivityRoles.append(new Option(ar.profileTypeDescription, ar.id));
+          });
+        });
+    }).then(function() {
+      return buildActivityRoleTable(activityId, sortColumn);
+    }).then(function() {
+      $('.simple-dataTable').dataTable({
+        searching: true,
+        info: false,
+        lengthChange: false,
+        pageLength: 5
+      });
     });
+  }
+  
+  activitiesSelect.change(function() {
+    var activityId = $(this).val();
+    buildPlanningPage(activityId, 'profileType.profileType');
   });
 
   $('body').on('click', '#planning-table .collapse-button', function(event) {
@@ -248,16 +267,17 @@ $(document).ready(function() {
       staffRoleConfirmedTypes.val(sr.confirmedTypeId);
       staffRoleConfirmedTypes.select2();
 
-      staffRoleActivityRoles.empty();
-      staffRoleActivityRoles.append(
+      staffRoleActivityRoles.val(
         new Option(sr.activityRoleProfileTypeDescription, sr.activityRoleId));
+      staffRoleActivityRoles.select2();
+      
       staffRoleActivityRoles.val(sr.activityRoleId);
       staffRoleActivityRoles.select2();
     });
     $("html, body").animate({ scrollTop: 0 }, "fast");
     staffRoleForm.effect('highlight', 1600);
   });
-
+  
   staffRoleClearButton.click(function(event) {
     staffRoleStaffRoleId.empty();
     staffRoleActivityRoles.empty();
@@ -277,11 +297,11 @@ $(document).ready(function() {
       "confirmedTypeId": parseInt(staffRoleConfirmedTypes.val()),
       "staffId": parseInt(staffRoleStaff.val())
     };
-    console.log(staffRole);
+
     ftRest.saveOrUpdateStaffRole(staffRole).then(function() {
       var activityId = activitiesSelect.val();
       alertify.success('Saved Staff Role');
-      buildActivityRoleTable(activityId);
+      buildActivityRoleTable(activityId, 'profileType.profileType');
     });
   });
 
@@ -317,5 +337,30 @@ $(document).ready(function() {
       effect: 'highlight',
       duration: 150
     });
-  });  
+  });
+
+  $('#planning-table-profile-col').click(function(event) {
+    var activityId = activitiesSelect.val();
+    buildActivityRoleTable(activityId, 'profileType.profileType');
+    $('#planning-table th').removeClass('active');
+    $(this).addClass('active');
+  });
+  $('#planning-table-location-col').click(function(event) {
+    var activityId = activitiesSelect.val();
+    buildActivityRoleTable(activityId, 'location');
+    $('#planning-table th').removeClass('active');
+    $(this).addClass('active');
+  });
+  $('#planning-table-start-date-col').click(function(event) {
+    var activityId = activitiesSelect.val();
+    buildActivityRoleTable(activityId, 'startDate');
+    $('#planning-table th').removeClass('active');
+    $(this).addClass('active');
+  });
+  $('#planning-table-end-date-col').click(function(event) {
+    var activityId = activitiesSelect.val();
+    buildActivityRoleTable(activityId, 'endDate');
+    $('#planning-table th').removeClass('active');
+    $(this).addClass('active');
+  });
 });

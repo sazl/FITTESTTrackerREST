@@ -22,26 +22,29 @@
     <form:input
       class="form-control"
       type="text"
-      path="activityType" />
+      path="activityType"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Color Code">
     <form:input
       class="form-control"
       type="text"
-      path="colorCode" />
+      path="colorCode"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Activities">
     <tt:activityTable
       simpleTable="true"
       activities="${activityType.activityDtos}"/>
   </t:formGroup>
-
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
-      <button type="submit"
-              class="btn btn-success">
-        <span class="glyphicon glyphicon-ok"></span> Save
-      </button>
-    </div>
-  </t:formGroup>
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
+        <button type="submit"
+                class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

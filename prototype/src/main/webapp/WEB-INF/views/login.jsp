@@ -46,7 +46,7 @@
   <body>
     <div class="container">
       <div id="bg">
-        <img src="<c:url value="/fittesttracker/images/background1.JPG" />" alt="">
+        <img src="<c:url value="/fittesttracker/images/background3.jpg" />" alt="">
       </div>
       <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">

@@ -39,22 +39,20 @@
                 </a>
                 <br/>
                 <ul class="list-inline">
-                  <c:forEach var="pt" items="${staffRole.staffDto.profileTypeDescriptions}" >
-                    <li style="font-size: 8pt;">
-                      <c:choose>
-                        <c:when test="${staffRole.activityRoleProfileTypeDescription == pt}">
-                          <label class="label label-default">
-                            ${pt}
-                          </label>
-                        </c:when>
-                        <c:otherwise>
-                          <b>${pt}</b>
-                        </c:otherwise>
-                      </c:choose>
+                    <li>
+                      <small>
+                        ${staffRole.staffDto.title}
+                      </small>
                     </li>
-                  </c:forEach>
                 </ul>
-
+                <c:if test="${showActivity}">
+                  <label class="label label-primary">
+                    <small style="line-height: 2.0em;">
+                      ${staffRole.activityRoleDescription}
+                    </small>
+                  </label>
+                  <br/>
+                </c:if>
                 <label class="label label-success">
                   <fmt:formatDate
                     pattern="dd/MM/yyyy"
@@ -66,11 +64,6 @@
                     pattern="dd/MM/yyyy"
                     value="${staffRole.endDate}"/>
                 </label>
-                <c:if test="${showActivity}">
-                  <label class="label label-primary pull-right">
-                    ${staffRole.activityRoleDescription}
-                  </label>
-                </c:if>
               </div>
             </li>
           </ul>

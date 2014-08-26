@@ -17,6 +17,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		registry.addResourceHandler("/external/**")
 				.addResourceLocations("/WEB-INF/assets/external/")
 				.setCachePeriod(31556926);
+				
 		registry.addResourceHandler("/fittesttracker/**")
 				.addResourceLocations("/WEB-INF/assets/fittesttracker/")
 				.setCachePeriod(31556926);

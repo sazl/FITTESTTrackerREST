@@ -20,21 +20,42 @@ public interface StaffRoleRepository extends
 	@Query("select sr from StaffRole sr where sr.id in :ids")
 	public List<StaffRole> findByIds(@Param("ids") List<Long> ids);
 
-	@Query("select sr from StaffRole sr where sr.startDate >= :startDate"
-			+ " and  sr.endDate <= :endDate"
+	@Query("select sr from StaffRole sr"
+			+ " where ((sr.startDate >= :startDate and sr.endDate <= :endDate)"
+			+ " or (sr.startDate <= :startDate and (sr.endDate >= :startDate and sr.endDate <= :endDate))"
+			+ " or ((sr.startDate >= :startDate and sr.startDate <= :endDate) and sr.endDate >= :endDate)"
+			+ " or (sr.startDate <= :startDate and sr.endDate >= :endDate))"
 			+ " and sr.activityRole.activity.id in :activityIds"
-			+ " and sr.staff.staffType.id in :staffTypeIds")
+			+ " and sr.staff.staffType.id in :staffTypeIds"
+			+ " order by sr.staff.lastName")
 	List<StaffRole> findDeployments(
 			@Param("startDate") @DateTimeFormat(iso = ISO.DATE) Date startDate,
 			@Param("endDate") @DateTimeFormat(iso = ISO.DATE) Date endDate,
 			@Param("activityIds") List<Long> activityIds,
 			@Param("staffTypeIds") List<Long> staffTypeIds);
 	
+	@Query("select sr from StaffRole sr"
+			+ " where ((sr.startDate >= :startDate and sr.endDate <= :endDate)"
+			+ " or (sr.startDate <= :startDate and (sr.endDate >= :startDate and sr.endDate <= :endDate))"
+			+ " or ((sr.startDate >= :startDate and sr.startDate <= :endDate) and sr.endDate >= :endDate)"
+			+ " or (sr.startDate <= :startDate and sr.endDate >= :endDate))"
+			+ " and sr.activityRole.activity.id in :activityIds"
+			+ " and sr.staff.staffType.id in :staffTypeIds"
+			+ " and sr.confirmedType.confirmedType = 'Confirmed'"
+			+ " order by sr.staff.lastName")
+	List<StaffRole> findDeploymentsConfirmed(
+			@Param("startDate") @DateTimeFormat(iso = ISO.DATE) Date startDate,
+			@Param("endDate") @DateTimeFormat(iso = ISO.DATE) Date endDate,
+			@Param("activityIds") List<Long> activityIds,
+			@Param("staffTypeIds") List<Long> staffTypeIds);
+	
 	@Query("select distinct(sr) from StaffRole sr"
+			+ " join sr.staff s"
 			+ " join sr.activityRole ar"
 			+ " join ar.activity act"
 			+ " join act.activityType at"
-		    + " where at.activityType = :activityType"
+			+ " where s.staffType.staffType in ('FITTEST CST', 'OSTF Dubai', 'OSTF Rome')"
+		    + " and at.activityType = :activityType"
 			+ " and sr.startDate <= :date"
 		    + " and sr.endDate >= :date")
 	public List<StaffRole> findByActivityTypeInDate(
@@ -42,7 +63,9 @@ public interface StaffRoleRepository extends
 			@Param("date") @DateTimeFormat(iso = ISO.DATE) Date date);
 	
 	@Query("select distinct(sr) from StaffRole sr"
-			+ " where sr.startDate <= :date and sr.endDate >= :date")
+			+ " join sr.staff s"
+			+ " where s.staffType.staffType in ('FITTEST CST', 'OSTF Dubai', 'OSTF Rome')"
+			+ " and sr.startDate <= :date and sr.endDate >= :date")
 	public List<StaffRole> findByNotAvailableInDate(
 			@Param("date") @DateTimeFormat(iso = ISO.DATE) Date date);
 }

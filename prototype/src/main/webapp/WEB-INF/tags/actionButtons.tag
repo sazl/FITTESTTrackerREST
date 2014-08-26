@@ -20,6 +20,7 @@
         <span class="glyphicon glyphicon-trash"></span>
       </button>
     </div>
+    <%--
     <div class="btn-group btn-group-md">
       <form action="<c:url value="/${entity}/${id}/edit" />">
         <button type="submit"
@@ -31,6 +32,7 @@
         </button>
       </form>
     </div>
+    --%>
   </c:if>
   
   <div class="btn-group btn-group-md">

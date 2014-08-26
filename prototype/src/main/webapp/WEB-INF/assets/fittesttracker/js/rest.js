@@ -48,6 +48,8 @@ var ftRest = (function (global, $) {
   }
   
   function _findByIds(entity, ids) {
+    if (ids.length == 0)
+      return [];
     var strIds = _.reduce(ids, function(x, y) { return x + ',' + y; });
     var uri = _URI[entity] + '/search/findByIds?ids=' + strIds;
     return $.getJSON(uri).then(function(data) {
@@ -61,6 +63,7 @@ var ftRest = (function (global, $) {
 
   function _getActivitiesByConfirmedTypeId(confirmedTypeId) {
     var uri = _URI.activities + '/search/findByConfirmedType_Id?confirmedTypeId=' + confirmedTypeId;
+    uri += '&sort=description&size=400';
     return $.getJSON(uri).then(function(data) {
       return $.isEmptyObject(data) ? [] : data._embedded['activities'];
     });
@@ -73,8 +76,10 @@ var ftRest = (function (global, $) {
     });
   }
 
-  function _getActivityRolesByActivityId(activityId) {
-    var uri = _URI.activities + '/' + activityId + '/activityRoles';
+  function _getActivityRolesByActivityId(activityId, sortColumn) {
+    var uri = _URI.activityRoles
+          + '/search/findByActivity_Id?activityId=' + activityId;
+    uri += '&sort=' + sortColumn;
     return $.getJSON(uri).then(function(data) {
       return $.isEmptyObject(data) ? [] : data._embedded['activityRoles'];
     });
@@ -89,7 +94,7 @@ var ftRest = (function (global, $) {
     var srUri = uri + '/' + staffRole.id;
     return $.get(srUri)
       .success(function() {
-        $.ajax({
+        return $.ajax({
           type: 'PUT',
           url: srUri,
           contentType: 'application/json',
@@ -100,8 +105,10 @@ var ftRest = (function (global, $) {
             var activityUri = _getEntityUri('activities', staffRole.activityId);
             var confirmedTypeUri = _getEntityUri(
               'confirmedTypes', staffRole.confirmedTypeId);
+            var activityRoleUri = _getEntityUri(
+              'activityRoles', staffRole.activityRoleId);
 
-            $.ajax({
+            return $.ajax({
               type: 'PUT',
               url: entityUri + '/staff',
               contentType: 'text/uri-list',
@@ -112,36 +119,29 @@ var ftRest = (function (global, $) {
                 url: entityUri + '/confirmedType',
                 contentType: 'text/uri-list',
                 data: confirmedTypeUri
+              });
+            }).then(function() {
+              $.ajax({
+                type: 'PUT',
+                url: entityUri + '/activityRole',
+                contentType: 'text/uri-list',
+                data: activityRoleUri
               });
             });
           }
         });
       })
       .fail(function() {
-        $.ajax({
+        staffRole.staff = _getEntityUri('staff', staffRole.staffId);
+        staffRole.confirmedType = _getEntityUri(
+          'confirmedTypes', staffRole.confirmedTypeId);
+        staffRole.activityRole = _getEntityUri(
+          'activityRoles', staffRole.activityRoleId);
+        return $.ajax({
           type: 'POST',
           url: uri,
           contentType: 'application/json',
-          data: JSON.stringify(staffRole),
-          success: function(data, status, xhr) {
-            var entityUri = xhr.getRepsonseHeader('Location');
-            var staffUri = _getEntityUri('staff', staffRole.staffId);
-            var confirmedTypeUri = _getEntityUri(
-              'confirmedTypes', staffRole.confirmedTypeId);
-            $.ajax({
-              type: 'PUT',
-              url: entityUri + '/staff',
-              contentType: 'text/uri-list',
-              data: staffUri
-            }).then(function() {
-              $.ajax({
-                type: 'PUT',
-                url: entityUri + '/confirmedType',
-                contentType: 'text/uri-list',
-                data: confirmedTypeUri
-              });
-            });
-          }
+          data: JSON.stringify(staffRole)
         });
       });
   };
@@ -181,8 +181,11 @@ var ftRest = (function (global, $) {
     });
   }
 
-  function _getDeploymentsUri(startDate, endDate, staffTypeIds, activityIds) {
-    var uri = _URI.staffRoles + '/search/findDeployments?';
+  function _getDeploymentsUri(
+    startDate, endDate, staffTypeIds, activityIds, confirmedOnly) {
+    var dep_uri = '/search/findDeployments'
+          + (confirmedOnly ? 'Confirmed' : '') + '?';
+    var uri = _URI.staffRoles + dep_uri;
     uri += 'startDate=' + ftUtil.ISODate(startDate);
     uri += '&endDate=' + ftUtil.ISODate(endDate);
     var _staffTypeIds = ftUtil.arrayToCSV(staffTypeIds);
@@ -192,8 +195,10 @@ var ftRest = (function (global, $) {
     return uri;
   }
 
-  function _getDeployments(startDate, endDate, staffTypeIds, activityIds) {
-    var uri = _getDeploymentsUri(startDate, endDate, staffTypeIds, activityIds);
+  function _getDeployments(
+    startDate, endDate, staffTypeIds, activityIds, confirmedOnly) {
+    var uri = _getDeploymentsUri(
+      startDate, endDate, staffTypeIds, activityIds, confirmedOnly);
     return $.getJSON(uri).then(function(data) {
       return $.isEmptyObject(data) ? [] : data._embedded['staffRoles'];
     });
@@ -233,7 +238,7 @@ var ftRest = (function (global, $) {
     getActivityTypeById: _findByIdFunc('activityTypes'),
     getActivityTypeByActivityId: _getActivityTypeByActivityId,
 
-    getProfileTypes: _findAllFunc('profileTypes'),
+    getProfileTypes: _findAllFunc('profileTypes', 'profileType'),
     getProfileTypeById: _findByIdFunc('profileTypes'),
     getProfileTypeByActivityRoleId: _getProfileTypeByActivityRoleId,
 

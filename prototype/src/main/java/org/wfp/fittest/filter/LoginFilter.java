@@ -35,13 +35,13 @@ public class LoginFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		HttpSession session = request.getSession(false);
 		String url = request.getRequestURI();
 
 		if (matchesExcludePatterns(url)) {
 			chain.doFilter(req, res);
 			return;
 		} else {
+			HttpSession session = request.getSession(true);
 			if (session == null || session.getAttribute("user") == null) {
 				response.sendRedirect(request.getContextPath() + "/login");
 			}

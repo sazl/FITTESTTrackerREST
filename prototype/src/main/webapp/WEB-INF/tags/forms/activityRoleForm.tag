@@ -28,7 +28,8 @@
       itemValue="id"
       itemLabel="description"
       path="activityId"
-      multiple="false" />
+      multiple="false"
+      disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Profile Type">
     <form:select
@@ -37,25 +38,32 @@
       itemValue="id"
       itemLabel="profileType"
       path="profileTypeId"
-      multiple="false" />
+      multiple="false"
+      disabled="${readOnly ? 'true' : 'false'}" />
   </t:formGroup>
   <t:formGroup label="Location">
     <form:input
       class="form-control"
       type="text"
-      path="location" />
+      path="location"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="Start Date">
     <form:input
       class="datepicker form-control"
       type="text"
-      path="startDate" />
+      path="startDate"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="End Date">
     <form:input
       class="datepicker form-control"
       type="text"
-      path="endDate" />
+      path="endDate"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="Staff Roles">
     <tt:staffRoleTable
@@ -63,12 +71,14 @@
       staffRoles="${activityRole.staffRoleDtos}" />
   </t:formGroup>
 
-  <t:formGroup label="">
-    <div class="btn-group btn-group-md">
+  <c:if test="${not readOnly}">
+    <t:formGroup label="">
+      <div class="btn-group btn-group-md">
         <button type="submit"
                 class="btn btn-success">
           <span class="glyphicon glyphicon-ok"></span> Save
         </button>
-    </div>
-  </t:formGroup>
+      </div>
+    </t:formGroup>
+  </c:if>
 </form:form>

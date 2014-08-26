@@ -26,6 +26,12 @@
 <script
     type="text/javascript"
     src="<c:url value="/external/js/jquery.dataTables.min.js" />"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/date-uk.js" />"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/date-uk-type.js" />"></script>
 
 <script
     type="text/javascript"

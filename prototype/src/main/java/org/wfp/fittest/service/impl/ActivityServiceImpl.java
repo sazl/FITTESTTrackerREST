@@ -171,7 +171,7 @@ public class ActivityServiceImpl implements ActivityService {
 	@Transactional(readOnly = false)
 	public EventDto saveOrUpdateEvent(EventDto eventDto) {
 		Event event = converter.dtoToEntity(eventDto);
-		return converter.entityToDto(event);
+		return converter.entityToDto(eventRepository.save(event));
 	}
 
 }

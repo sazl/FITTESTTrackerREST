@@ -27,7 +27,7 @@
   </t:formGroup>
   <t:formGroup label="Color Code">
     <form:input
-      class="form-control"
+      class="form-control color"
       type="text"
       path="colorCode"
       disabled="${readOnly ? 'true' : 'false'}"/>

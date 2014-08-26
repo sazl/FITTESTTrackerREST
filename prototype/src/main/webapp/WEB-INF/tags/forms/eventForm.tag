@@ -4,43 +4,51 @@
 <%@ taglib prefix="tt" tagdir="/WEB-INF/tags/tables" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<%@ attribute name="confirmedType" required="true"
-              type="org.wfp.fittest.dto.ConfirmedTypeDto" %>
+<%@ attribute name="event" required="true"
+              type="org.wfp.fittest.dto.EventDto" %>
 
-<c:url var="confirmedTypeSave" value="/confirmedType/save" />
+<c:url var="eventSave" value="/event/save" />
 
 <form:form
   method="POST"
-  action="${confirmedTypeSave}"
+  action="${eventSave}"
   class="form-horizontal"
   role="form"
-  id="confirmed-type-form"
-  modelAttribute="confirmedType">
+  id="event-form"
+  modelAttribute="event">
   <form:hidden
     path="id" />
-  <t:formGroup label="Confirmed Type">
+  <t:formGroup label="Event">
     <form:input
       class="form-control"
       type="text"
-      path="confirmedType"
-      disabled="${readOnly ? 'true' : 'false'}"/>
+      path="event"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
-  <t:formGroup label="Color Code">
+  <t:formGroup label="Start Date">
+    <form:input
+      class="datepicker form-control"
+      type="text"
+      path="startDate"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
+  </t:formGroup>
+  <t:formGroup label="End Date">
+    <form:input
+      class="datepicker form-control"
+      type="text"
+      path="endDate"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
+  </t:formGroup>
+    <t:formGroup label="Color Code">
     <form:input
       class="form-control color"
       type="text"
-      path="confirmedColorCode"
-      disabled="${readOnly ? 'true' : 'false'}"/>
-  </t:formGroup>
-  <t:formGroup label="Activities">
-    <tt:activityTable
-      simpleTable="true"
-      activities="${confirmedType.activityDtos}"/>
-  </t:formGroup>
-  <t:formGroup label="Staff Roles">
-    <tt:staffRoleTable
-      simpleTable="true"
-      staffRoles="${confirmedType.staffRoleDtos}"/>
+      path="colorCode"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
 
   <c:if test="${not readOnly}">

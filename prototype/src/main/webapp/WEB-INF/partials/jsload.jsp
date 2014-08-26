@@ -35,6 +35,9 @@
 
 <script
     type="text/javascript"
+    src="<c:url value="/external/js/jscolor.js"/>"></script>
+<script
+    type="text/javascript"
     src="<c:url value="/external/js/select2.min.js"/>"></script>
 <script
     type="text/javascript"

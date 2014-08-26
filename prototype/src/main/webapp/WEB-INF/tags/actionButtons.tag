@@ -20,30 +20,17 @@
         <span class="glyphicon glyphicon-trash"></span>
       </button>
     </div>
-    <%--
-    <div class="btn-group btn-group-md">
-      <form action="<c:url value="/${entity}/${id}/edit" />">
-        <button type="submit"
-                class="btn btn-default"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Edit">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-      </form>
-    </div>
-    --%>
   </c:if>
   
   <div class="btn-group btn-group-md">
-    <form action="<c:url value="/${entity}/${id}/view" />">
-      <button type="submit"
+    <a href="<c:url value="/${entity}/${id}/view" />">
+      <button type="button"
               class="btn btn-primary"
               data-toggle="tooltip"
               data-placement="top"
               title="View">
         <span class="glyphicon glyphicon-eye-open"></span>
       </button>
-    </form>
+    </a>
   </div>
 </div>

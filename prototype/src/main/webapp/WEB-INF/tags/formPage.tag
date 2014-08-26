@@ -6,7 +6,7 @@
 
 <t:page pageTitle="${entity}">
   <div class="container">
-    <div class="col-sm-10 well well-lg">
+    <div class="col-sm-11 well well-lg">
       <div class="row">
         <jsp:doBody />
       </div>

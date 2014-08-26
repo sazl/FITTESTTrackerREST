@@ -101,64 +101,75 @@ $(document).ready(function() {
         });
         
         var tbody = $('<tbody>');
-        $.each(staffRoles, function(idx, sr) {
-          var tr = $('<tr>').attr('id', sr.id);
-          ftRest.getStaffByStaffRoleId(sr.id).then(function(staff) {
-            tr.append($('<td>').append(staff.name));
-            tr.append($('<td>')
-                      .addClass('text-center')
-                      .append(staff.id));
-          }).then(function(){
-            tr.append($('<td>').append(sr.location));
-            tr.append($('<td>').append(ftUtil.simpleDate(sr.startDate)));
-            tr.append($('<td>').append(ftUtil.simpleDate(sr.endDate)));
-            tr.append($('<td>').append(sr.comments));
-          }).then(function(){
-            ftRest.getConfirmedTypeByStaffRoleId(sr.id).then(function(ct) {
+        var staffRolePromises = _.map(staffRoles, function(sr) {
+          return ftRest.getStaffByStaffRoleId(sr.id);
+        });
+        var confirmedTypePromises = _.map(staffRoles, function(sr) {
+          return ftRest.getConfirmedTypeByStaffRoleId(sr.id);
+        });
+        
+        return $.when.apply($, staffRolePromises).then(function() {
+          var staffByStaffRoles = arguments;
+          return $.when.apply($, confirmedTypePromises).then(function() {
+            var confirmedTypes = arguments;            
+            $.each(staffByStaffRoles, function(idx, staff) {
+              var ct = confirmedTypes[idx];
+              var sr = staffRoles[idx];
+              var tr = $('<tr>').attr('id', sr.id);
+              tr.append($('<td>').append(staff.name));
+              tr.append($('<td>')
+                        .addClass('text-center')
+                        .append(staff.id));
+              tr.append($('<td>').append(sr.location));
+              tr.append($('<td>').append(ftUtil.simpleDate(sr.startDate)));
+              tr.append($('<td>').append(ftUtil.simpleDate(sr.endDate)));
+              tr.append($('<td>').append(sr.comments));
               tr.append($('<td>')
                         .addClass('text-center')
                         .append(
                           ftUtil.colorLabel(ct.confirmedColorCode, ct.confirmedType)));
+              tbody.append(tr);
             });
+            tbl.append(thead);
+            tbl.append(tbody);
+            return tbl;
           });
-          tbody.append(tr);
         });
-
-        tbl.append(thead);
-        tbl.append(tbody);
-        return tbl;
       });
   }
 
   function buildActivityRoleTable(activityId, sortColumn) {
     return ftRest.getActivityRolesByActivityId(activityId, sortColumn).then(function(activityRoles) {
       planningTableBody.empty();
-      $.each(activityRoles, function(idx, ar) {
-
-        var trinfo = $('<tr>').addClass('info');
-        trinfo.append($('<td>').append(
-          $('<button>')
-            .addClass('btn btn-sm btn-danger collapse-button')
-            .append(
-              $('<span>')
-                .addClass('glyphicon glyphicon-arrow-up'))));
-        trinfo.append($('<td>').addClass('warning').append(
-          $('<b>').text(ar.profileTypeDescription)));
-        trinfo.append($('<td>').append(ar.location));
-        trinfo.append($('<td>').append(ftUtil.simpleDate(ar.startDate)));
-        trinfo.append($('<td>').append(ftUtil.simpleDate(ar.endDate)));        
-
-        
-        return buildStaffRoleTable(ar.id).then(function(staffRoleTable) {
+      var staffRoleTablePromises = _.map(activityRoles, function(ar) {
+        return buildStaffRoleTable(ar.id);
+      });
+      
+      return $.when.apply($, staffRoleTablePromises).then(function() {
+        var staffRoleTables = arguments;
+        $.each(activityRoles, function(idx, ar) {
+          var staffRoleTable = staffRoleTables[idx];
+          var trinfo = $('<tr>').addClass('info');
+          trinfo.append($('<td>').append(
+            $('<button>')
+              .addClass('btn btn-sm btn-danger collapse-button')
+              .append(
+                $('<span>')
+                  .addClass('glyphicon glyphicon-arrow-up'))));
+          trinfo.append($('<td>').addClass('warning').append(
+            $('<b>').text(ar.profileTypeDescription)));
+          trinfo.append($('<td>').append(ar.location));
+          trinfo.append($('<td>').append(ftUtil.simpleDate(ar.startDate)));
+          trinfo.append($('<td>').append(ftUtil.simpleDate(ar.endDate)));        
+          
           var trStaffRole = $('<tr>');
           var tdStaffRole = $('<td>').attr('colspan', 5);
           tdStaffRole.append(staffRoleTable);
           trStaffRole.append(tdStaffRole);
           planningTableBody.append(trinfo);
           planningTableBody.append(trStaffRole);
-          return planningTableBody;
         });
-
+        return planningTableBody;
       });
     });
   }
@@ -187,8 +198,9 @@ $(document).ready(function() {
         });
     }).then(function() {
       return buildActivityRoleTable(activityId, sortColumn);
-    }).then(function() {
-      $('.simple-dataTable').dataTable({
+    }).then(function(activityRoleTable) {
+      $('.staff-role-table').dataTable({
+        destroy: true,
         searching: true,
         info: false,
         lengthChange: false,
@@ -280,7 +292,7 @@ $(document).ready(function() {
   
   staffRoleClearButton.click(function(event) {
     staffRoleStaffRoleId.empty();
-    staffRoleActivityRoles.empty();
+    staffRoleActivityRoles.select2('data', null);
     staffRoleStaff.select2('data', null);
     staffRoleConfirmedTypes.select2('data', null);
     removeActiveStaffRoleRow();

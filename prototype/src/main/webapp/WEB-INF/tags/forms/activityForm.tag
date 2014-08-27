@@ -27,6 +27,8 @@
       class="form-control"
       type="text"
       path="description"
+      placeholder="Activity Description"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="ETC Service Map">
@@ -34,6 +36,7 @@
       class="form-control"
       type="text"
       path="etcServiceMap"
+      placeholder="ETC Service Map URL"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Confirmed Type">
@@ -44,6 +47,7 @@
       itemLabel="confirmedType"
       path="confirmedTypeId"
       multiple="false"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Activity Type">
@@ -54,6 +58,7 @@
       itemLabel="activityType"
       path="activityTypeId"
       multiple="false"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Country">
@@ -64,6 +69,7 @@
       itemLabel="fullName"
       path="countryIds"
       multiple="true"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"
     />
   </t:formGroup>
@@ -84,3 +90,16 @@
     </t:formGroup>
   </c:if>
 </form:form>
+
+<script>
+ $(document).ready(function() {
+   $('#activity-form').bootstrapValidator({
+     feedbackIcons: {
+       valid: 'glyphicon glyphicon-ok',
+       invalid: 'glyphicon glyphicon-remove',
+       validating: 'glyphicon glyphicon-refresh'
+     },
+     live: 'enabled'
+   });
+ });
+</script>

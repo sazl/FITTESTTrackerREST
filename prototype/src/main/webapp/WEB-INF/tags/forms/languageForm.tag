@@ -16,7 +16,7 @@
   action="${languageSave}"
   class="form-horizontal"
   role="form"
-  id="staff-type-form"
+  id="language-form"
   modelAttribute="language">
   <form:hidden
     path="id" />
@@ -25,6 +25,8 @@
       class="form-control"
       type="text"
       path="language"
+      placeholder="Language"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Staff By Language">
@@ -44,3 +46,16 @@
     </t:formGroup>
   </c:if>
 </form:form>
+
+<script>
+ $(document).ready(function() {
+   $('#language-form').bootstrapValidator({
+     feedbackIcons: {
+       valid: 'glyphicon glyphicon-ok',
+       invalid: 'glyphicon glyphicon-remove',
+       validating: 'glyphicon glyphicon-refresh'
+     },
+     live: 'enabled'
+   });
+ });
+</script>

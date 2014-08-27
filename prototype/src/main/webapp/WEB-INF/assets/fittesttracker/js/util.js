@@ -17,9 +17,10 @@ var ftUtil = (function (global, $) {
   }
 
   function _ISODate(date) {
-    if (date == null) { return ''; }
+    if (date === null || date.length === 0) { return ''; }
     else {
-      return moment(date, 'DD/MM/YYYY').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+      var res = moment(date, 'DD/MM/YYYY').format('YYYY-MM-DDTHH:mm:ss');
+      return (res === 'Invalid date' ? '' : (res + 'Z'));
     }
   }
 

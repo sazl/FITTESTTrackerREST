@@ -36,66 +36,94 @@ $(document).ready(function() {
     });
   });
 
+  function validateDeploymentPage() {
+    if (startDateInput.val().length === 0) {
+      alertify.alert('Start date is required');
+      return false;      
+    }
+    if (endDateInput.val().length === 0) {
+      alertify.alert('End date is required');
+      return false;      
+    }
+    var startDate = ftUtil.simpleDateToDate(startDateInput.val());
+    var endDate = ftUtil.simpleDateToDate(endDateInput.val());
+    if (startDate.valueOf() > endDate.valueOf()) {
+      alertify.alert('Start date must be before end date');
+      return false;
+    }
+    
+    if (staffTypesSelect.val() === null) {
+      alertify.alert('Please select a staff type');
+      return false;
+    }
+    if (activitiesSelect.val() === null) {
+      alertify.alert('Please select an activity');
+      return false;
+    }
+    return true;
+  }
+  
   submitDeploymentButton.click(function(event) {
     event.preventDefault();
-    var startDate = startDateInput.val();
-    var endDate = endDateInput.val();
-    var staffTypes = staffTypesSelect.val();
-    var activities = activitiesSelect.val();
-    var confirmedOnly = showConfirmedOnlyCheckbox.is(':checked');
-    
-    timeline.setCustomTime(ftUtil.simpleDateToDate(startDate));
-    timelineMarker.innerHTML = startDate;
-    
-    ftRest.getDeployments(startDate, endDate, staffTypes, activities, confirmedOnly)
-      .then(function(staffRoles) {
-        if (staffRoles.length == 0) {
-          alertify.alert('No staff roles found');
-          return;
-        }
+    if (validateDeploymentPage()) {
+      var startDate = startDateInput.val();
+      var endDate = endDateInput.val();
+      var staffTypes = staffTypesSelect.val();
+      var activities = activitiesSelect.val();
+      var confirmedOnly = showConfirmedOnlyCheckbox.is(':checked');
+      
+      timeline.setCustomTime(ftUtil.simpleDateToDate(startDate));
+      timelineMarker.innerHTML = startDate;
+      
+      ftRest.getDeployments(startDate, endDate, staffTypes, activities, confirmedOnly)
+        .then(function(staffRoles) {
+          if (staffRoles.length == 0) {
+            alertify.alert('No staff roles found');
+            return;
+          }
 
-        var staffIds = _.uniq(_.map(staffRoles, function(sr) { return sr.staffId; }));
-        ftRest.getStaffByIds(staffIds).then(function(staff) {
-          var groups = _.map(staff, function(s) {
-            return {id: s.id, content: $('<b>').text(s.name)[0], value: s.lastName};
-          });
-          return groups;
-        }).then(function(groups) {
-          var items = _.map(staffRoles, function(sr) {
-            var activityName = $('<b>').text(sr.activityRoleDescription)[0];
-            var profileType = $('<b>').text('[' + sr.activityRoleProfileTypeDescription + ']')[0];
-            var confirmedType = ftUtil.colorLabel(
-              sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
-            var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
-            var content = $('<span>')
-                  .append(activityName)
-                  .append('<br/>')
-                  .append(profileType)
-                  .append('  ')
-                  .append(confirmedType)
-                  .append('<br/>')
-                  .append(dates)[0];
-            var className = 'color' + sr.id;
-            ftUtil.timelineAppendColorClass(className, sr.activityTypeColorCode);
+          var staffIds = _.uniq(_.map(staffRoles, function(sr) { return sr.staffId; }));
+          ftRest.getStaffByIds(staffIds).then(function(staff) {
+            var groups = _.map(staff, function(s) {
+              return {id: s.id, content: $('<b>').text(s.name)[0], value: s.lastName};
+            });
+            return groups;
+          }).then(function(groups) {
+            var items = _.map(staffRoles, function(sr) {
+              var activityName = $('<b>').text(sr.activityRoleDescription)[0];
+              var profileType = $('<b>').text('[' + sr.activityRoleProfileTypeDescription + ']')[0];
+              var confirmedType = ftUtil.colorLabel(
+                sr.confirmedTypeColorCode, sr.confirmedTypeDescription);
+              var dates = ftUtil.simpleDate(sr.startDate) +' to ' + ftUtil.simpleDate(sr.endDate);
+              var content = $('<span>')
+                    .append(activityName)
+                    .append('<br/>')
+                    .append(profileType)
+                    .append('  ')
+                    .append(confirmedType)
+                    .append('<br/>')
+                    .append(dates)[0];
+              var className = 'color' + sr.id;
+              ftUtil.timelineAppendColorClass(className, sr.activityTypeColorCode);
+              
+              return {
+                id: sr.id,
+                group: sr.staffId,
+                className: className,
+                content: content,
+                start: ftUtil.ISODateToDate(sr.startDate),
+                end: ftUtil.ISODateToDate(sr.endDate)
+              };
+            });
             
-            return {
-              id: sr.id,
-              group: sr.staffId,
-              className: className,
-              content: content,
-              start: ftUtil.ISODateToDate(sr.startDate),
-              end: ftUtil.ISODateToDate(sr.endDate)
-            };
+            timeline.setGroups(new vis.DataSet(groups));
+            timeline.setItems(new vis.DataSet(items));
+            timeline.redraw();
+            timeline.setWindow(ftUtil.simpleDateToDate(startDate),
+                               ftUtil.simpleDateToDate(endDate));
           });
-          
-          timeline.setGroups(new vis.DataSet(groups));
-          timeline.setItems(new vis.DataSet(items));
-          timeline.redraw();
-          timeline.setWindow(ftUtil.simpleDateToDate(startDate),
-                             ftUtil.simpleDateToDate(endDate));
         });
-      });
-
+    }
   });
   
   clearDeploymentButton.click(function(event) {
@@ -124,36 +152,4 @@ $(document).ready(function() {
     } 
   });
 
-  $('#deployment-form').bootstrapValidator({
-    feedbackIcons: {
-      valid: 'glyphicon glyphicon-ok',
-      invalid: 'glyphicon glyphicon-remove',
-      validating: 'glyphicon glyphicon-refresh'
-    },
-    live: 'enabled',
-    fields: {
-      startDate: {
-        validators: {
-          notEmpty: {
-            message: 'Start date is required'
-          },
-          date: {
-            format: 'DD/MM/YYYY',
-            message: 'Start date is not valid'
-          }
-        }
-      },
-      endDate: {
-        validators: {
-          notEmpty: {
-            message: 'End date is required'
-          },
-          date: {
-            format: 'DD/MM/YYYY',
-            message: 'End date is not valid'
-          }
-        }
-      }
-    }
-  });
 });

@@ -9,7 +9,42 @@
   class="form-horizontal"
   role="form"
   id="staff-role-form">
-  <input id="staff-role-id" type="hidden" class="form-control" />
+
+  <input id="staff-role-id"
+         type="hidden"
+         class="form-control"
+         disabled="disabled"/>
+  <input id="activity-role-id"
+         type="hidden"
+         class="form-control"
+         disabled="disabled"/>
+  <input id="activity-role-location"
+         type="hidden"
+         class="form-control"
+         disabled="disabled"/>
+  <input id="activity-role-profile-type"
+         type="hidden"
+         class="form-control"
+         disabled="disabled"/>
+  <input id="activity-role-start-date"
+         type="hidden"
+         class="form-control"
+         disabled="disabled"/>
+  <input id="activity-role-end-date"
+         type="hidden"
+         class="form-control"
+         disabled="disabled"/>
+
+  <c:if test="${not readOnly}">
+    <t:formGroup label="Operation">
+      <button id="operation-type"
+              disabled="disabled"
+              class="btn btn-success form-control"
+             ${readOnly ? 'disabled' : ''}>
+      </span>
+    </t:formGroup>
+  </c:if>
+  
   <t:formGroup label="Staff">
     <select id="staff-role-staff" class="form-control"
             ${readOnly ? 'disabled' : ''}
@@ -18,32 +53,41 @@
     </select>
   </t:formGroup>
   <t:formGroup label="Location">
-    <input id="staff-role-location" type="text" class="form-control"
+    <input id="staff-role-location"
+           type="text"
+           placeholder="Location"
+           class="form-control"
            ${readOnly ? 'disabled' : ''}
            />
   </t:formGroup>
   <t:formGroup label="Start Date">
     <input id="staff-role-startDate"
-           type="text" class="form-control datepicker"
+           type="text"
+           placeholder="DD/MM/YYYY"
+           class="form-control datepicker"
            ${readOnly ? 'disabled' : ''}
            />
   </t:formGroup>
   <t:formGroup label="End Date">
     <input id="staff-role-endDate"
-           type="text" class="form-control datepicker"
+           type="text"
+           class="form-control datepicker"
+           placeholder="DD/MM/YYYY"
            ${readOnly ? 'disabled' : ''}
            />
   </t:formGroup>
   <t:formGroup label="Comments">
     <input
     id="staff-role-comments"
+    placeholder="Comments"
     type="text" class="form-control"
     ${readOnly ? 'disabled' : ''}
     />
   </t:formGroup>
   
   <t:formGroup label="Profile Type">
-    <select id="staff-role-activityRoles" class="form-control"
+    <select id="staff-role-profileTypes"
+            class="form-control"
             ${readOnly ? 'disabled' : ''}
             >
       <option value="" disabled selected>-- Select a profile type --</option>

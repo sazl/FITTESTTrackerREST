@@ -6,13 +6,7 @@
 
 <script
     type="text/javascript"
-    src="<c:url value="/external/js/jquery.min.js" />"></script>
-<script
-    type="text/javascript"
     src="<c:url value="/external/js/jquery-ui.min.js" />"></script>
-<script
-    type="text/javascript"
-    src="<c:url value="/external/js/moment.min.js"/>"></script>
 <script
     type="text/javascript"
     src="<c:url value="/external/js/bootstrap.min.js" />"></script>

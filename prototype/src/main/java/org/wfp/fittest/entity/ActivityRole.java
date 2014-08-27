@@ -29,7 +29,7 @@ public class ActivityRole implements EntityId {
 	@Column(name = "activityroleid")
 	@SequenceGenerator(allocationSize = 1, initialValue = 1, sequenceName = "activityroles_activityroleid_seq", name = "activityroles_activityroleid_seq")
 	@GeneratedValue(generator = "activityroles_activityroleid_seq", strategy = GenerationType.SEQUENCE)
-	private Long Id;
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
 			CascadeType.MERGE })
@@ -59,11 +59,11 @@ public class ActivityRole implements EntityId {
 	public ActivityRole() {
 	}
 
-	public ActivityRole(Long iD, Activity activity, ProfileType profileType,
+	public ActivityRole(Long id, Activity activity, ProfileType profileType,
 			Date startDate, Date endDate, String location,
 			Set<StaffRole> staffRoles) {
 		super();
-		Id = iD;
+		this.id = id;
 		this.activity = activity;
 		this.profileType = profileType;
 		this.startDate = startDate;
@@ -73,11 +73,11 @@ public class ActivityRole implements EntityId {
 	}
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
-	public void setId(Long iD) {
-		Id = iD;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Activity getActivity() {
@@ -152,7 +152,7 @@ public class ActivityRole implements EntityId {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -165,10 +165,10 @@ public class ActivityRole implements EntityId {
 		if (getClass() != obj.getClass())
 			return false;
 		ActivityRole other = (ActivityRole) obj;
-		if (Id == null) {
-			if (other.Id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

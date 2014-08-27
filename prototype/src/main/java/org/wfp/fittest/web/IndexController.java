@@ -30,7 +30,6 @@ public class IndexController extends AbstractController {
 
 	@RequestMapping(value = "/dashboard")
 	public String dashboard(Model model, Locale locale, HttpServletRequest request) {
-		request.getSession().setAttribute("readOnly", true);
 		Date currentDate = new Date();
 		model.addAttribute("staffAvailable",
 				staffService.findStaffAvailable(currentDate));
@@ -49,7 +48,6 @@ public class IndexController extends AbstractController {
 
 	@RequestMapping(value = "/deployment")
 	public String deployment(Model model, Locale locale, HttpServletRequest request) {
-		request.getSession().setAttribute("readOnly", false);
 		return "deployment";
 	}
 

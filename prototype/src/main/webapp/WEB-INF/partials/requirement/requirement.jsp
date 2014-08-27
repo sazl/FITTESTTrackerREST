@@ -23,10 +23,18 @@
       <t:defaultPanel title="Time & Date">
         <jsp:attribute name="panelBody">
           <t:formGroup label="Start Date">
-            <input id="startDate" type="text" class="form-control datepicker" required />
+            <input id="startDate"
+                   type="text"
+                   placeholder="DD/MM/YYYY"
+                   class="form-control datepicker"
+                   required />
           </t:formGroup>
           <t:formGroup label="End Date">
-            <input id="endDate" type="text" class="form-control datepicker" required />
+            <input id="endDate"
+                   type="text"
+                   placeholder="DD/MM/YYYY"
+                   class="form-control datepicker"
+                   required />
           </t:formGroup>
           <t:formGroup label="Time Marker">
             <label id="timelineMarker" class="form-control" disabled="true">
@@ -72,7 +80,7 @@
         </button>
         <button
           id="submit-requirement"
-          type="button"
+          type="submit"
           class="btn btn-md btn-success">
           <span class="glyphicon glyphicon-ok"> Submit</span>
         </button>

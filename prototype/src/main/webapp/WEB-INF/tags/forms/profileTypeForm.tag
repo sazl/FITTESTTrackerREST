@@ -23,6 +23,8 @@
       class="form-control"
       type="text"
       path="profileType"
+      placeholder="Staff Profile Type"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Staff">
@@ -46,3 +48,16 @@
     </t:formGroup>
   </c:if>
 </form:form>
+
+<script>
+ $(document).ready(function() {
+   $('#profile-type-form').bootstrapValidator({
+     feedbackIcons: {
+       valid: 'glyphicon glyphicon-ok',
+       invalid: 'glyphicon glyphicon-remove',
+       validating: 'glyphicon glyphicon-refresh'
+     },
+     live: 'enabled'
+   });
+ });
+</script>

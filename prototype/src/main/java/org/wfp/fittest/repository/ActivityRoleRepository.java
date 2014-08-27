@@ -38,6 +38,17 @@ public interface ActivityRoleRepository extends
 			@Param("endDate") @DateTimeFormat(iso = ISO.DATE) Date endDate,
 			@Param("activityIds") List<Long> activityIds);
 
+	@Query("select ar from ActivityRole ar "
+			+ " join ar.profileType pt"
+			+ " join ar.activity act"
+			+ " where (pt.id = :profileTypeId)"
+			+ " and (act.id = :activityId)"
+			+ " and (ar.location like :location)")
+	public List<ActivityRole> findByActivityIdAndProfileTypeId(
+			@Param("activityId") Long activityId,
+			@Param("profileTypeId") Long profileTypeId,
+			@Param("location") String location);
+
 	public List<ActivityRole> findByStartDateAfter(Date startDate);
 
 	public List<ActivityRole> findByEndDateBefore(Date endDate);

@@ -3,6 +3,9 @@ $(document).ready(function() {
   var activitiesSelect = $('#activities');
   var countriesList = $("#countries");
   var activityTypeLabel = $("#activityType");
+  var activityClearButton = $('#planning-activity-clear-button');
+  var operationTypeLabel = $('#operation-type');
+  operationTypeLabel.text('Create New Staff Role');
 
   var planningPanelBody = $('#planning-panel-body');
   var planningPanelCollapseButton = $('#collapse-planning-panel');
@@ -12,14 +15,18 @@ $(document).ready(function() {
 
   var staffRoleForm = $('#staff-role-form');
   var staffRoleStaffRoleId = $('#staff-role-id');
-  staffRoleStaffRoleId.attr('disabled', true);
+  var staffRoleActivityRoleId = $('#activity-role-id');
+  var staffRoleActivityRoleLocation = $('#activity-role-start-date');
+  var staffRoleActivityRoleStartDate = $('#activity-role-end-date');
+  var staffRoleActivityRoleEndDate = $('#activity-role-location');
+  var staffRoleActivityRoleProfileType = $('#activity-role-profile-type');
   
   var staffRoleStaff = $('#staff-role-staff');
   var staffRoleLocation = $('#staff-role-location');
   var staffRoleComments = $('#staff-role-comments');
   var staffRoleStartDate = $('#staff-role-startDate');
   var staffRoleEndDate = $('#staff-role-endDate');
-  var staffRoleActivityRoles = $('#staff-role-activityRoles');
+  var staffRoleProfileTypes = $('#staff-role-profileTypes');
   
   var staffRoleConfirmedTypes = $('#staff-role-confirmedTypes');
   var staffRoleSaveButton = $('#staff-role-save');
@@ -41,11 +48,18 @@ $(document).ready(function() {
       staffRoleStaff.append(opt);
     });
   });
+
+  ftRest.getProfileTypes().then(function(profileTypes) {
+    $.each(profileTypes, function(idx, pt) {
+      var opt = new Option(pt.profileType, pt.id);
+      staffRoleProfileTypes.append(opt);
+    });
+  });
   
   confirmedTypesSelect.change(function() {
     var activities;
     var confirmedTypeId = $(this).val();
-    activitiesSelect.empty();
+    activitiesSelect.select2('data', null);
     
     if (confirmedTypeId === 'All') {
       activities = ftRest.getActivities();
@@ -62,7 +76,6 @@ $(document).ready(function() {
       }
       else {
         activitiesSelect.attr('disabled', false);
-        activitiesSelect.append(new Option('-- Select an activity --', '', true));
         $.each(acts, function(idx, act) {
           activitiesSelect.append(
             new Option(act.description, act.id));
@@ -149,7 +162,9 @@ $(document).ready(function() {
         var staffRoleTables = arguments;
         $.each(activityRoles, function(idx, ar) {
           var staffRoleTable = staffRoleTables[idx];
-          var trinfo = $('<tr>').addClass('info');
+          var trinfo = $('<tr>')
+                .addClass('info activity-role-header')
+                .attr('id', ar.id);
           trinfo.append($('<td>').append(
             $('<button>')
               .addClass('btn btn-sm btn-danger collapse-button')
@@ -170,12 +185,41 @@ $(document).ready(function() {
           planningTableBody.append(trStaffRole);
         });
         return planningTableBody;
+      }).done(function(activityRoleTable) {
+        $('.staff-role-table').dataTable({
+          destroy: true,
+          searching: true,
+          info: false,
+          lengthChange: false,
+          pageLength: 5
+        });
       });
     });
   }
 
   function removeActiveStaffRoleRow() {
     $('.staff-role-table tr').removeClass('active');
+  }
+
+  function removeActiveActivityRoleRow() {
+    $('.activity-role-header').removeAttr('style');
+  }
+
+  function setOperationType(operationType, classType) {
+    operationTypeLabel.text(operationType);
+    operationTypeLabel.attr('class', 'btn btn-' + classType + ' form-control');
+  }
+
+  function clearStaffRoleForm() {
+    staffRoleStaffRoleId.val('');
+    staffRoleActivityRoleId.val('');
+    staffRoleActivityRoleLocation.val('');
+    staffRoleActivityRoleStartDate.val('');
+    staffRoleActivityRoleEndDate.val('');
+    staffRoleActivityRoleProfileType.val('');
+    staffRoleProfileTypes.select2('data', null);
+    staffRoleStaff.select2('data', null);
+    staffRoleConfirmedTypes.select2('data', null);
   }
 
   function buildPlanningPage(activityId, sortColumn) {
@@ -189,24 +233,43 @@ $(document).ready(function() {
         activityTypeLabel.text(at.activityType);
       });
     }).then(function() {
-      staffRoleActivityRoles.empty();
-      return ftRest.getActivityRolesByActivityId(activityId, 'profileType.profileType')
-        .then(function(activityRoles) {
-          $.each(activityRoles, function(i, ar) {
-            staffRoleActivityRoles.append(new Option(ar.profileTypeDescription, ar.id));
-          });
-        });
-    }).then(function() {
       return buildActivityRoleTable(activityId, sortColumn);
-    }).then(function(activityRoleTable) {
-      $('.staff-role-table').dataTable({
-        destroy: true,
-        searching: true,
-        info: false,
-        lengthChange: false,
-        pageLength: 5
-      });
     });
+  }
+
+  function validatePlanningPage() {
+    if (confirmedTypesSelect.val() === null) {
+      alertify.alert('Please select a confirmed type');
+      return false;
+    }
+    if (activitiesSelect.val() === null || activitiesSelect.val().length == 0) {
+      alertify.alert('Please select an activity');
+      return false;
+    }
+    if (staffRoleStaff.val() === null) {
+      alertify.alert('Please select a staff member');
+      return false;
+    }
+    if (staffRoleStartDate.val().length === 0) {
+      alertify.alert('Start date is required');
+      return false;      
+    }
+    if (staffRoleEndDate.val().length === 0) {
+      alertify.alert('End date is required');
+      return false;      
+    }
+
+    var startDate = ftUtil.simpleDateToDate(staffRoleStartDate.val());
+    var endDate = ftUtil.simpleDateToDate(staffRoleEndDate.val());
+    if (startDate.valueOf() > endDate.valueOf()) {
+      alertify.alert('Start date must be before end date');
+      return false;
+    }
+    if (staffRoleConfirmedTypes.val() === null) {
+      alertify.alert('Please select a staff role confirmed type');
+      return false;
+    }
+    return true;
   }
   
   activitiesSelect.change(function() {
@@ -261,13 +324,36 @@ $(document).ready(function() {
     }
   });
 
+  $('body').on('click', '.activity-role-header', function(event) {
+    var row = $(this);
+    removeActiveActivityRoleRow();
+    row.css('border', '3px solid darkred');
+    var activityRoleId = row.attr('id');
+    ftRest.getActivityRoleById(activityRoleId).then(function(ar) {
+      staffRoleActivityRoleId.val(activityRoleId);
+      staffRoleActivityRoleLocation.val(ar.location);
+      staffRoleActivityRoleStartDate.val(ftUtil.simpleDate(ar.startDate));
+      staffRoleActivityRoleEndDate.val(ftUtil.simpleDate(ar.endDate));
+      staffRoleActivityRoleProfileType.val(ar.profileTypeId);
+      staffRoleProfileTypes.val(ar.profileTypeId);
+      staffRoleProfileTypes.select2();
+    });
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+    staffRoleForm.effect('highlight', 1600);
+    setOperationType('Edit Activity Role', 'warning');
+  });
+
   $('body').on('click', '.staff-role-table :not(thead) tr', function(event) {
-    $('.staff-role-table tr').removeClass('active');
+    clearStaffRoleForm();
+    removeActiveStaffRoleRow();
+    removeActiveActivityRoleRow();
     var row = $(this);
     row.addClass('active');
     var staffRoleId = row.attr('id');
     ftRest.getStaffRoleById(staffRoleId).then(function(sr) {
       staffRoleStaffRoleId.val(staffRoleId);
+      staffRoleActivityRoleId.val(sr.activityRoleId);
+      
       staffRoleStaff.val(sr.staffId);
       staffRoleStaff.select2();
 
@@ -279,42 +365,71 @@ $(document).ready(function() {
       staffRoleConfirmedTypes.val(sr.confirmedTypeId);
       staffRoleConfirmedTypes.select2();
 
-      staffRoleActivityRoles.val(
-        new Option(sr.activityRoleProfileTypeDescription, sr.activityRoleId));
-      staffRoleActivityRoles.select2();
-      
-      staffRoleActivityRoles.val(sr.activityRoleId);
-      staffRoleActivityRoles.select2();
+      staffRoleActivityRoleProfileType.val(sr.activityRoleProfileTypeId);
+      staffRoleProfileTypes.val(sr.activityRoleProfileTypeId);
+      staffRoleProfileTypes.select2();
     });
     $("html, body").animate({ scrollTop: 0 }, "fast");
     staffRoleForm.effect('highlight', 1600);
+    setOperationType('Edit Staff Role', 'danger');
+  });
+
+  activityClearButton.click(function(event) {
+    countriesList.empty();
+    activityTypeLabel.empty();
+    confirmedTypesSelect.select2('data', null);
+    activitiesSelect.select2('data', null);
   });
   
   staffRoleClearButton.click(function(event) {
-    staffRoleStaffRoleId.empty();
-    staffRoleActivityRoles.select2('data', null);
-    staffRoleStaff.select2('data', null);
-    staffRoleConfirmedTypes.select2('data', null);
+    clearStaffRoleForm();
     removeActiveStaffRoleRow();
+    removeActiveActivityRoleRow();
+    setOperationType('Create New Staff Role', 'success');
   });
 
   staffRoleSaveButton.click(function(event) {
-    var staffRole = {
-      "id": parseInt(staffRoleStaffRoleId.val()),
-      "startDate": ftUtil.ISODate(staffRoleStartDate.val()),
-      "endDate": ftUtil.ISODate(staffRoleEndDate.val()),
-      "location": staffRoleLocation.val(),
-      "comments": staffRoleComments.val(),
-      "activityRoleId": parseInt(staffRoleActivityRoles.val()),
-      "confirmedTypeId": parseInt(staffRoleConfirmedTypes.val()),
-      "staffId": parseInt(staffRoleStaff.val())
-    };
+    if (validatePlanningPage()) {
+      var activityRoleId = parseInt(staffRoleActivityRoleId.val());
+      var activityRole = {
+        "id": isNaN(activityRoleId) ? null : activityRoleId,
+        "location": staffRoleActivityRoleLocation.val(),
+        "startDate": ftUtil.ISODate(staffRoleActivityRoleStartDate.val()),
+        "endDate": ftUtil.ISODate(staffRoleActivityRoleEndDate.val()),
+        "activityId": parseInt(activitiesSelect.val()),
+        "profileTypeId": parseInt(staffRoleProfileTypes.val())
+      };
 
-    ftRest.saveOrUpdateStaffRole(staffRole).then(function() {
-      var activityId = activitiesSelect.val();
-      alertify.success('Saved Staff Role');
-      buildActivityRoleTable(activityId, 'profileType.profileType');
-    });
+      var staffRoleId = parseInt(staffRoleStaffRoleId.val());
+      var staffRole = {
+        "id": isNaN(staffRoleId) ? null : staffRoleId,
+        "startDate": ftUtil.ISODate(staffRoleStartDate.val()),
+        "endDate": ftUtil.ISODate(staffRoleEndDate.val()),
+        "location": staffRoleLocation.val(),
+        "comments": staffRoleComments.val(),
+        "profileTypeId": parseInt(staffRoleActivityRoleProfileType.val()),
+        "activityRoleId": parseInt(staffRoleActivityRoleId.val()),
+        "confirmedTypeId": parseInt(staffRoleConfirmedTypes.val()),
+        "staffId": parseInt(staffRoleStaff.val())
+      };
+
+      console.log(activityRole);
+      console.log(staffRole);
+
+      alertify.confirm(operationTypeLabel.text(), function(e) {
+        if (e) {
+          ftRest.saveStaffRoleWithActivityRole(staffRole, activityRole)
+            .done(function() {
+              var activityId = activitiesSelect.val();
+              alertify.success('Saved Staff Role');
+              buildActivityRoleTable(activityId, 'profileType.profileType');
+            });
+        }
+        else {
+          alertify.error('Operation cancelled');
+        }
+      });
+    }
   });
 
   planningPanelCollapseButton.click(function(event) {

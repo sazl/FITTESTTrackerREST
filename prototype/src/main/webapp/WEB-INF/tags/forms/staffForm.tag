@@ -25,6 +25,8 @@
       class="form-control"
       type="text"
       path="id"
+      placeholder="Staff Index"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="First Name">
@@ -32,6 +34,8 @@
       class="form-control"
       type="text"
       path="firstName"
+      placeholder="First Name"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Last Name">
@@ -39,6 +43,8 @@
       class="form-control"
       type="text"
       path="lastName"
+      placeholder="Last Name"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Date of Birth">
@@ -46,6 +52,7 @@
       class="datepicker form-control"
       type="text"
       path="dateOfBirth"
+      placeholder="DD/MM/YYYY"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Title">
@@ -53,6 +60,7 @@
       class="form-control"
       type="text"
       path="title"
+      placeholder="Title"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Thuraya Number">
@@ -84,6 +92,7 @@
       itemValue="id"
       path="staffTypeId"
       multiple="false"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Profile Type">
@@ -94,6 +103,7 @@
       itemValue="id"
       path="profileTypeIds"
       multiple="true"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Nationality">
@@ -134,3 +144,16 @@
     </t:formGroup>
   </c:if>
 </form:form>
+
+<script>
+ $(document).ready(function() {
+   $('#staff-form').bootstrapValidator({
+     feedbackIcons: {
+       valid: 'glyphicon glyphicon-ok',
+       invalid: 'glyphicon glyphicon-remove',
+       validating: 'glyphicon glyphicon-refresh'
+     },
+     live: 'enabled'
+   });
+ });
+</script>

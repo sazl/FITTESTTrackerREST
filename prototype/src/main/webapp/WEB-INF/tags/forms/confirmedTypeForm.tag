@@ -23,6 +23,8 @@
       class="form-control"
       type="text"
       path="confirmedType"
+      placeholder="Confirmed Type"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Color Code">
@@ -54,3 +56,16 @@
     </t:formGroup>
   </c:if>
 </form:form>
+
+<script>
+ $(document).ready(function() {
+   $('#confirmed-type-form').bootstrapValidator({
+     feedbackIcons: {
+       valid: 'glyphicon glyphicon-ok',
+       invalid: 'glyphicon glyphicon-remove',
+       validating: 'glyphicon glyphicon-refresh'
+     },
+     live: 'enabled'
+   });
+ });
+</script>

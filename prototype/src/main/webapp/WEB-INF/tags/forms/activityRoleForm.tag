@@ -29,6 +29,7 @@
       itemLabel="description"
       path="activityId"
       multiple="false"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Profile Type">
@@ -39,6 +40,7 @@
       itemLabel="profileType"
       path="profileTypeId"
       multiple="false"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}" />
   </t:formGroup>
   <t:formGroup label="Location">
@@ -46,22 +48,29 @@
       class="form-control"
       type="text"
       path="location"
+      placeholder="Activity Role Location"
       disabled="${readOnly ? 'true' : 'false'}"
     />
   </t:formGroup>
   <t:formGroup label="Start Date">
     <form:input
+      name="startDate"
       class="datepicker form-control"
       type="text"
       path="startDate"
+      required="true"
+      placeholder="DD/MM/YYYY"
       disabled="${readOnly ? 'true' : 'false'}"
     />
   </t:formGroup>
   <t:formGroup label="End Date">
     <form:input
+      name="endDate"
       class="datepicker form-control"
       type="text"
       path="endDate"
+      required="true"
+      placeholder="DD/MM/YYYY"
       disabled="${readOnly ? 'true' : 'false'}"
     />
   </t:formGroup>
@@ -82,3 +91,56 @@
     </t:formGroup>
   </c:if>
 </form:form>
+
+<script>
+ $(document).ready(function() {
+   $('#activity-role-form').bootstrapValidator({
+     feedbackIcons: {
+       valid: 'glyphicon glyphicon-ok',
+       invalid: 'glyphicon glyphicon-remove',
+       validating: 'glyphicon glyphicon-refresh'
+     },
+     live: 'enabled',
+     fields: {
+       startDate: {
+         message: 'Start Date is not valid',
+         validators: {
+           notEmpty: {
+             message: 'Start Date is required'
+           },
+           date: {
+             format: "DD/MM/YYYY"
+           }
+         }
+       },
+       endDate: {
+         message: 'End Date is not valid',
+         validators: {
+           notEmpty: {
+             message: 'End Date is required'
+           },
+           date: {
+             format: "DD/MM/YYYY"
+           },
+           callback: {
+             message: 'Start Date must be before End Date',
+             callback: function(value, validator, $field) {
+               var st = validator.getFieldElements('startDate').val();
+               var start = moment(st, 'DD/MM/YYYY').valueOf();
+               var end = moment(value, 'DD/MM/YYYY').valueOf();
+               return (end >= start);
+             }
+           }
+         }
+       }
+     }
+   });
+
+   $('#startDate').on('change', function() {
+     $('#activity-role-form').bootstrapValidator('revalidateField', 'startDate');
+   });
+   $('#endDate').on('change', function() {
+     $('#activity-role-form').bootstrapValidator('revalidateField', 'endDate');
+   });
+ });
+</script>

@@ -148,6 +148,10 @@ public class StaffRole implements EntityId {
 		return getActivityRole().getActivityDescription();
 	}
 
+	public Long getActivityRoleProfileTypeId() {
+		return getActivityRole().getProfileType().getId();
+	}
+	
 	public String getActivityRoleProfileTypeDescription() {
 		return getActivityRole().getProfileTypeDescription();
 	}

@@ -54,6 +54,12 @@
       href="<c:url value="/external/css/nv.d3.css" />">
 <script
     type="text/javascript"
+    src="<c:url value="/external/js/jquery.min.js" />"></script>
+<script
+    type="text/javascript"
+    src="<c:url value="/external/js/moment.min.js"/>"></script>
+<script
+    type="text/javascript"
     src="<c:url value="/external/js/d3.v3.min.js"/>"></script>
 <script
     type="text/javascript"

@@ -86,64 +86,145 @@ var ftRest = (function (global, $) {
   }
 
   function _getProfileTypeByActivityRoleId(activityRoleId) {
-    var uri = _URI.profileTypes + '/search/findByActivityRole_Id?activityRoleId=' + activityRoleId;    
+    var uri = _URI.profileTypes + '/search/findByActivityRole_Id?activityRoleId=' + activityRoleId;  
+  }
+
+  function _saveOrUpdateActivityRole(activityRole) {
+    var uri = _URI['activityRoles'];
+    if (activityRole.id != null) {
+      var srUri = uri + '/' + activityRole.id;
+      return $.ajax({
+        type: 'PUT',
+        url: srUri,
+        contentType: 'application/json',
+        data: JSON.stringify(activityRole),
+        success: function(data, status, xhr) {
+          var entityUri = srUri;
+          var activityUri = _getEntityUri('activities', activityRole.activityId);
+          var profileTypeUri = activityRole.profileTypeId == null
+                ? null : _getEntityUri('profileTypes', activityRole.profileTypeId);
+
+          return $.ajax({
+            type: 'PUT',
+            url: entityUri + '/activity',
+            contentType: 'text/uri-list',
+            data: activityUri
+          }).then(function() {
+            if (profileTypeUri != null) {
+              $.ajax({
+                type: 'PUT',
+                url: entityUri + '/profileType',
+                contentType: 'text/uri-list',
+                data: profileTypeUri
+              });
+            }
+          });
+        }
+      });
+    }
+    else {
+      activityRole.activity = _getEntityUri('activities', activityRole.activityId);
+      activityRole.profileType = _getEntityUri('profileTypes', activityRole.profileTypeId);
+      return $.ajax({
+        type: 'POST',
+        url: uri,
+        contentType: 'application/json',
+        data: JSON.stringify(activityRole)
+      });
+    }
+  }
+
+  function _saveStaffRoleWithActivityRole(staffRole, activityRole) {
+    if (activityRole.id == null
+        || ((activityRole.profileTypeId != staffRole.profileTypeId) && (activityRole.id != null))) {
+      activityRole.id = null;
+      activityRole.location = staffRole.location;
+      activityRole.startDate = staffRole.startDate;
+      activityRole.endDate = staffRole.endDate;
+      return _saveOrUpdateActivityRole(activityRole).then(function(data, status, xhr) {
+        staffRole.activityRoleId = xhr.getResponseHeader('Location').split('/').slice(-1)[0];
+        return _saveOrUpdateStaffRole(staffRole);
+      });
+    }
+    else {
+      if (activityRole.startDate.length != 0) {
+        var arstart = ftUtil.ISODateToDate(activityRole.startDate).valueOf();
+        var srstart = ftUtil.ISODateToDate(staffRole.startDate).valueOf();
+        if (srstart < arstart) {
+          activityRole.startDate = staffRole.startDate;
+        }
+      }
+
+      if (activityRole.endDate.length != 0) {
+        var arend = ftUtil.ISODateToDate(activityRole.endDate).valueOf();
+        var srend = ftUtil.ISODateToDate(staffRole.endDate).valueOf();
+        if (srend > arend) {
+          activityRole.endDate = staffRole.endDate;
+        }
+      }
+
+      activityRole.profileTypeId = null;
+      return _saveOrUpdateActivityRole(activityRole).then(function() {
+        return _saveOrUpdateStaffRole(staffRole);
+      });
+    }
   }
 
   function _saveOrUpdateStaffRole(staffRole) {
     var uri = _URI['staffRoles'];
-    var srUri = uri + '/' + staffRole.id;
-    return $.get(srUri)
-      .success(function() {
-        return $.ajax({
-          type: 'PUT',
-          url: srUri,
-          contentType: 'application/json',
-          data: JSON.stringify(staffRole),
-          success: function(data, status, xhr) {
-            var entityUri = srUri;
-            var staffUri = _getEntityUri('staff', staffRole.staffId);
-            var activityUri = _getEntityUri('activities', staffRole.activityId);
-            var confirmedTypeUri = _getEntityUri(
-              'confirmedTypes', staffRole.confirmedTypeId);
-            var activityRoleUri = _getEntityUri(
-              'activityRoles', staffRole.activityRoleId);
 
-            return $.ajax({
+    if (staffRole.id != null) {
+      var srUri = uri + '/' + staffRole.id;
+      return $.ajax({
+        type: 'PUT',
+        url: srUri,
+        contentType: 'application/json',
+        data: JSON.stringify(staffRole),
+        success: function(data, status, xhr) {
+          var entityUri = srUri;
+          var staffUri = _getEntityUri('staff', staffRole.staffId);
+          var activityUri = _getEntityUri('activities', staffRole.activityId);
+          var confirmedTypeUri = _getEntityUri(
+            'confirmedTypes', staffRole.confirmedTypeId);
+          var activityRoleUri = _getEntityUri(
+            'activityRoles', staffRole.activityRoleId);
+
+          return $.ajax({
+            type: 'PUT',
+            url: entityUri + '/staff',
+            contentType: 'text/uri-list',
+            data: staffUri
+          }).then(function() {
+            $.ajax({
               type: 'PUT',
-              url: entityUri + '/staff',
+              url: entityUri + '/confirmedType',
               contentType: 'text/uri-list',
-              data: staffUri
-            }).then(function() {
-              $.ajax({
-                type: 'PUT',
-                url: entityUri + '/confirmedType',
-                contentType: 'text/uri-list',
-                data: confirmedTypeUri
-              });
-            }).then(function() {
-              $.ajax({
-                type: 'PUT',
-                url: entityUri + '/activityRole',
-                contentType: 'text/uri-list',
-                data: activityRoleUri
-              });
+              data: confirmedTypeUri
             });
-          }
-        });
-      })
-      .fail(function() {
-        staffRole.staff = _getEntityUri('staff', staffRole.staffId);
-        staffRole.confirmedType = _getEntityUri(
-          'confirmedTypes', staffRole.confirmedTypeId);
-        staffRole.activityRole = _getEntityUri(
-          'activityRoles', staffRole.activityRoleId);
-        return $.ajax({
-          type: 'POST',
-          url: uri,
-          contentType: 'application/json',
-          data: JSON.stringify(staffRole)
-        });
+          }).then(function() {
+            $.ajax({
+              type: 'PUT',
+              url: entityUri + '/activityRole',
+              contentType: 'text/uri-list',
+              data: activityRoleUri
+            });
+          });
+        }
       });
+    }
+    else {
+      staffRole.staff = _getEntityUri('staff', staffRole.staffId);
+      staffRole.confirmedType = _getEntityUri(
+        'confirmedTypes', staffRole.confirmedTypeId);
+      staffRole.activityRole = _getEntityUri(
+        'activityRoles', staffRole.activityRoleId);
+      return $.ajax({
+        type: 'POST',
+        url: uri,
+        contentType: 'application/json',
+        data: JSON.stringify(staffRole)
+      });
+    }
   };
 
   function _getStaffRolesByActivityRoleId(activityRoleId) {
@@ -255,6 +336,7 @@ var ftRest = (function (global, $) {
     getStaffRolesByIds: _findByIdsFunc('staffRoles'),
     getStaffRolesByActivityRoleId: _getStaffRolesByActivityRoleId,
     saveOrUpdateStaffRole: _saveOrUpdateStaffRole,
+    saveStaffRoleWithActivityRole: _saveStaffRoleWithActivityRole,
     
     getCountries: _findAllFunc('countries'),
     getCountryById: _findByIdFunc('countries'),

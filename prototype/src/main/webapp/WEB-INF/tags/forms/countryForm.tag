@@ -14,22 +14,28 @@
   action="${countrySave}"
   class="form-horizontal"
   role="form"
-  id="staff-type-form"
+  id="country-form"
   modelAttribute="country">
   <form:hidden
     path="id" />
   <t:formGroup label="ISO Code">
     <form:input
+      name="isoCode"
       class="form-control"
       type="text"
       path="isoCode"
-      disabled="${readOnly ? 'true' : 'false'}"/>
+      placeholder="ISO Country Code"
+      required="true"
+      disabled="${readOnly ? 'true' : 'false'}"
+    />
   </t:formGroup>
   <t:formGroup label="Name">
     <form:input
       class="form-control"
       type="text"
       path="fullName"
+      placeholder="Country Name"
+      required="true"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Region">
@@ -37,6 +43,7 @@
       class="form-control"
       type="text"
       path="region"
+      placeholder="Region"
       disabled="${readOnly ? 'true' : 'false'}"/>
   </t:formGroup>
   <t:formGroup label="Activities">
@@ -56,3 +63,31 @@
     </t:formGroup>
   </c:if>
 </form:form>
+
+<script>
+ $(document).ready(function() {
+   $('#country-form').bootstrapValidator({
+     feedbackIcons: {
+       valid: 'glyphicon glyphicon-ok',
+       invalid: 'glyphicon glyphicon-remove',
+       validating: 'glyphicon glyphicon-refresh'
+     },
+     live: 'enabled',
+     fields: {
+       isoCode: {
+         message: 'ISO Code is not valid',
+         validators: {
+           notEmpty: {
+             message: 'ISO Code is required and cannot be empty'
+           },
+           stringLength: {
+             min: 2,
+             max: 2,
+             message: 'ISO Code must be 2 letters long'
+           }
+         }
+       }
+     }
+   });
+ });
+</script>

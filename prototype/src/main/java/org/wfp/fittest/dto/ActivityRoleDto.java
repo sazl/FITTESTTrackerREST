@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ActivityRoleDto extends AbstractDto {
-	private Long Id;
+	private Long id;
 
 	private Date startDate;
 	private Date endDate;
@@ -23,11 +23,11 @@ public class ActivityRoleDto extends AbstractDto {
 	private String profileTypeDescription;
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public Date getStartDate() {

@@ -27,14 +27,16 @@
                    id="startDate"
                    type="text"
                    placeholder="DD/MM/YYYY"
-                   class="form-control datepicker" />
+                   class="form-control datepicker"
+                   required />
           </t:formGroup>
           <t:formGroup label="End Date">
             <input name="endDate"
                    id="endDate"
                    type="text"
                    class="form-control datepicker"
-                   placeholder="DD/MM/YYYY" />
+                   placeholder="DD/MM/YYYY"
+                   required />
           </t:formGroup>
           <t:formGroup label="Time Marker">
             <label id="timelineMarker"
@@ -49,7 +51,9 @@
       <t:defaultPanel title="Options">
         <jsp:attribute name="panelBody">
           <t:formGroup label="Show Confirmed Only">
-            <input id="showConfirmedOnly" class="form-control" type="checkbox" />
+            <input id="showConfirmedOnly"
+                   class="form-control"
+                   type="checkbox" />
           </t:formGroup>
           <t:formGroup label="Show Planned Events">
             <input id="showEvents" class="form-control" type="checkbox" />
@@ -72,7 +76,9 @@
             <select id="staffTypes" class="form-control"
                     size="10"
                     multiple="true"
-                    required></select>
+                    required>
+              
+            </select>
           </t:formGroup>
         </jsp:attribute>
       </t:defaultPanel>
@@ -89,7 +95,9 @@
             <select id="activities" class="form-control"
                     size="12"
                     multiple="true"
-                    required></select>
+                    required>
+              
+            </select>
           </t:formGroup>
         </jsp:attribute>
       </t:defaultPanel>
